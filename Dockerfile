@@ -21,6 +21,10 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
 
+# Install node, npm and yarn
+RUN apt-get install nodejs npm
+RUN npm install --global yarn
+
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
