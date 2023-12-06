@@ -1,0 +1,5 @@
+%nav{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb
+    %li.breadcrumb-item= link_to "Admin_users", admin_users_path
+    %li.breadcrumb-item.active{"aria-current" => "page"} Add
+= render 'form', admin_user: @admin_user

@@ -1,0 +1,7 @@
+%nav{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb
+    %li.breadcrumb-item= link_to "Admin_users", admin_users_path
+    %li.breadcrumb-item.active.mr-auto{"aria-current" => "page"}= @admin_user.id
+.card
+  %h5.card-header Admin_user
+  %ul.list-group.list-group-flush

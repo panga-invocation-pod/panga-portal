@@ -1,0 +1,13 @@
+- if admin_user.errors.any?
+  - admin_user.errors.full_messages.each do |message|
+    .alert.alert-danger{:role => "alert"}
+      = message
+= form_with(model: admin_user, local: true) do |form|
+  .card
+    %h5.card-header Admin_user
+    %ul.list-group.list-group-flush
+    .card-footer
+      = link_to "Cancel", admin_user, class: 'btn btn-outline-secondary float-start' if admin_user.persisted?
+      = link_to "Cancel", admin_users_path, class: 'btn btn-outline-secondary float-start' if !admin_user.persisted?
+      = form.submit "Save", class: "btn btn-primary float-end" if admin_user.persisted?
+      = form.submit "Create", class: "btn btn-primary float-end" if !admin_user.persisted?

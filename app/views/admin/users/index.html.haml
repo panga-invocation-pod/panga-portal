@@ -1,0 +1,14 @@
+%nav{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb
+    %li.breadcrumb-item.active{"aria-current" => "page"} Users
+%div
+  %table.table
+    %thead
+      %tr
+        %th{scope: "col"} Email
+        %th{scope: "col"} Actions
+    %tbody
+      - @admin_users.each do |admin_user|
+        %tr
+          %td= admin_user.email
+          %td= link_to "show", [:admin, admin_user]
