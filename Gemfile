@@ -38,6 +38,7 @@ gem "redis", ">= 4.0.1"
 gem "bootsnap", require: false
 
 gem "haml-rails", "~> 2.0"
+gem "simple_form"
 
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

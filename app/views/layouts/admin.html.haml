@@ -9,9 +9,13 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    .navbar.navbar-expand-lg.fixed-top.bg-primary
-      .container
+    .navbar.navbar-expand-lg.bg-primary
+      .container-fluid
         Panga Portal Admin
+        .collapse.navbar-collapse
+          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+            %li.nav-item
+              = link_to "Users", admin_users_path, class: "nav-link"
     .container
       %p.notice= notice
       %p.alert= alert
