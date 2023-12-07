@@ -1,0 +1,9 @@
+.admin {
+  &.index {
+    .group-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+}
