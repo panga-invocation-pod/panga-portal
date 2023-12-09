@@ -1,0 +1,8 @@
+- if notice
+  .alert.alert-dismissible.alert-success
+    %button.btn-close{"data-bs-dismiss" => "alert", type: "button"}
+    = notice
+- if alert
+  .alert.alert-dismissible.alert-danger
+    %button.btn-close{"data-bs-dismiss" => "alert", type: "button"}
+    = alert
