@@ -1,13 +1,9 @@
 class Admin::UsersController < Admin::AdminController
-  before_action :set_admin_user, only: %i[ show edit update destroy ]
+  before_action :set_admin_user, only: %i[ edit update destroy ]
 
   # GET /admin/users or /admin/users.json
   def index
     @users = User.all
-  end
-
-  # GET /admin/users/1 or /admin/users/1.json
-  def show
   end
 
   # GET /admin/users/new
@@ -25,11 +21,9 @@ class Admin::UsersController < Admin::AdminController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to admin_user_url(@user), notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
+        format.html { redirect_to admin_users_url, notice: "User was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,11 +32,9 @@ class Admin::UsersController < Admin::AdminController
   def update
     respond_to do |format|
       if @user.update(admin_user_params)
-        format.html { redirect_to admin_user_url(@user), notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
+        format.html { redirect_to admin_users_url, notice: "User was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -53,7 +45,6 @@ class Admin::UsersController < Admin::AdminController
 
     respond_to do |format|
       format.html { redirect_to admin_users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -65,6 +56,6 @@ class Admin::UsersController < Admin::AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_user_params
-      params.fetch(:user, {})
+      params.fetch(:user, {}).permit(:email, :password, :password_confirmation)
     end
 end
