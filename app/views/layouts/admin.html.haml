@@ -9,21 +9,7 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    .navbar.navbar-expand-lg.bg-primary{"data-bs-theme" => "dark"}
-      .container-fluid
-        .navbar-brand
-          Panga Portal Admin
-        .collapse.navbar-collapse
-          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-            %li.nav-item
-              = link_to "Users", admin_users_path, class: "nav-link"
-        .navbar-session
-          - if current_user
-            %span.navbar-text
-              = current_user.short_name
-            = link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link"
-          - else
-            = link_to "Login", new_user_session_path, class: "nav-link"
+    = render "admin/shared/navbar"
     .container
       = render "layouts/shared/flash"
       = yield

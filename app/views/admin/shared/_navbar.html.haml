@@ -1,0 +1,15 @@
+.navbar.admin-navbar.navbar-expand-lg.bg-primary{"data-bs-theme" => "dark"}
+  .container-fluid
+    .navbar-brand
+      Panga Portal Admin
+    .collapse.navbar-collapse
+      %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+        %li.nav-item
+          = link_to "Users", admin_users_path, class: "nav-link"
+    .navbar-session
+      - if current_user
+        %span.navbar-text
+          = current_user.short_name + ', '
+        = link_to "logout", destroy_user_session_path, method: :delete
+      - else
+        = link_to "Login", new_user_session_path
