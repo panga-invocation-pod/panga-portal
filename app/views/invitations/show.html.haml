@@ -21,3 +21,6 @@
               = workshop_session.start_at.to_formatted_s(:time_only)
               = "-"
               = workshop_session.end_at.to_formatted_s(:time_only)
+
+      .actions
+        = link_to "Submit my availability", '#', class: 'btn btn-primary'
