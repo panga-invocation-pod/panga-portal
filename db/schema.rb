@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_11_010904) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_11_031359) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_010904) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "workshop_sessions", force: :cascade do |t|
+    t.bigint "workshop_id", null: false
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workshop_id"], name: "index_workshop_sessions_on_workshop_id"
+  end
+
   create_table "workshops", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -69,4 +78,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_010904) do
 
   add_foreign_key "invitations", "people", column: "invitee_id"
   add_foreign_key "invitations", "people", column: "inviter_id"
+  add_foreign_key "workshop_sessions", "workshops"
 end

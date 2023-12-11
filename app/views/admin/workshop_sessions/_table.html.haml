@@ -1,0 +1,13 @@
+%table.table
+  %thead
+    %tr
+      %th{scope: "col"} Start
+      %th{scope: "col"} End
+      %th{scope: "col"} Actions
+  %tbody
+    - @records.each do |record|
+      %tr
+        %td= record.start_at
+        %td= record.end_at
+        %td
+          = edit_link(record)

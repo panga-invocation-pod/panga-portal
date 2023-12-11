@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :people, except: [:show]
     resources :invitations, except: [:show]
     resources :workshops, except: [:show]
+    resources :workshop_sessions, except: [:show]
     get '/', to: redirect('/admin/users')
   end
 

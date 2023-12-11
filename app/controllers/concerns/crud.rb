@@ -58,7 +58,7 @@ module Crud
     # guess the model name from the controller name
     # eg. if the controller is users_controller, modelname will be User
     def model_class_const
-      controller_name.singularize.capitalize.constantize
+      controller_name.singularize.camelize.constantize
     end
 
     def model_name

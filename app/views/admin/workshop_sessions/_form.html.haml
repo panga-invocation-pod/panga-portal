@@ -1,0 +1,8 @@
+= simple_form_for [:admin, record] do |f|
+  = form_errors(f)
+
+  = f.association :workshop
+  = f.input :start_at
+  = f.input :end_at
+
+  = form_actions(f)
