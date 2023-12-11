@@ -1,10 +1,15 @@
 class Admin::PeopleController < Admin::AdminController
+  before_action :set_person, only: %i[ edit update ]
+
   def index
     @people = Person.all
   end
 
   def new
     @person = Person.new
+  end
+
+  def edit
   end
 
   def create
@@ -15,6 +20,16 @@ class Admin::PeopleController < Admin::AdminController
         format.html { redirect_to admin_people_url, notice: "Person was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @person.update(person_params)
+        format.html { redirect_to admin_people_url, notice: "Person was successfully updated." }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
