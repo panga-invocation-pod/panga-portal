@@ -1,0 +1,17 @@
+%div.admin.index
+  %h1 People
+  %div.group-actions
+    = link_to "New Person", new_admin_person_path, class: "btn btn-primary"
+  %table.table
+    %thead
+      %tr
+        %th{scope: "col"} Short name
+        %th{scope: "col"} Full name
+        %th{scope: "col"} Actions
+    %tbody
+      - @people.each do |user|
+        %tr
+          %td= user.short_name
+          %td= user.full_name
+          %td
+            -# = link_to "edit", edit_admin_user_path(user)

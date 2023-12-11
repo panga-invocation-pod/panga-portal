@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::AdminController
-  before_action :set_admin_user, only: %i[ edit update destroy ]
+  before_action :set_user, only: %i[ edit update destroy ]
 
-  # GET /admin/users or /admin/users.json
+  # GET /admin/users
   def index
     @users = User.all
   end
@@ -15,9 +15,9 @@ class Admin::UsersController < Admin::AdminController
   def edit
   end
 
-  # POST /admin/users or /admin/users.json
+  # POST /admin/users
   def create
-    @user = User.new(admin_user_params)
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
@@ -28,10 +28,10 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # PATCH/PUT /admin/users/1 or /admin/users/1.json
+  # PATCH/PUT /admin/users/1
   def update
     respond_to do |format|
-      if @user.update(admin_user_params)
+      if @user.update(user_params)
         format.html { redirect_to admin_users_url, notice: "User was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # DELETE /admin/users/1 or /admin/users/1.json
+  # DELETE /admin/users/1
   def destroy
     @user.destroy!
 
@@ -50,12 +50,12 @@ class Admin::UsersController < Admin::AdminController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_admin_user
+    def set_user
       @user = User.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
-    def admin_user_params
+    def user_params
       params.fetch(:user, {}).permit(:email, :password, :password_confirmation)
     end
 end

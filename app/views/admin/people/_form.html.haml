@@ -1,0 +1,11 @@
+= simple_form_for [:admin, person] do |f|
+  - if person.errors.any?
+    - person.errors.full_messages.each do |message|
+      .alert.alert-danger{:role => "alert"}
+        = message
+
+  = f.input :short_name
+  = f.input :full_name
+
+  = link_to "Cancel", admin_people_path, class: 'btn btn-secondary float-start'
+  = f.submit (person.persisted? ? "Save" : "Create"), class: "btn btn-primary float-end"
