@@ -5,4 +5,8 @@ class Invitation < ApplicationRecord
   belongs_to :invitee, class_name: 'Person'
 
   validates :invitee, uniqueness: { scope: :inviter }
+
+  def applicable_workshop_sessions(limit:)
+    WorkshopSession.future.limit(limit)
+  end
 end
