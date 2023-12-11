@@ -28,4 +28,8 @@ module FormHelper
   def new_record_button
     link_to "New #{@model_name}", { action: :new }, class: 'btn btn-primary'
   end
+
+  def edit_link(record)
+    link_to "Edit", { action: :edit, id: record.id }
+  end
 end

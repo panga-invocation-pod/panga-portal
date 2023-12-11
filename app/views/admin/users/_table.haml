@@ -4,8 +4,8 @@
       %th{scope: "col"} Email
       %th{scope: "col"} Actions
   %tbody
-    - @records.each do |user|
+    - @records.each do |record|
       %tr
-        %td= user.email
+        %td= record.email
         %td
-          = link_to "edit", edit_admin_user_path(user)
+          = edit_link(record)
