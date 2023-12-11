@@ -13,6 +13,8 @@ module Crud
   extend ActiveSupport::Concern
 
   included do
+    before_action :set_model_vars
+
     # List records
     def index
       render_records
@@ -92,6 +94,10 @@ module Crud
 
     def record_params
       permit_record_fields(params.require(model_class_symbol))
+    end
+
+    def set_model_vars
+      @model_name = model_name
     end
   end
 

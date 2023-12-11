@@ -18,4 +18,14 @@ module FormHelper
       link_to('Cancel', :back, class: 'btn btn-default')
     end
   end
+
+  def group_actions
+    content_tag :div, class: 'group-actions' do
+      new_record_button
+    end
+  end
+
+  def new_record_button
+    link_to "New #{@model_name}", { action: :new }, class: 'btn btn-primary'
+  end
 end

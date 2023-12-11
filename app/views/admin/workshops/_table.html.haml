@@ -1,0 +1,11 @@
+%table.table
+  %thead
+    %tr
+      %th{scope: "col"} Name
+      %th{scope: "col"} Actions
+  %tbody
+    - @records.each do |record|
+      %tr
+        %td= record.name
+        %td
+          = link_to "edit", edit_admin_workshop_path(name)

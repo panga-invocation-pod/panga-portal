@@ -1,0 +1,13 @@
+%table.table
+  %thead
+    %tr
+      %th{scope: "col"} Short name
+      %th{scope: "col"} Full name
+      %th{scope: "col"} Actions
+  %tbody
+    - @records.each do |person|
+      %tr
+        %td= person.short_name
+        %td= person.full_name
+        %td
+          = link_to "edit", edit_admin_person_path(person)
