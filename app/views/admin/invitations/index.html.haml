@@ -10,7 +10,7 @@
         %th{scope: "col"} Token
         %th{scope: "col"} Actions
     %tbody
-      - @invitations.each do |invitation|
+      - @records.each do |invitation|
         %tr
           %td= invitation.inviter.short_name
           %td= invitation.invitee.short_name

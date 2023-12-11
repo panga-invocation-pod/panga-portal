@@ -9,7 +9,7 @@
         %th{scope: "col"} Full name
         %th{scope: "col"} Actions
     %tbody
-      - @people.each do |person|
+      - @records.each do |person|
         %tr
           %td= person.short_name
           %td= person.full_name
