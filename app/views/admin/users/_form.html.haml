@@ -7,5 +7,6 @@
   = f.input :email
   = f.input :password
 
-  = link_to "Cancel", admin_users_path, class: 'btn btn-secondary float-start'
-  = f.submit (user.persisted? ? "Save" : "Create"), class: "btn btn-primary float-end"
+  .form-actions
+    = link_to "Cancel", admin_users_path, class: 'btn btn-secondary float-start'
+    = f.submit (user.persisted? ? "Save" : "Create"), class: "btn btn-primary float-end"

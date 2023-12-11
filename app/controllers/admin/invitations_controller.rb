@@ -8,7 +8,7 @@ class Admin::InvitationsController < Admin::AdminController
   end
 
   def create
-    @invitation = Invitation.new(invitations_params)
+    @invitation = Invitation.new(invitation_params)
 
     respond_to do |format|
       if @invitation.save
@@ -28,6 +28,6 @@ class Admin::InvitationsController < Admin::AdminController
 
   # Only allow a list of trusted parameters through.
   def invitation_params
-    params.fetch(:invitation, {}).permit(:inviter, :invitee, :token)
+    params.fetch(:invitation, {}).permit(:inviter_id, :invitee_id, :token)
   end
 end
