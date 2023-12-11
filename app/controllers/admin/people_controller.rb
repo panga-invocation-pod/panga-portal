@@ -1,4 +1,4 @@
-class Admin::PeopleController < Admin::AdminController
+class Admin::PeopleController < AdminController
   include Crud
 
   private

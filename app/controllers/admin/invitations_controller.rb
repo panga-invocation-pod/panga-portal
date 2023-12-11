@@ -1,4 +1,4 @@
-class Admin::InvitationsController < Admin::AdminController
+class Admin::InvitationsController < AdminController
   include Crud
 
   private

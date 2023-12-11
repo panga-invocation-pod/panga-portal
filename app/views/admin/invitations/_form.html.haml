@@ -1,6 +1,6 @@
-= simple_form_for [:admin, invitation] do |f|
-  - if invitation.errors.any?
-    - invitation.errors.full_messages.each do |message|
+= simple_form_for [:admin, record] do |f|
+  - if record.errors.any?
+    - record.errors.full_messages.each do |message|
       .alert.alert-danger{:role => "alert"}
         = message
 
@@ -9,4 +9,4 @@
 
   .form-actions
     = link_to "Cancel", admin_invitations_path, class: 'btn btn-secondary float-start'
-    = f.submit (invitation.persisted? ? "Save" : "Create"), class: "btn btn-primary float-end"
+    = f.submit (record.persisted? ? "Save" : "Create"), class: "btn btn-primary float-end"
