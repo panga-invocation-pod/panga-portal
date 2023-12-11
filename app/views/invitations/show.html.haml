@@ -1,0 +1,12 @@
+#invitation
+  .container
+    %h1
+      = "Hi there, #{@invitation.invitee.short_name}!"
+
+    %p
+      = @invitation.inviter.short_name
+      would like to invite you to find out more about Panga.
+
+    %p
+      %em
+        (Hey Teq, we need to write this page. Lets do the content first and then I can make it pretty.)

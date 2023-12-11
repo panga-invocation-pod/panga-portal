@@ -3,13 +3,16 @@
     %tr
       %th{scope: "col"} Inviter
       %th{scope: "col"} Invitee
-      %th{scope: "col"} Token
+      %th{scope: "col"} Invite link
       %th{scope: "col"} Actions
   %tbody
     - @records.each do |record|
       %tr
         %td= record.inviter.short_name
         %td= record.invitee.short_name
-        %td= record.token
+        %td
+          = link_to invitation_url(record.token), invitation_path(record.token), id: "copy-#{record.id}"
+          = link_to '#', onclick: "navigator.clipboard.writeText('#{invitation_url(record.token)}'); return false;" do
+            %i.bi.bi-copy
         %td
           -# = edit_link(record)
