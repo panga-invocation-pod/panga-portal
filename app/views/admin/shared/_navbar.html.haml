@@ -1,8 +1,10 @@
 .navbar.admin-navbar.navbar-expand-lg.bg-primary{"data-bs-theme" => "dark"}
   .container-fluid
-    .navbar-brand
-      Panga Portal Admin
-    .collapse.navbar-collapse
+    %button.navbar-toggler{"aria-controls" => "navbar-admin-menu", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbar-admin-menu", "data-bs-toggle" => "collapse", type: "button"}
+      %span.navbar-toggler-icon
+    #navbar-admin-menu.collapse.navbar-collapse
+      .navbar-brand
+        Panga Portal Admin
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
         %li.nav-item
           = link_to "Users", admin_users_path, class: "nav-link"
