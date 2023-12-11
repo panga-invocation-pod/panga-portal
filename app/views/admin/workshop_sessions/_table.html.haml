@@ -1,13 +1,15 @@
 %table.table
   %thead
     %tr
+      %th{scope: "col"} Workshop
       %th{scope: "col"} Start
-      %th{scope: "col"} End
+      %th{scope: "col"} Duration
       %th{scope: "col"} Actions
   %tbody
     - @records.each do |record|
       %tr
+        %td= record.workshop.name
         %td= record.start_at
-        %td= record.end_at
+        %td= format_duration record.duration
         %td
           = edit_link(record)

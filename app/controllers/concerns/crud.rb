@@ -62,12 +62,12 @@ module Crud
     end
 
     def model_name
-      model_class_const.name
+      model_class_const.name.underscore.humanize.titleize
     end
 
     # create a sumbol for the model name
     def model_class_symbol
-      model_class_const.to_s.downcase.to_sym
+      model_class_const.to_s.underscore.to_sym
     end
 
     # Find record using params[:id]
