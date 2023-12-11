@@ -1,0 +1,14 @@
+%div.admin.index
+  %h1 Invitations
+  %div.group-actions
+    = link_to "New Invitation", new_admin_person_path, class: "btn btn-primary"
+  %table.table
+    %thead
+      %tr
+        %th{scope: "col"} Token
+    %tbody
+      - @invitations.each do |invitation|
+        %tr
+          %td= invitation.token
+          %td
+            -# = link_to "edit", edit_admin_user_path(user)

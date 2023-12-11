@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_10_224704) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_11_003209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "inviter_id", null: false
+    t.bigint "invitee_id", null: false
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
+    t.index ["inviter_id"], name: "index_invitations_on_inviter_id"
+  end
 
   create_table "people", force: :cascade do |t|
     t.string "short_name"
@@ -51,4 +61,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_10_224704) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "invitations", "people", column: "invitee_id"
+  add_foreign_key "invitations", "people", column: "inviter_id"
 end
