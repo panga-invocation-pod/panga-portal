@@ -37,7 +37,7 @@ class ApplicationPolicy
   end
 
   def can_admin?
-    true #user.present?
+    user.present?
   end
 
   class Scope
