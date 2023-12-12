@@ -6,7 +6,7 @@ class MessagingController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    script = Messaging::Script.from_file script_path(:start)
+    script = Messaging::Script.from_file script_path(:workshop_invitation)
     # context = Context.new(encoded_token: bearer_token)
     context = nil
     command_processor = Messaging::CommandProcessor.new('Users::Commands')

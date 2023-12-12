@@ -12,7 +12,7 @@ export type IResponder = ISelectOptionResponder | ITextResponder
 export interface IMessage {
   id: string
   prompt: string
-  responder: IResponder
+  responder: IResponder | null
 }
 
 export type IInput = {

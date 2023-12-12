@@ -11,7 +11,9 @@ export default function Message({ message, respond }: MessageProps) {
   return (
     <div className="message">
       <div className="prompt">{message.prompt}</div>
-      <Responder responder={message.responder} respond={respond} />
+      {message.responder && (
+        <Responder responder={message.responder} respond={respond} />
+      )}
     </div>
   )
 }

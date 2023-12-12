@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   end
 
   get '/hi/:token', to: 'invitations#show', as: :invitation
-  get '/api/chat', to: 'messaging#index'
-  post '/api/chat', to: 'messaging#index'
+  get '/hi/:token/chat', to: 'invitations#chat'
+  post '/hi/:token/chat', to: 'invitations#chat'
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

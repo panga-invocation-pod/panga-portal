@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react"
 import Message from "../components/messaging/Message"
 import { IMessage, IPostReply, IInput } from "../components/messaging/types"
 
-export default function Invitation() {
+const endpoint = (token: string) => `/hi/${token}/chat.json`
+
+interface InvitationProps {
+  token: string
+}
+
+export default function Invitation({ token }: InvitationProps) {
   const [message, setMessage] = useState<IMessage | null>(null)
 
   useEffect(() => {
-    fetch("/api/chat.json", {
+    fetch(endpoint(token), {
       method: "GET",
     })
       .then((response) => response.json())
@@ -29,7 +35,7 @@ export default function Invitation() {
       },
     }
 
-    fetch("/api/chat.json", {
+    fetch(endpoint(token), {
       method: "POST",
       body: JSON.stringify(postReply),
       headers: {

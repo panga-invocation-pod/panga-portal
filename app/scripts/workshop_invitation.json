@@ -1,0 +1,26 @@
+{
+  "entry": "workshop_invitation",
+  "exits": [],
+  "messages": [
+    {
+      "id": "workshop_invitation",
+      "prompt": "Hello, is this thing on? Am I addressing {{invitation.invitee.short_name}} by any chance?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Yes, that's me", "Who's asking?"]
+      },
+      "transitions": {
+        "Who's asking?": "whos_speaking",
+        "Yes, that's me": "invitee_identified"
+      }
+    },
+    {
+      "id": "whos_speaking",
+      "prompt": "Oh, I'm Yam Daisy, or Murnong in the language of the Woiwurring people"
+    },
+    {
+      "id": "invitee_identified",
+      "prompt": "Nice to meet you {{invitation.invitee.short_name}}. I'm Yam Daisy, or Murnong in the language of the Woiwurring people. I'm here to invite you to a workshop. "
+    }
+  ]
+}
