@@ -1,0 +1,224 @@
+{
+  "entry": "new_user?",
+  "exits": [
+    "GET_STARTED",
+    "LEAVE_SITE"
+  ],
+  "messages": [
+    {
+      "id": "new_user?",
+      "prompt": "Welcome to Neotopia, are you new here?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["yes", "no"]
+      },
+      "transitions": {
+        "yes": "whats_your_name?",
+        "no": "log_in_form"
+      }
+    },
+    {
+      "id": "log_in_form",
+      "prompt": "Welcome back. I’ll just need you to identify yourself and then we can pick up where we left off.",
+      "responder": {
+        "responder_type": "form",
+        "fields": [
+          {"name": "email", "field_type": "email"},
+          {"name": "password", "field_type": "password"}
+        ],
+        "buttons": [
+          {"name": "submit", "button_type": "submit"},
+          {"name": "cancel", "button_type": "cancel"}
+        ]
+      },
+      "command": "log_in",
+      "transitions": {
+        "DEFAULT": "signed_up",
+        "ERROR:user_not_found": {"to": "log_in_form", "overrides": {"prompt": "Sorry, I have no record of you. Are you sure you entered that email address correctly? Try again if you like."}},
+        "ERROR:missing_data": {"to": "log_in_form", "overrides": {"prompt": "Ok, for this to work you actually have to enter an email and password. Give it another shot."}},
+        "ERROR:unauthorized": {"to": "log_in_form", "overrides": {"prompt": "Hey, no funny business. Those aren't valid credentials. Maybe you just typed it wrong, feel free to try again."}},
+        "cancel": "new_user?"
+      }
+    },
+    {
+      "id": "whats_your_name?",
+      "prompt": "How exciting, and what should I call you?",
+      "responder": {
+        "responder_type": "text"
+      },
+      "transitions": {
+        "DEFAULT": "should_explain_neotopia?"
+      },
+      "command": "set_name"
+    },
+    {
+      "id": "should_explain_neotopia?",
+      "prompt": "Hi {{current_user.name}}, welcome.\n\nDo you need me to explain what Neotopia is, or would you like to get started right away?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["explain away", "no, get started"]
+      },
+      "transitions": {
+        "explain away": "explain_neotopia",
+        "no, get started": "collect_email"
+      }
+    },
+    {
+      "id": "explain_neotopia",
+      "prompt": "Neotopia is a utopia, which means a “no-place”, or a non-existent society described in detail. Most people use the word to mean a society too good to be true.\n\nNeotopia is a positive vision of a society well in our future that is much better than the one we have now. You get to determine what it looks like. Since it doesn’t exist, there’s no need to think small, think big and long term.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["why do that?", "ok, but how does it work?", "get started"]
+      },
+      "transitions": {
+        "why do that?": "why_imagine_better_place?",
+        "ok, but how does it work?": "more_explanation",
+        "get started": "collect_email"
+      }
+    },
+    {
+      "id": "why_imagine_better_place?",
+      "prompt": "Even if you like things about the society you come from, surely you see some room for improvement, or perhaps change in response to new circumstances?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["well, a few things", "no, it's perfect"]
+      },
+      "transitions": {
+        "well, a few things": "agree_vision_needed",
+        "no, it's perfect": "its_fine"
+      }
+    },
+    {
+      "id": "its_fine",
+      "prompt": "Given that, a visit to Neotopia may not be of much intest to you, although you're still welcome of course.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["perhaps if you explained it more clearly", "i think i'll pass, goodbye"]
+      },
+      "transitions": {
+        "perhaps if you explained it more clearly": "more_explanation",
+        "i think i'll pass, goodbye": {"url": "https://www.google.com/"}
+      }
+    },
+    {
+      "id": "more_explanation",
+      "prompt": "Think of me as a tour guide. Neotopia has as many possibilities as there are visitors, so I help people find where they want to go by asking them questions about how they might live in the future, even if it is only for a short visit.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["what sort of questions?", "what about my privacy?", "lets get started"]
+      },
+      "transitions": {
+        "what sort of questions?": "explain_questions",
+        "what about my privacy?": "explain_privacy",
+        "lets get started": "collect_email"
+      }
+    },
+    {
+      "id": "explain_questions",
+      "prompt": "I have a set of questions here about your preferred lifestyle in the future, who you might share that with, what sort of place you'd like to be in, and what sort of broader society that place might be found in. You can change your mind and visit different places, and you can help add questions to provide new options for other tourists.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["what about my privacy?", "lets get started"]
+      },
+      "transitions": {
+        "what about my privacy?": "explain_privacy",
+        "lets get started": "collect_email"
+      }
+    },
+    {
+      "id": "explain_privacy",
+      "prompt": "Your answers to all the questions are public, and it's possible that when you visit a certain part of Neotopia that you'll see and be seen by other tourists. However, you don't need to reveal anything about your identity back home. I wont share your email address or subscribe you to any weird mailing lists from any time period.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["what sort of questions?", "lets get started"]
+      },
+      "transitions": {
+        "what sort of questions?": "explain_questions",
+        "lets get started": "collect_email"
+      }
+    },
+    {
+      "id": "agree_vision_needed",
+      "prompt": "Exactly, and that’s why people like you come and visit this one. A vision of something much better is important for shaping things back home. There’s a place for small step-by-step changes, but sometimes you also need big vision.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["won’t that get me down?", "OK fine, lets get started"]
+      },
+      "transitions": {
+        "won’t that get me down?": "wont_that_make_me_depressed?",
+        "OK fine, lets get started": "collect_email"
+      }
+    },
+    {
+      "id": "wont_that_make_me_depressed?",
+      "prompt": "It might, I don't know humans from your time period that well. I've read that there was a lot of media showcasing negative views of the future, so perhaps a visit to Neotopia will merely provide some balance.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["could you explain a bit more?", "get started", "this is not for me, sorry"]
+      },
+      "transitions": {
+        "could you explain a bit more?": "more_explanation",
+        "get started": "collect_email",
+        "this is not for me, sorry": "leave_site"
+      }
+    },
+    {
+      "id": "leave_site",
+      "prompt": "That's ok, goodbye.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["goodbye"]
+      },
+      "transitions": {
+        "goodbye": {"url": "https://www.google.com/"}
+      }
+    },
+    {
+      "id": "collect_email",
+      "prompt": "Ok {{current_user.name}}, I’m going to issue you with a tourist visa so you can explore Neotopia a bit. I'm going to need the usual, an email address and pasword from you so you can come back again later.",
+      "responder": {
+        "responder_type": "form",
+        "fields": [
+          {"name": "email", "field_type": "email"},
+          {"name": "password", "field_type": "password"}
+        ],
+        "buttons": [
+          {"name": "submit", "button_type": "submit"}
+        ]
+      },
+      "command": "sign_up",
+      "transitions": {
+        "DEFAULT": "signed_up",
+        "ERROR:missing_data": {"to": "collect_email", "overrides": {"prompt": "Ok, for this to work you actually have to enter an email and password. Give it another shot."}},
+        "ERROR:email_exists": {"to": "email_exists"}
+      },
+      "client_effects": [
+        {"command": "enable_privacy_policy", "sequence": "after"}
+      ]
+    },
+    {
+      "id": "email_exists",
+      "prompt": "Hmmm, it looks like an account for that email address already exists. Are you sure you haven't been here before?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["yes, that's me", "i'll try a different address"]
+      },
+      "transitions": {
+        "i'll try a different address": {"to": "collect_email", "overrides": {"prompt": "No worries Michael, give it another shot"}},
+        "yes, that's me": {"to": "log_in_form", "overrides": {"prompt": "Lets try a log-in instead. Pop your existing username and password in below."}}
+      }
+    },
+    {
+      "id": "signed_up",
+      "prompt": "You're logged in, but I haven't built the next bit",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["again"]
+      },
+      "transitions": {
+        "again": "signed_up"
+      }
+    }
+  ]
+}
+
