@@ -1,4 +1,18 @@
 {
   "ansible.python.interpreterPath": "/bin/python3",
   "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true,
+    "tmp": true
+  },
+  "explorerExclude.backup": {}
 }
