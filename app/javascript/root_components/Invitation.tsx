@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Message from "../components/messaging/Message"
-import { IMessage } from "../components/messaging/types"
+import { IMessage, IPostReply, IInput } from "../components/messaging/types"
 
 export default function Invitation() {
   const [message, setMessage] = useState<IMessage | null>(null)
@@ -21,9 +21,32 @@ export default function Invitation() {
     return <div>Loading...</div>
   }
 
+  const respond = (input: IInput) => {
+    const postReply: IPostReply = {
+      reply: {
+        to: message.id,
+        input,
+      },
+    }
+
+    fetch("/api/chat.json", {
+      method: "POST",
+      body: JSON.stringify(postReply),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        setMessage(data.message)
+      })
+      .catch((error) => console.log(error))
+  }
+
   return (
     <div className="chat-container">
-      <Message message={message} />
+      <Message message={message} respond={respond} />
     </div>
   )
 }

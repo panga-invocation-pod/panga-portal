@@ -10,3 +10,18 @@ export interface IMessage {
   prompt: string
   responder: IResponder
 }
+
+export type IInput = {
+  text: string
+}
+
+export type Respond = (input: IInput) => void
+
+export interface IReply {
+  to: string
+  input: IInput
+}
+
+export interface IPostReply {
+  reply: IReply
+}

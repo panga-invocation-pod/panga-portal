@@ -1,12 +1,17 @@
 import React from "react"
-import { IMessage } from "./types"
+import { IMessage, Respond } from "./types"
 import Responder from "./Responder"
 
-export default function Message({ message }: { message: IMessage }) {
+interface MessageProps {
+  message: IMessage
+  respond: Respond
+}
+
+export default function Message({ message, respond }: MessageProps) {
   return (
     <div className="message">
       <div className="prompt">{message.prompt}</div>
-      <Responder responder={message.responder} />
+      <Responder responder={message.responder} respond={respond} />
     </div>
   )
 }

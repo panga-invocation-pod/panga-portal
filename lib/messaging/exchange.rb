@@ -20,6 +20,7 @@ module Messaging
 
     def determine_response
       target = script.transition_for input: input, command_result: command_result, previous: previous_message
+
       if target
         @response_message = target.get_message script
         raise "no message found to transition to with #{target.inspect}" unless @response_message
