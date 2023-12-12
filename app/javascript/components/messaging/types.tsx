@@ -29,3 +29,8 @@ export interface IReply {
 export interface IPostReply {
   reply: IReply
 }
+
+export interface ICharacter {
+  name: string
+  slug: string
+}

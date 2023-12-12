@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react"
 import Message from "../components/messaging/Message"
-import { IMessage, IPostReply, IInput } from "../components/messaging/types"
+import {
+  IMessage,
+  IPostReply,
+  IInput,
+  ICharacter,
+} from "../components/messaging/types"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
@@ -10,6 +15,11 @@ interface InvitationProps {
 
 export default function Invitation({ token }: InvitationProps) {
   const [message, setMessage] = useState<IMessage | null>(null)
+
+  const yamDaisy: ICharacter = {
+    name: "Yam Daisy",
+    slug: "yam_daisy",
+  }
 
   useEffect(() => {
     fetch(endpoint(token), {
@@ -52,7 +62,7 @@ export default function Invitation({ token }: InvitationProps) {
 
   return (
     <div className="chat-container">
-      <Message message={message} respond={respond} />
+      <Message message={message} respond={respond} character={yamDaisy} />
     </div>
   )
 }
