@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
-import DisplayMessage, { Message } from "../components/messaging/DisplayMessage"
+import Message from "../components/messaging/Message"
+import { IMessage } from "../components/messaging/types"
 
 export default function Invitation() {
-  const [message, setMessage] = useState<Message | null>(null)
+  const [message, setMessage] = useState<IMessage | null>(null)
 
   useEffect(() => {
     fetch("/api/chat.json", {
@@ -22,7 +23,7 @@ export default function Invitation() {
 
   return (
     <div className="chat-container">
-      <DisplayMessage {...message} />
+      <Message message={message} />
     </div>
   )
 }
