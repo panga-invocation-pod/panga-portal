@@ -11,14 +11,17 @@ const endpoint = (token: string) => `/hi/${token}/chat.json`
 
 interface InvitationProps {
   token: string
+  image: string
 }
 
-export default function Invitation({ token }: InvitationProps) {
+export default function Invitation({ token, image }: InvitationProps) {
   const [message, setMessage] = useState<IMessage | null>(null)
 
   const yamDaisy: ICharacter = {
     name: "Yam Daisy",
     slug: "yam_daisy",
+    thumbnail: image,
+    effect: "robot",
   }
 
   useEffect(() => {

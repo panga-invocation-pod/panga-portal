@@ -1,6 +1,8 @@
 import React from "react"
 import { ICharacter, IMessage, Respond } from "./types"
 import Responder from "./Responder"
+import CharacterThumbnail from "./CharacterThumbnail"
+import MessagePrompt from "./MessagePrompt"
 
 interface MessageProps {
   message: IMessage
@@ -12,12 +14,8 @@ export default function Message({ message, respond, character }: MessageProps) {
   return (
     <div className="message">
       <div className="message-item">
-        <img
-          src={`/assets/characters/${character.slug}/thumbnail.png`}
-          className="character thumbnail"
-          alt={character.name}
-        />
-        <div className="prompt">{message.prompt}</div>
+        <CharacterThumbnail character={character} />
+        <MessagePrompt prompt={message.prompt} />
       </div>
 
       {message.responder && (

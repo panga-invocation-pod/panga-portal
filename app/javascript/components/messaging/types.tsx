@@ -33,4 +33,6 @@ export interface IPostReply {
 export interface ICharacter {
   name: string
   slug: string
+  thumbnail: string
+  effect: null | "robot"
 }
