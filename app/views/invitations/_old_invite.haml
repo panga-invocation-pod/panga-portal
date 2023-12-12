@@ -1,0 +1,26 @@
+#invitation
+  .container
+    %h1
+      = "Hi there, #{@invitation.invitee.short_name}!"
+
+    %p
+      = @invitation.inviter.short_name
+      would like to invite you to find out more about Panga.
+
+    %p
+      %em
+        (Hey Teq, we need to write this page. Lets do the content first and then I can make it pretty.)
+
+    .upcoming-workshops
+      %h2 Upcoming Workshops
+      %ul
+        - @workshop_sessions.each do |workshop_session|
+          %li.workshop
+            .date= workshop_session.start_on.to_formatted_s(:with_weekday)
+            .time
+              = workshop_session.start_at.to_formatted_s(:time_only)
+              = "-"
+              = workshop_session.end_at.to_formatted_s(:time_only)
+
+      .actions
+        = link_to "Submit my availability", '#', class: 'btn btn-primary'
