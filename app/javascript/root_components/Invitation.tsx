@@ -20,5 +20,9 @@ export default function Invitation() {
     return <div>Loading...</div>
   }
 
-  return <DisplayMessage {...message} />
+  return (
+    <div className="chat-container">
+      <DisplayMessage {...message} />
+    </div>
+  )
 }
