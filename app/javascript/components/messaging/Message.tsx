@@ -3,6 +3,7 @@ import { ICharacter, IMessage, Respond } from "./types"
 import Responder from "./Responder"
 import CharacterThumbnail from "./CharacterThumbnail"
 import MessagePrompt from "./MessagePrompt"
+import FadeIn from "react-fade-in"
 
 interface MessageProps {
   message: IMessage
@@ -27,7 +28,9 @@ export default function Message({ message, respond, character }: MessageProps) {
       </div>
 
       {message.responder && stage == "respond" && (
-        <Responder responder={message.responder} respond={respond} />
+        <FadeIn>
+          <Responder responder={message.responder} respond={respond} />
+        </FadeIn>
       )}
     </div>
   )

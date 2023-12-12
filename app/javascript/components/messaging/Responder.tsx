@@ -11,8 +11,8 @@ interface ResponderProps {
 const responderComponents: {
   [key: string]: React.FC<ResponderProps>
 } = {
-  select_option: SelectOptionResponder,
-  text: TextResponder,
+  select_option: SelectOptionResponder as React.FC<ResponderProps>,
+  text: TextResponder as React.FC<ResponderProps>,
 }
 
 export default function Responder(props: ResponderProps) {
