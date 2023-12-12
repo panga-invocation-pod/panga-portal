@@ -1,12 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React, { useEffect, useState } from "react"
+import DisplayMessage, { Message } from "../components/messaging/DisplayMessage"
 
-const Invitation = () => <h1>Hello from React!</h1>;
+export default function Invitation() {
+  const [message, setMessage] = useState<Message | null>(null)
 
-// const root = ReactDOM.createRoot(
-//   document.getElementById("root") as HTMLElement
-// );
+  useEffect(() => {
+    fetch("/api/chat.json", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessage(data.message)
+        console.log(data)
+      })
+      .catch((error) => console.log(error))
+  }, [])
 
-// root.render(<Invitation />);
+  if (!message) {
+    return <div>Loading...</div>
+  }
 
-export default Invitation;
+  return <DisplayMessage {...message} />
+}
