@@ -41,6 +41,7 @@ gem "haml-rails", "~> 2.0"
 gem "simple_form"
 gem "devise", "~> 4.9"
 gem "cssbundling-rails", "~> 1.3"
+gem "jsbundling-rails", "~> 1.2"
 gem "rolify"
 gem "pundit"
 
@@ -70,4 +71,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
