@@ -16,6 +16,8 @@ export default function MessagePrompt({
   const [effectFinished, setEffectFinished] = useState(false)
 
   const onEffectFinished = () => {
+    if (effectFinished) return
+
     setEffectFinished(true)
     onFinished()
   }
@@ -33,9 +35,10 @@ export default function MessagePrompt({
       {effect === "robot" && (
         <Typewriter
           text={prompt}
-          key={prompt}
           onFinished={onEffectFinished}
           cursor={!effectFinished}
+          speed={10}
+          random={40}
         />
       )}
       {effect === null && prompt}

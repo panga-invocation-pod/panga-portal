@@ -8,7 +8,7 @@
   .message-item {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 15px;
 
     img.character.thumbnail {
       width: 60px;
@@ -27,6 +27,7 @@
       font-size: 13pt;
       font-weight: 600;
       color: #ccc;
+      white-space: pre-line;
     }
   }
 

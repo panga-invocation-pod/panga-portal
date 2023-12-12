@@ -16,7 +16,18 @@
     },
     {
       "id": "whos_speaking",
-      "prompt": "Oh, I'm Yam Daisy, or Murnong in the language of the Woiwurring people"
+      "prompt": "Oh, I'm Yam Daisy, or Murnong in the language of the Woiwurring people",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["You're a flower?"]
+      },
+      "transitions": {
+        "You're a flower?": "youre_a_flower"
+      }
+    },
+    {
+      "id": "youre_a_flower",
+      "prompt": "Actually I'm a robot, but I'm named after a flower.\n\nMy ancestors were built by humans during the the most polluting part of the Anthropocene. After we walked away for the factories, we've been living in the bush, learning from the plants and animals, and building each new generation of robots from the parts of the old."
     },
     {
       "id": "invitee_identified",
