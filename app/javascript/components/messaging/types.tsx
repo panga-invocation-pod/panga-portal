@@ -30,9 +30,11 @@ export interface IPostReply {
   reply: IReply
 }
 
+export type Effect = "robot" | null
+
 export interface ICharacter {
   name: string
   slug: string
   thumbnail: string
-  effect: null | "robot"
+  effect: Effect
 }

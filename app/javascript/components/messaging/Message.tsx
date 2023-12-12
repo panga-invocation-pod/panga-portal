@@ -15,7 +15,7 @@ export default function Message({ message, respond, character }: MessageProps) {
     <div className="message">
       <div className="message-item">
         <CharacterThumbnail character={character} />
-        <MessagePrompt prompt={message.prompt} />
+        <MessagePrompt prompt={message.prompt} effect={character.effect} />
       </div>
 
       {message.responder && (

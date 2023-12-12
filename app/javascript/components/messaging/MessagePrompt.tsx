@@ -1,12 +1,16 @@
 import React from "react"
-import { ICharacter, IMessage, Respond } from "./types"
-import Responder from "./Responder"
-import CharacterThumbnail from "./CharacterThumbnail"
+import Typewriter from "@mikhail2404/react-ts-typewriter"
 
 interface MessagePrompt {
   prompt: string
+  effect: Effect
 }
 
-export default function MessagePrompt({ prompt }: MessagePrompt) {
-  return <div className="prompt">{prompt}</div>
+export default function MessagePrompt({ prompt, effect }: MessagePrompt) {
+  return (
+    <div className="prompt">
+      {effect === "robot" && <Typewriter text={prompt} key={prompt} />}
+      {effect === null && prompt}
+    </div>
+  )
 }
