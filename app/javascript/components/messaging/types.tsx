@@ -3,7 +3,11 @@ export interface ISelectOptionResponder {
   options: string[]
 }
 
-export type IResponder = ISelectOptionResponder
+export interface ITextResponder {
+  responder_type: "text"
+}
+
+export type IResponder = ISelectOptionResponder | ITextResponder
 
 export interface IMessage {
   id: string
