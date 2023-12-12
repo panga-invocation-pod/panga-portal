@@ -1,10 +1,20 @@
 import React from "react"
-import { IResponder } from "../types"
+import { ISelectOptionResponder } from "../types"
+
+interface SelectOptionResponderProps {
+  responder: ISelectOptionResponder
+}
 
 export default function SelectOptionResponder({
   responder,
-}: {
-  responder: IResponder
-}) {
-  return <div className="select-option-responder">select option responder</div>
+}: SelectOptionResponderProps) {
+  return (
+    <div className="select-option-responder">
+      {responder.options.map((option) => (
+        <button key={option} type="button" className="btn btn-outline-primary">
+          {option}
+        </button>
+      ))}
+    </div>
+  )
 }
