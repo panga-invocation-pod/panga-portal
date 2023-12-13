@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react"
-import Message from "./messaging/Message"
-import { IMessage, IPostReply, IInput, ICharacter } from "./messaging/types"
+import Message from "../components/messaging/Message"
+import {
+  IMessage,
+  IPostReply,
+  IInput,
+  ICharacter,
+} from "../components/messaging/types"
 import ChatClient from "../api/chat_client"
+import { useParams } from "react-router-dom"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
-interface InvitationProps {
-  token: string
-  image: string
-}
+export default function Invitation() {
+  let { token } = useParams()
+  const image = null
 
-export default function Invitation({ token, image }: InvitationProps) {
+  if (!token) {
+    return <div>Invalid token</div>
+  }
+
   const [message, setMessage] = useState<IMessage | null>(null)
   const client = new ChatClient(token)
 
   const yamDaisy: ICharacter = {
     name: "Yam Daisy",
     slug: "yam_daisy",
-    thumbnail: image,
+    thumbnail: "broken",
     effect: "robot",
   }
 

@@ -36,6 +36,6 @@ export default class ChatClient {
   }
 
   endpoint(): string {
-    return `/hi/${this.inviteToken}/chat.json`
+    return `/api/invitations/${this.inviteToken}/chat.json`
   }
 }
