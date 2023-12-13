@@ -29,7 +29,13 @@ module Messaging
       {
         id: id,
         prompt: interpolator ? interpolated_prompt(interpolator) : prompt,
-        responder: responder
+        responder: responder,
+        character: {
+          name: "Yam Daisy",
+          slug: "yam_daisy",
+          thumbnail: "broken",
+          effect: "robot",
+        }
       }
     end
 

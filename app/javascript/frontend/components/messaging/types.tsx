@@ -13,6 +13,7 @@ export interface IMessage {
   id: string
   prompt: string
   responder: IResponder | null
+  character: ICharacter | null
 }
 
 export interface IChatStatus {

@@ -23,13 +23,6 @@ export default function Invitation() {
   const [message, setMessage] = useState<IMessage | null>(null)
   const client = new ChatClient(token)
 
-  const yamDaisy: ICharacter = {
-    name: "Yam Daisy",
-    slug: "yam_daisy",
-    thumbnail: "broken",
-    effect: "robot",
-  }
-
   useEffect(() => {
     client.get((data) => {
       setMessage(data.message)
@@ -55,7 +48,7 @@ export default function Invitation() {
 
   return (
     <div className="chat-container">
-      <Message message={message} respond={respond} character={yamDaisy} />
+      <Message message={message} respond={respond} />
     </div>
   )
 }

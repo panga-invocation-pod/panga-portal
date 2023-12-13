@@ -8,12 +8,11 @@ import FadeIn from "react-fade-in"
 interface MessageProps {
   message: IMessage
   respond: Respond
-  character: ICharacter
 }
 
 type MessageStage = "start" | "prompt" | "respond"
 
-export default function Message({ message, respond, character }: MessageProps) {
+export default function Message({ message, respond }: MessageProps) {
   const [stage, setStage] = useState<MessageStage>("start")
   const [stateMessage, setMessage] = useState<IMessage>(message)
 
@@ -30,10 +29,12 @@ export default function Message({ message, respond, character }: MessageProps) {
   return (
     <div className="message">
       <div className="message-item">
-        <CharacterThumbnail character={character} />
+        {message.character && (
+          <CharacterThumbnail character={message.character} />
+        )}
         <MessagePrompt
           prompt={stateMessage.prompt}
-          effect={character.effect}
+          effect={message?.character?.effect || null}
           key={stateMessage.id}
           onFinished={() => setStage("respond")}
         />
