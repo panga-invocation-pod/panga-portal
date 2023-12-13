@@ -1,9 +1,10 @@
-import { extendBaseTheme, theme as chakraTheme } from "@chakra-ui/react"
-const { Button } = chakraTheme.components
+import { extendTheme, theme as chakraTheme } from "@chakra-ui/react"
+const { Button, Container } = chakraTheme.components
 
-export const theme = extendBaseTheme({
+export const theme = extendTheme({
   components: {
     Button,
+    Container,
   },
   config: {
     initialColorMode: "dark",
