@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { ICharacter, IMessage, Respond } from "./types"
+import { IMessage, Respond } from "./types"
 import Responder from "./Responder"
-import CharacterThumbnail from "./CharacterThumbnail"
+import CharacterThumbnail from "../characters/CharacterThumbnail"
 import MessagePrompt from "./MessagePrompt"
 import FadeIn from "react-fade-in"
 
