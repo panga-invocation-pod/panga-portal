@@ -12,7 +12,8 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true,
-    "tmp": true
+    "tmp": true,
+    "app/assets/builds": true
   },
   "explorerExclude.backup": {}
 }
