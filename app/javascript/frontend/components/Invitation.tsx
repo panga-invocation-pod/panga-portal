@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react"
-import Message from "../components/messaging/Message"
-import {
-  IMessage,
-  IPostReply,
-  IInput,
-  ICharacter,
-} from "../components/messaging/types"
+import Message from "./messaging/Message"
+import { IMessage, IPostReply, IInput, ICharacter } from "./messaging/types"
 import ChatClient from "../api/chat_client"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
