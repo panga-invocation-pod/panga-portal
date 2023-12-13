@@ -1,8 +1,15 @@
-<head>
-  <title>Example</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= vite_client_tag %>
-  <%= vite_javascript_tag 'application' %>
-  <%= vite_stylesheet_tag 'typography', media: 'print' %>
-</head>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= vite_client_tag %>
+    <%= vite_react_refresh_tag %>
+    <%= vite_javascript_tag 'application.tsx' %>
+    <%#= vite_stylesheet_tag 'typography', media: 'print' %>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
