@@ -44,6 +44,7 @@ gem "cssbundling-rails", "~> 1.3"
 gem "jsbundling-rails", "~> 1.2"
 gem "rolify"
 gem "pundit"
+gem 'vite_rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
