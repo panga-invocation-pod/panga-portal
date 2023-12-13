@@ -15,6 +15,11 @@ export interface IMessage {
   responder: IResponder | null
 }
 
+export interface IChatStatus {
+  message: IMessage
+  data: any
+}
+
 export type IInput = {
   text: string
 }

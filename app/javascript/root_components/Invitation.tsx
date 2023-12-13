@@ -6,6 +6,7 @@ import {
   IInput,
   ICharacter,
 } from "../components/messaging/types"
+import ChatClient from "../api/chat_client"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
@@ -16,6 +17,7 @@ interface InvitationProps {
 
 export default function Invitation({ token, image }: InvitationProps) {
   const [message, setMessage] = useState<IMessage | null>(null)
+  const client = new ChatClient(token)
 
   const yamDaisy: ICharacter = {
     name: "Yam Daisy",
@@ -25,15 +27,9 @@ export default function Invitation({ token, image }: InvitationProps) {
   }
 
   useEffect(() => {
-    fetch(endpoint(token), {
-      method: "GET",
+    client.get((data) => {
+      setMessage(data.message)
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setMessage(data.message)
-        console.log(data)
-      })
-      .catch((error) => console.log(error))
   }, [])
 
   if (!message) {
@@ -48,19 +44,9 @@ export default function Invitation({ token, image }: InvitationProps) {
       },
     }
 
-    fetch(endpoint(token), {
-      method: "POST",
-      body: JSON.stringify(postReply),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    client.post(postReply, (data) => {
+      setMessage(data.message)
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        setMessage(data.message)
-      })
-      .catch((error) => console.log(error))
   }
 
   return (
