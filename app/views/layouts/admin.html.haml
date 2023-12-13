@@ -8,6 +8,8 @@
     = csp_meta_tag
     =# stylesheet_link_tag "application", "data-turbo-track": "reload"
     =# javascript_importmap_tags
+    = vite_client_tag
+    = vite_javascript_tag 'static_rails.ts'
   %body
     = render "admin/shared/navbar"
     .container
