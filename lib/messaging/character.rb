@@ -1,6 +1,8 @@
 module Messaging
   class Character
     def self.from_data(data)
+      return nil if data.nil?
+
       new(
         data['id'],
         data['name']

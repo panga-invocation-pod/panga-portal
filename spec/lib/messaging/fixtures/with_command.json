@@ -1,9 +1,6 @@
 {
-  "entry": "new_user?",
-  "exits": [
-    "FINISHED",
-    "LEAVE_SITE"
-  ],
+  "entries": ["new_user?"],
+  "exits": ["FINISHED", "LEAVE_SITE"],
   "messages": [
     {
       "id": "with_command",

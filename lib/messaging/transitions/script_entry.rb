@@ -8,7 +8,7 @@ module Messaging
       end
 
       def target_message_id
-        script.entry
+        script.entries.first
       end
 
       def apply_overrides(message)

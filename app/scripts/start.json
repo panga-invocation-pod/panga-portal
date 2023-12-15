@@ -1,9 +1,6 @@
 {
-  "entry": "new_user?",
-  "exits": [
-    "GET_STARTED",
-    "LEAVE_SITE"
-  ],
+  "entries": ["new_user?"],
+  "exits": ["GET_STARTED", "LEAVE_SITE"],
   "messages": [
     {
       "id": "new_user?",
@@ -23,20 +20,35 @@
       "responder": {
         "responder_type": "form",
         "fields": [
-          {"name": "email", "field_type": "email"},
-          {"name": "password", "field_type": "password"}
+          { "name": "email", "field_type": "email" },
+          { "name": "password", "field_type": "password" }
         ],
         "buttons": [
-          {"name": "submit", "button_type": "submit"},
-          {"name": "cancel", "button_type": "cancel"}
+          { "name": "submit", "button_type": "submit" },
+          { "name": "cancel", "button_type": "cancel" }
         ]
       },
       "command": "log_in",
       "transitions": {
         "DEFAULT": "signed_up",
-        "ERROR:user_not_found": {"to": "log_in_form", "overrides": {"prompt": "Sorry, I have no record of you. Are you sure you entered that email address correctly? Try again if you like."}},
-        "ERROR:missing_data": {"to": "log_in_form", "overrides": {"prompt": "Ok, for this to work you actually have to enter an email and password. Give it another shot."}},
-        "ERROR:unauthorized": {"to": "log_in_form", "overrides": {"prompt": "Hey, no funny business. Those aren't valid credentials. Maybe you just typed it wrong, feel free to try again."}},
+        "ERROR:user_not_found": {
+          "to": "log_in_form",
+          "overrides": {
+            "prompt": "Sorry, I have no record of you. Are you sure you entered that email address correctly? Try again if you like."
+          }
+        },
+        "ERROR:missing_data": {
+          "to": "log_in_form",
+          "overrides": {
+            "prompt": "Ok, for this to work you actually have to enter an email and password. Give it another shot."
+          }
+        },
+        "ERROR:unauthorized": {
+          "to": "log_in_form",
+          "overrides": {
+            "prompt": "Hey, no funny business. Those aren't valid credentials. Maybe you just typed it wrong, feel free to try again."
+          }
+        },
         "cancel": "new_user?"
       }
     },
@@ -93,11 +105,14 @@
       "prompt": "Given that, a visit to Neotopia may not be of much intest to you, although you're still welcome of course.",
       "responder": {
         "responder_type": "select_option",
-        "options": ["perhaps if you explained it more clearly", "i think i'll pass, goodbye"]
+        "options": [
+          "perhaps if you explained it more clearly",
+          "i think i'll pass, goodbye"
+        ]
       },
       "transitions": {
         "perhaps if you explained it more clearly": "more_explanation",
-        "i think i'll pass, goodbye": {"url": "https://www.google.com/"}
+        "i think i'll pass, goodbye": { "url": "https://www.google.com/" }
       }
     },
     {
@@ -105,7 +120,11 @@
       "prompt": "Think of me as a tour guide. Neotopia has as many possibilities as there are visitors, so I help people find where they want to go by asking them questions about how they might live in the future, even if it is only for a short visit.",
       "responder": {
         "responder_type": "select_option",
-        "options": ["what sort of questions?", "what about my privacy?", "lets get started"]
+        "options": [
+          "what sort of questions?",
+          "what about my privacy?",
+          "lets get started"
+        ]
       },
       "transitions": {
         "what sort of questions?": "explain_questions",
@@ -154,7 +173,11 @@
       "prompt": "It might, I don't know humans from your time period that well. I've read that there was a lot of media showcasing negative views of the future, so perhaps a visit to Neotopia will merely provide some balance.",
       "responder": {
         "responder_type": "select_option",
-        "options": ["could you explain a bit more?", "get started", "this is not for me, sorry"]
+        "options": [
+          "could you explain a bit more?",
+          "get started",
+          "this is not for me, sorry"
+        ]
       },
       "transitions": {
         "could you explain a bit more?": "more_explanation",
@@ -170,7 +193,7 @@
         "options": ["goodbye"]
       },
       "transitions": {
-        "goodbye": {"url": "https://www.google.com/"}
+        "goodbye": { "url": "https://www.google.com/" }
       }
     },
     {
@@ -179,21 +202,24 @@
       "responder": {
         "responder_type": "form",
         "fields": [
-          {"name": "email", "field_type": "email"},
-          {"name": "password", "field_type": "password"}
+          { "name": "email", "field_type": "email" },
+          { "name": "password", "field_type": "password" }
         ],
-        "buttons": [
-          {"name": "submit", "button_type": "submit"}
-        ]
+        "buttons": [{ "name": "submit", "button_type": "submit" }]
       },
       "command": "sign_up",
       "transitions": {
         "DEFAULT": "signed_up",
-        "ERROR:missing_data": {"to": "collect_email", "overrides": {"prompt": "Ok, for this to work you actually have to enter an email and password. Give it another shot."}},
-        "ERROR:email_exists": {"to": "email_exists"}
+        "ERROR:missing_data": {
+          "to": "collect_email",
+          "overrides": {
+            "prompt": "Ok, for this to work you actually have to enter an email and password. Give it another shot."
+          }
+        },
+        "ERROR:email_exists": { "to": "email_exists" }
       },
       "client_effects": [
-        {"command": "enable_privacy_policy", "sequence": "after"}
+        { "command": "enable_privacy_policy", "sequence": "after" }
       ]
     },
     {
@@ -204,8 +230,16 @@
         "options": ["yes, that's me", "i'll try a different address"]
       },
       "transitions": {
-        "i'll try a different address": {"to": "collect_email", "overrides": {"prompt": "No worries Michael, give it another shot"}},
-        "yes, that's me": {"to": "log_in_form", "overrides": {"prompt": "Lets try a log-in instead. Pop your existing username and password in below."}}
+        "i'll try a different address": {
+          "to": "collect_email",
+          "overrides": { "prompt": "No worries Michael, give it another shot" }
+        },
+        "yes, that's me": {
+          "to": "log_in_form",
+          "overrides": {
+            "prompt": "Lets try a log-in instead. Pop your existing username and password in below."
+          }
+        }
       }
     },
     {
@@ -221,4 +255,3 @@
     }
   ]
 }
-

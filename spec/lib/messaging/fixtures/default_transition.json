@@ -1,8 +1,6 @@
 {
-  "entry": "first",
-  "exits": [
-    "FINISHED"
-  ],
+  "entries": ["first"],
+  "exits": ["FINISHED"],
   "messages": [
     {
       "id": "first",

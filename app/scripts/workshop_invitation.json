@@ -1,5 +1,5 @@
 {
-  "entry": "workshop_invitation",
+  "entries": ["workshop_invitation"],
   "exits": [],
   "character": {
     "id": " yam_daisy",

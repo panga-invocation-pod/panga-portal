@@ -1,9 +1,6 @@
 {
-  "entry": "new_user?",
-  "exits": [
-    "GET_STARTED",
-    "LEAVE_SITE"
-  ],
+  "entries": ["new_user?"],
+  "exits": ["GET_STARTED", "LEAVE_SITE"],
   "messages": [
     {
       "id": "new_user?",

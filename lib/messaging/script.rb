@@ -11,17 +11,17 @@ module Messaging
 
     def self.from_data(data)
       new(
-        data['entry'],
+        data['entries'],
         data['exits'],
         MessageGroup.from_data(data['messages']),
         Character.from_data(data['character'])
       )
     end
 
-    attr_reader :entry, :exits, :character
+    attr_reader :entries, :exits, :character
 
-    def initialize(entry, exits, messages, character = nil)
-      @entry = entry
+    def initialize(entries, exits, messages, character = nil)
+      @entries = entries
       @exits = exits
       @messages = messages
       @character = character
