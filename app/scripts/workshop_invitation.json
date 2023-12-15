@@ -2,7 +2,7 @@
   "entries": [
     {
       "target": "already_logged_in",
-      "if": { "type": "context", "condition": "logged_in?" }
+      "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
     },
     "workshop_invitation"
   ],

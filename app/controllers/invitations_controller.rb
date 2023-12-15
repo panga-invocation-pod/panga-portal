@@ -18,8 +18,8 @@ class InvitationsController < ApplicationController
       current_user&.person
     end
 
-    def logged_in?
-      !!current_user
+    def logged_in_but_not_invitee?
+      current_user && current_user.person != invitation.invitee
     end
   end
 
