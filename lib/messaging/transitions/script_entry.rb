@@ -1,3 +1,5 @@
+require_relative "../conditions/factory"
+
 module Messaging
   module Transitions
     class ScriptEntry
@@ -6,11 +8,12 @@ module Messaging
       def self.from_data(data)
         data = { "target" => data } if data.is_a? String
 
-        new data["target"]
+        new data["target"], Conditions::Factory.from_data(data["if"])
       end
 
-      def initialize(target_message_id)
+      def initialize(target_message_id, if_condition = nil)
         @target_message_id = target_message_id
+        @if_condition = if_condition
       end
 
       def apply_overrides(message)
@@ -22,7 +25,15 @@ module Messaging
       end
 
       def transition_for(input, command_result = nil)
-        self
+        self if valid?
+      end
+
+      private
+
+      attr_reader :if_condition
+
+      def valid?
+        if_condition.nil? || if_condition.valid?
       end
     end
   end
