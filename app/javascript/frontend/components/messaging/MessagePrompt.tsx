@@ -37,9 +37,10 @@ export default function MessagePrompt({
           text={prompt.split("\n\n")}
           onFinished={onEffectFinished}
           cursor={!effectFinished}
-          speed={20}
-          random={0}
-          delay={500}
+          speed={30}
+          random={30}
+          delay={400}
+          startDelay={300}
         />
       )}
       {effect === null && prompt}

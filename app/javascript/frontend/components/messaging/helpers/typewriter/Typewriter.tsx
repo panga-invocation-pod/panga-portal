@@ -11,6 +11,7 @@ export interface ITypewriterProps {
   speed?: number
   random?: number
   delay?: number
+  startDelay?: number
   cursor?: boolean
   onFinished?: Function
   onStart?: Function
@@ -21,6 +22,7 @@ export default function Typewriter({
   speed = DEFAULT_MS,
   random = DEFAULT_MS,
   delay = DEFAULT_MS,
+  startDelay = DEFAULT_MS,
   cursor = true,
   onFinished = () => {},
   onStart = () => {},
@@ -47,9 +49,11 @@ export default function Typewriter({
           }
         }
       },
-      speed + Math.random() * random,
+      currentStringIndex === 0 && currentTextIndex === 0 && startDelay
+        ? startDelay
+        : speed + Math.random() * random,
     )
-  })
+  }, [text, currentStringIndex, currentTextIndex])
 
   let output = text.slice(0, currentStringIndex).join("\n\n")
   if (currentStringIndex > 0) output += "\n\n"
