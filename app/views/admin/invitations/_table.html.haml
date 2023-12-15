@@ -13,6 +13,6 @@
         %td
           = link_to invitation_url(record.token), invitation_path(record.token), id: "copy-#{record.id}"
           = link_to '#', onclick: "navigator.clipboard.writeText('#{invitation_url(record.token)}'); return false;" do
-            %i.bi.bi-copy
+            (copy)
         %td
           -# = edit_link(record)

@@ -1,7 +1,16 @@
 {
-  "entry": "workshop_invitation",
+  "entry": ["workshop_invitation"],
   "exits": [],
+  "character": {
+    "slug": " yam_daisy",
+    "name": "Yam Daisy",
+    "effect": "robot"
+  },
   "messages": [
+    {
+      "id": "already_logged_in",
+      "prompt": "Hi {{current_person.short_name}}. This is the invite link for {{invitation.invitee.short_name}}. You can send them this url to get started.\n\nIf you want to see what they will see, log out first"
+    },
     {
       "id": "workshop_invitation",
       "prompt": "Hello, is this thing on? \n\nAm I addressing {{invitation.invitee.short_name}} by any chance?",

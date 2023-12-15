@@ -7,11 +7,16 @@ class InvitationsController < ApplicationController
   end
 
   class InvitationContext < Messaging::BaseContext
-    def initialize(invitation)
+    def initialize(invitation, current_user)
       @invitation = invitation
+      @current_user = current_user
     end
 
     attr_reader :invitation
+
+    def current_person
+      @current_user&.person
+    end
   end
 
   def chat
@@ -19,7 +24,7 @@ class InvitationsController < ApplicationController
 
     script = Messaging::Script.from_file script_path(:workshop_invitation)
     # context = Context.new(encoded_token: bearer_token)
-    context = InvitationContext.new(@invitation)
+    context = InvitationContext.new(@invitation, current_user)
     command_processor = Messaging::CommandProcessor.new('Users::Commands')
 
     exchange = Messaging::Exchange.new script: script, context: context

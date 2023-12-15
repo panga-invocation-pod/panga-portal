@@ -54,6 +54,23 @@ module Messaging
           expect(message.as_json(interpolator)[:prompt]).to eq('Welcome back Bob')
         end
       end
+
+      context 'with a character' do
+        let(:character) { instance_double('Character', as_json: { 'name' => 'Bob' }) }
+
+        it 'includes character data' do
+          message = load_message(:two_messages, 'new_user?')
+          expect(message.as_json(nil, { character: character })).to eq(
+            id: 'new_user?',
+            character: { 'name' => 'Bob' },
+            prompt: 'Welcome, are you new here?',
+            responder: {
+              'responder_type' => 'select_option',
+              'options' => ['yes', 'no']
+            }
+          )
+        end
+      end
     end
   end
 end

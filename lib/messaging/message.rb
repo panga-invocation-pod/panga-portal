@@ -25,18 +25,14 @@ module Messaging
       command
     end
 
-    def as_json(interpolator = nil)
-      {
+    def as_json(interpolator = nil, script_defaults = {})
+      results = {
         id: id,
         prompt: interpolator ? interpolated_prompt(interpolator) : prompt,
         responder: responder,
-        character: {
-          name: "Yam Daisy",
-          slug: "yam_daisy",
-          thumbnail: "broken",
-          effect: "robot",
-        }
       }
+      results[:character] = character(script_defaults).as_json if character(script_defaults)
+      results
     end
 
     def apply_overrides(overrides)
@@ -47,7 +43,11 @@ module Messaging
 
     private
 
-    attr_reader :command
+    attr_reader :command, :default_character
+
+    def character(script_defaults = {})
+      script_defaults[:character]
+    end
 
     def interpolated_prompt(interpolator)
       interpolator.interpolate prompt

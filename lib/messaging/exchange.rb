@@ -42,7 +42,7 @@ module Messaging
 
     def as_json
       {
-        message: response_message.as_json(interpolator),
+        message: response_message.as_json(interpolator, script_defaults),
         data: (context ? context.as_json : {})
       }
     end
@@ -51,5 +51,11 @@ module Messaging
 
     attr_reader :script, :previous_message, :response_message, :input,
                 :context, :interpolator, :command_result
+
+    def script_defaults
+      {
+        character: script.character
+      }
+    end
   end
 end

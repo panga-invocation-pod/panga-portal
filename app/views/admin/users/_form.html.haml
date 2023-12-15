@@ -2,6 +2,6 @@
   = form_errors(f)
 
   = f.input :email
-  = f.input :password
+  = f.association :person, collection: Person.all, include_blank: true
 
   = form_actions(f)
