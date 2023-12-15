@@ -1,5 +1,5 @@
 {
-  "entries": ["workshop_invitation"],
+  "entries": [{ "target": "already_logged_in" }, "workshop_invitation"],
   "exits": [],
   "character": {
     "id": " yam_daisy",

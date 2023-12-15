@@ -4,7 +4,9 @@ module Messaging
       attr_reader :target_message_id
 
       def self.from_data(data)
-        new data
+        data = { "target" => data } if data.is_a? String
+
+        new data["target"]
       end
 
       def initialize(target_message_id)
