@@ -15,9 +15,9 @@ module Messaging
         @entries = entries
       end
 
-      def transition_for(input, command_result = nil)
+      def transition_for(context: nil, input:, command_result: nil)
         entries.each do |entry|
-          transition = entry.transition_for(input, command_result)
+          transition = entry.transition_for(context: context, input: input, command_result: command_result)
           return transition if transition
         end
 

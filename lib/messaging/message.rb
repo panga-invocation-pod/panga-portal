@@ -17,8 +17,8 @@ module Messaging
     attr_reader :id, :responder, :transitions
     attr_accessor :prompt
 
-    def transition_for(input, command_result = nil)
-      transitions.transition_for(input, command_result)
+    def transition_for(context: nil, input:, command_result: nil)
+      transitions.transition_for(context: context, input: input, command_result: command_result)
     end
 
     def command_name

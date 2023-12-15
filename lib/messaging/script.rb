@@ -31,11 +31,11 @@ module Messaging
       messages.find_message id
     end
 
-    def transition_for(input:, command_result: nil, previous:)
+    def transition_for(context: nil, input:, command_result: nil, previous:)
       if previous
-        previous.transition_for(input, command_result)
+        previous.transition_for(context: context, input: input, command_result: command_result)
       else
-        entries.transition_for(input, command_result)
+        entries.transition_for(context: context, input: input, command_result: command_result)
       end
     end
 

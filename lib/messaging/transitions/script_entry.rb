@@ -24,16 +24,16 @@ module Messaging
         script.find_message target_message_id
       end
 
-      def transition_for(input, command_result = nil)
-        self if valid?
+      def transition_for(context:, input:, command_result: nil)
+        self if valid?(context: context)
       end
 
       private
 
       attr_reader :if_condition
 
-      def valid?
-        if_condition.nil? || if_condition.valid?
+      def valid?(context:)
+        if_condition.nil? || if_condition.valid?(context: context)
       end
     end
   end

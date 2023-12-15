@@ -2,7 +2,7 @@
   "entries": [
     {
       "target": "already_logged_in",
-      "if": { "combine": "and", "conditions": [] }
+      "if": { "type": "context", "condition": "logged_in?" }
     },
     "workshop_invitation"
   ],

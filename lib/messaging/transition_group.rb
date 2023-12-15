@@ -14,7 +14,7 @@ module Messaging
       end
     end
 
-    def transition_for(input, command_result = nil)
+    def transition_for(context: nil, input:, command_result: nil)
       if command_result
         transition_for_error(command_result)
       else

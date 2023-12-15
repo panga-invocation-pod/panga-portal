@@ -12,10 +12,14 @@ class InvitationsController < ApplicationController
       @current_user = current_user
     end
 
-    attr_reader :invitation
+    attr_reader :invitation, :current_user
 
     def current_person
-      @current_user&.person
+      current_user&.person
+    end
+
+    def logged_in?
+      !!current_user
     end
   end
 

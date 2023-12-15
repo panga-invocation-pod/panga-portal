@@ -15,5 +15,13 @@ module Messaging
       @id = id
       @name = name
     end
+
+    def as_json
+      {
+        id: id,
+        name: name,
+        effect: "robot"
+      }
+    end
   end
 end
