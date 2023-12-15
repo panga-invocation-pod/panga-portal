@@ -1,6 +1,7 @@
 require 'json'
 require_relative 'message_group'
 require_relative 'transitions/script_entry'
+require_relative 'character'
 
 module Messaging
   class Script
@@ -12,16 +13,18 @@ module Messaging
       new(
         data['entry'],
         data['exits'],
-        MessageGroup.from_data(data['messages'])
+        MessageGroup.from_data(data['messages']),
+        Character.from_data(data['character'])
       )
     end
 
-    attr_reader :entry, :exits
+    attr_reader :entry, :exits, :character
 
-    def initialize(entry, exits, messages)
+    def initialize(entry, exits, messages, character = nil)
       @entry = entry
       @exits = exits
       @messages = messages
+      @character = character
     end
 
     def find_message(id)

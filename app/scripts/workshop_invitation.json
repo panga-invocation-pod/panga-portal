@@ -1,8 +1,8 @@
 {
-  "entry": ["workshop_invitation"],
+  "entry": "workshop_invitation",
   "exits": [],
   "character": {
-    "slug": " yam_daisy",
+    "id": " yam_daisy",
     "name": "Yam Daisy",
     "effect": "robot"
   },

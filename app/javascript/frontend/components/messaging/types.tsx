@@ -39,8 +39,8 @@ export interface IPostReply {
 export type Effect = "robot" | null
 
 export interface ICharacter {
+  id: string
   name: string
-  slug: string
   thumbnail: string
   effect: Effect
 }
