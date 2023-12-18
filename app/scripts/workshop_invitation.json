@@ -23,7 +23,14 @@
     },
     {
       "id": "logged_in_as_invitee",
-      "prompt": "Hi {{current_person.short_name}}, welcome back."
+      "prompt": "Hi {{current_person.short_name}}, welcome back.\n\nWhat were we discussing?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Something about a workshop"]
+      },
+      "transitions": {
+        "Something about a workshop": "explain_workshop"
+      }
     },
     {
       "id": "workshop_invitation",
@@ -66,6 +73,33 @@
         "Nice to meet you too": "invitee_identified",
         "ERROR:already_logged_in": "already_logged_in"
       }
+    },
+    {
+      "id": "explain_workshop",
+      "prompt": "My friend {{invitation.inviter.short_name}} asked me to invite you to a workshop about Panga.\n\nThe purpose of the workshop is to give everyone a basic overview of what Panga is, so that you humans can have fun discussing collective approaches to housing together.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Panga??", "Why me?"]
+      },
+      "transitions": {
+        "Panga??": "explain_panga",
+        "Why me?": "why_me"
+      }
+    },
+    {
+      "id": "explain_panga",
+      "prompt": "Panga is a project to support experimental approaches to housing that collectively meet our daily needs of food, care, shelter, energy, transport, and safety.\n\nIt's very exciting for me to watch this happen, because I've come back from the bush specifically to see how humans are doing now they're moving past late-stage capitalism.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          "I'm not sure we are moving past last-stage capitalism",
+          "Sounds great, but why me?"
+        ]
+      }
+    },
+    {
+      "id": "why_me",
+      "prompt": "You've been invited because you're a friend of {{invitation.inviter.short_name}} and they think you'd be a good fit for the project.\n\nIf you're interested, you can sign up for the workshop here."
     }
   ]
 }
