@@ -6,30 +6,13 @@ class InvitationsController < ApplicationController
     @workshop_sessions = @invitation.applicable_workshop_sessions(limit: 6)
   end
 
-  class InvitationContext < Messaging::BaseContext
-    def initialize(invitation, current_user)
-      @invitation = invitation
-      @current_user = current_user
-    end
-
-    attr_reader :invitation, :current_user
-
-    def current_person
-      current_user&.person
-    end
-
-    def logged_in_but_not_invitee?
-      current_user && current_user.person != invitation.invitee
-    end
-  end
-
   def chat
     @invitation = Invitation.find_by!(token: params[:token])
 
     script = Messaging::Script.from_file script_path(:workshop_invitation)
     # context = Context.new(encoded_token: bearer_token)
-    context = InvitationContext.new(@invitation, current_user)
-    command_processor = Messaging::CommandProcessor.new('Users::Commands')
+    context = Contexts::InvitationContext.new(@invitation, current_user)
+    command_processor = Messaging::CommandProcessor.new('Commands')
 
     exchange = Messaging::Exchange.new script: script, context: context
     exchange.user_input to: reply[:to], input: reply[:input] if reply

@@ -8,11 +8,12 @@ import FadeIn from "react-fade-in"
 interface MessageProps {
   message: IMessage
   respond: Respond
+  mode: null | "fast"
 }
 
 type MessageStage = "start" | "prompt" | "respond"
 
-export default function Message({ message, respond }: MessageProps) {
+export default function Message({ message, respond, mode }: MessageProps) {
   const [stage, setStage] = useState<MessageStage>("start")
   const [stateMessage, setMessage] = useState<IMessage>(message)
 
@@ -34,7 +35,7 @@ export default function Message({ message, respond }: MessageProps) {
         )}
         <MessagePrompt
           prompt={stateMessage.prompt}
-          effect={message?.character?.effect || null}
+          effect={(mode != "fast" && message?.character?.effect) || null}
           key={stateMessage.id}
           onFinished={() => setStage("respond")}
         />

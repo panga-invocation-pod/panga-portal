@@ -7,13 +7,15 @@ import {
   ICharacter,
 } from "../components/messaging/types"
 import ChatClient from "../api/chat_client"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import "../stylesheets/chat.scss"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
 export default function Invitation() {
   let { token } = useParams()
+  const { hash } = useLocation()
+
   const image = null
 
   if (!token) {
@@ -48,7 +50,11 @@ export default function Invitation() {
 
   return (
     <div className="chat-container">
-      <Message message={message} respond={respond} />
+      <Message
+        message={message}
+        respond={respond}
+        mode={hash == "#fast" ? "fast" : null}
+      />
     </div>
   )
 }
