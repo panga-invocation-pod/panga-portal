@@ -11,9 +11,13 @@ module Commands
     # validates :password, presence: true
 
     def call(input, context)
-      invitation = context.invitation
+      invitee = context.invitation&.invitee
 
-      return Messaging::CommandResults::Failure.new("brownfox") if invitation.nil?
+      raise ArgumentError, "no invitee" if invitee.nil?
+
+      if context.current_user && context.current_user != invitee.user
+        return Messaging::CommandResults::Failure.new("already_logged_in")
+      end
 
 
       # self.email = input['email']

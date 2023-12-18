@@ -31,20 +31,22 @@ module Messaging
       let(:script) { load_script(:with_command) }
       let(:processor) { TestCommandProcessor.new }
 
-      it 'sends commands to command processor' do
-        subject.user_input to: 'with_command', input: { 'text' => 'I do not know' }
-        subject.process_commands processor
+      describe "with a command" do
+        it 'sends commands to command processor' do
+          subject.user_input to: 'with_command', input: { 'text' => 'I do not know' }
+          subject.process_commands processor
 
-        expect(processor.received_commands).to eq([['have_existential_crisis', {'text' => 'I do not know'}]])
-      end
+          expect(processor.received_commands).to eq([['have_existential_crisis', {'text' => 'I do not know'}]])
+        end
 
-      it 'makes the command result available for transitions' do
-        subject.user_input to: 'with_command', input: { 'text' => 'I do not know' }
-        processor.fail_with 'foobar'
+        it 'makes the command result available for transitions' do
+          subject.user_input to: 'with_command', input: { 'text' => 'I do not know' }
+          processor.fail_with 'foobar'
 
-        subject.process_commands processor
+          subject.process_commands processor
 
-        expect(subject.determine_response.id).to eq('foobar')
+          expect(subject.determine_response.id).to eq('foobar')
+        end
       end
     end
   end

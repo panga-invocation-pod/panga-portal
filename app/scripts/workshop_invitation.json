@@ -47,10 +47,16 @@
     {
       "id": "invitee_identified",
       "prompt": "Nice to meet you {{invitation.invitee.short_name}}. I'm Yam Daisy, or Murnong in the language of the Woiwurring people.",
-      "command": "log_in_invitee",
+      "command": {
+        "name": "log_in_invitee"
+      },
       "responder": {
         "responder_type": "select_option",
         "options": ["Nice to meet you too"]
+      },
+      "transitions": {
+        "Nice to meet you too": "invitee_identified",
+        "ERROR:already_logged_in": "already_logged_in"
       }
     }
   ]
