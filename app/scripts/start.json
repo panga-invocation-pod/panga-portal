@@ -28,7 +28,7 @@
           { "name": "cancel", "button_type": "cancel" }
         ]
       },
-      "command": "log_in",
+      "command": { "name": "log_in" },
       "transitions": {
         "DEFAULT": "signed_up",
         "ERROR:user_not_found": {

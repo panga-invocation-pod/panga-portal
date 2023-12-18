@@ -1,4 +1,4 @@
-require 'messaging/validation_failure'
+require 'messaging/command_results/failure'
 
 module Commands
   class LogInInvitee
@@ -13,9 +13,9 @@ module Commands
     def call(input, context)
       invitation = context.invitation
 
-      return Messaging::ValidationFailure.new if invitation.nil?
+      return Messaging::CommandResults::Failure.new("brownfox") if invitation.nil?
 
-      raise "not implemented"
+
       # self.email = input['email']
       # self.password = input['password']
 

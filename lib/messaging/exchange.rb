@@ -35,8 +35,8 @@ module Messaging
     def process_commands(command_processor)
       return unless previous_message
 
-      if previous_message.command_name
-        @command_result = command_processor.process_command_named previous_message.command_name, input, context
+      if previous_message.command
+        @command_result = command_processor.process_command_named previous_message.command.name, input, context
       end
     end
 

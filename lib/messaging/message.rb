@@ -1,4 +1,5 @@
 require_relative 'transition_group'
+require_relative 'command'
 
 module Messaging
   class Message
@@ -11,18 +12,14 @@ module Messaging
       @prompt = data['prompt']
       @responder = data['responder']
       @transitions = TransitionGroup.from_data(data['transitions'])
-      @command = data['command']
+      @command = ::Messaging::Command.from_data(data['command'])
     end
 
-    attr_reader :id, :responder, :transitions
+    attr_reader :id, :responder, :transitions, :command
     attr_accessor :prompt
 
     def transition_for(context: nil, input:, command_result: nil)
       transitions.transition_for(context: context, input: input, command_result: command_result)
-    end
-
-    def command_name
-      command
     end
 
     def as_json(interpolator = nil, script_defaults = {})
@@ -43,7 +40,7 @@ module Messaging
 
     private
 
-    attr_reader :command, :default_character
+    attr_reader :default_character
 
     def character(script_defaults = {})
       script_defaults[:character]

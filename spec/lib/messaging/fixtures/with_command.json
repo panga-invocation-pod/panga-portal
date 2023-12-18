@@ -12,7 +12,7 @@
         "DEFAULT": "FINISHED?",
         "ERROR:foobar": "foobar"
       },
-      "command": "have_existential_crisis"
+      "command": { "name": "have_existential_crisis" }
     },
     {
       "id": "foobar"
