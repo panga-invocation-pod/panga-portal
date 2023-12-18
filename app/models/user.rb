@@ -10,4 +10,11 @@ class User < ApplicationRecord
   def short_name
     email.split('@').first
   end
+
+  private
+
+
+  def email_required?
+    !email.nil?
+  end
 end

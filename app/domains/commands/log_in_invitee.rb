@@ -19,6 +19,10 @@ module Commands
         return Messaging::CommandResults::Failure.new("already_logged_in")
       end
 
+      if invitee.user.nil?
+        invitee.create_user!(email: nil)
+      end
+
 
       # self.email = input['email']
       # self.password = input['password']
