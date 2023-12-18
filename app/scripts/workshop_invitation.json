@@ -95,11 +95,26 @@
           "I'm not sure we are moving past last-stage capitalism",
           "Sounds great, but why me?"
         ]
+      },
+      "transitions": {
+        "I'm not sure we are moving past last-stage capitalism": "not_past_capitalism",
+        "Sounds great, but why me?": "why_me"
+      }
+    },
+    {
+      "id": "not_past_capitalism",
+      "prompt": "That's very fair. I come from a future where humans have made it past capitalism. I'm here to give a bit of a cozy, hope-punk vibe to the conversation, but that isn't intended to gloss over the fact that things in your world are pretty dire right now.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Ok, tell me why I'm invited"]
+      },
+      "transitions": {
+        "Ok, tell me why I'm invited": "why_me"
       }
     },
     {
       "id": "why_me",
-      "prompt": "You've been invited because you're a friend of {{invitation.inviter.short_name}} and they think you'd be a good fit for the project.\n\nIf you're interested, you can sign up for the workshop here."
+      "prompt": "Panga is in it's early stages, growing slowly at the speed of trust.\n\n {{invitation.inviter.short_name}} specifically asked me to invite you because of your interest in this area.\n\nHang-on, I have a personal message from them here somewhere..."
     }
   ]
 }
