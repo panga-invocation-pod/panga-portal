@@ -1,8 +1,12 @@
 {
   "entries": [
     {
-      "target": "already_logged_in",
+      "target": "logged_in_but_not_invitee",
       "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
+    },
+    {
+      "target": "logged_in_as_invitee",
+      "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
     "workshop_invitation"
   ],
@@ -14,8 +18,12 @@
   },
   "messages": [
     {
-      "id": "already_logged_in",
+      "id": "logged_in_but_not_invitee",
       "prompt": "Hi {{current_person.short_name}}. This is the invite link for {{invitation.invitee.short_name}}. You can send them this url to get started.\n\nIf you want to see what they will see, log out first"
+    },
+    {
+      "id": "logged_in_as_invitee",
+      "prompt": "Hi {{current_person.short_name}}, welcome back."
     },
     {
       "id": "workshop_invitation",

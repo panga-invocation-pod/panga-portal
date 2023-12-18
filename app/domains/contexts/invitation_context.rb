@@ -18,6 +18,10 @@ module Contexts
       current_user && current_user.person != invitation.invitee
     end
 
+    def logged_in_as_invitee?
+      current_user && current_user.person == invitation.invitee
+    end
+
     def sign_in(user)
       raise RuntimeError, "controller must be supplied to sign in a user" unless controller
       controller.sign_in user
