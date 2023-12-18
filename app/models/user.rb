@@ -8,7 +8,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def short_name
-    email.split('@').first
+    return person.short_name if person
+    email.present? ? email.split('@').first : "Unnamed"
   end
 
   private

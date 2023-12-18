@@ -11,7 +11,7 @@ class InvitationsController < ApplicationController
 
     script = Messaging::Script.from_file script_path(:workshop_invitation)
     # context = Context.new(encoded_token: bearer_token)
-    context = Contexts::InvitationContext.new(@invitation, current_user)
+    context = Contexts::InvitationContext.new(@invitation, current_user, controller: self)
     command_processor = Messaging::CommandProcessor.new('Commands')
 
     exchange = Messaging::Exchange.new script: script, context: context
