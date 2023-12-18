@@ -13,6 +13,9 @@ class User < ApplicationRecord
 
   private
 
+  def password_required?
+    email_required? && (!persisted? || !password.nil? || !password_confirmation.nil?)
+  end
 
   def email_required?
     !email.nil?

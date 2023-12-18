@@ -23,6 +23,7 @@ module Commands
         invitee.create_user!(email: nil)
       end
 
+      return nil
 
       # self.email = input['email']
       # self.password = input['password']
