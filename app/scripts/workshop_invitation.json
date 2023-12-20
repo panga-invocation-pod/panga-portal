@@ -70,7 +70,7 @@
         "options": ["Nice to meet you too"]
       },
       "transitions": {
-        "Nice to meet you too": "invitee_identified",
+        "Nice to meet you too": "explain_workshop",
         "ERROR:already_logged_in": "already_logged_in"
       }
     },
@@ -103,7 +103,7 @@
     },
     {
       "id": "not_past_capitalism",
-      "prompt": "That's very fair. I come from a future where humans have made it past capitalism. I'm here to give a bit of a cozy, hope-punk vibe to the conversation, but that isn't intended to gloss over the fact that things in your world are pretty dire right now.",
+      "prompt": "That's very fair. I come from a future where humans have made it past capitalism, and have started repairing the climate and ecological crisis. I'm here to give a bit of a cozy, hope-punk vibe to the conversation, but that isn't intended to gloss over the fact that things in your world are pretty dire right now.",
       "responder": {
         "responder_type": "select_option",
         "options": ["Ok, tell me why I'm invited"]
@@ -114,7 +114,19 @@
     },
     {
       "id": "why_me",
-      "prompt": "Panga is in it's early stages, growing slowly at the speed of trust.\n\n {{invitation.inviter.short_name}} specifically asked me to invite you because of your interest in this area.\n\nHang-on, I have a personal message from them here somewhere..."
+      "prompt": "Panga is in it's early stages, growing slowly at the speed of trust.\n\n {{invitation.inviter.short_name}} specifically asked me to invite you because of your interest in collective practices.\n\nHang-on, I have a personal message from them here somewhere...",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Hit me", "Could we speed this up?"]
+      },
+      "transitions": {
+        "Hit me": "hit_me",
+        "Could we speed this up?": "hit_me"
+      }
+    },
+    {
+      "id": "hit_me",
+      "prompt": "Here it is:\n\n(put the message here)"
     }
   ]
 }
