@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react"
 import Typewriter from "./helpers/typewriter/Typewriter"
 import { Effect, IPrompt } from "./types"
 
-interface MessagePrompt {
-  promptText: string
+interface PromptTextProps {
+  text: string
   effect: Effect
   onFinished: () => void
 }
 
-export default function MessagePrompt({
-  promptText,
+export default function PromptText({
+  text,
   effect,
   onFinished,
-}: MessagePrompt) {
+}: PromptTextProps) {
   const [effectFinished, setEffectFinished] = useState(false)
 
   const onEffectFinished = () => {
@@ -34,7 +34,7 @@ export default function MessagePrompt({
     <div className="prompt">
       {effect === "robot" && (
         <Typewriter
-          text={promptText.split("\n\n")}
+          text={text.split("\n\n")}
           onFinished={onEffectFinished}
           cursor={!effectFinished}
           speed={30}
@@ -43,7 +43,7 @@ export default function MessagePrompt({
           startDelay={300}
         />
       )}
-      {effect === null && promptText}
+      {effect === null && text}
     </div>
   )
 }

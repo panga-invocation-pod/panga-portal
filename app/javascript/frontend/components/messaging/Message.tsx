@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react"
 import { IMessage, Respond } from "./types"
 import Responder from "./Responder"
 import CharacterThumbnail from "../characters/CharacterThumbnail"
-import MessagePrompt from "./MessagePrompt"
+import PromptText from "./PromptText"
 import FadeIn from "react-fade-in"
+import MessageItem from "./MessageItem"
 
 interface MessageProps {
   message: IMessage
@@ -29,17 +30,14 @@ export default function Message({ message, respond, mode }: MessageProps) {
 
   return (
     <div className="message">
-      <div className="message-item">
-        {message.prompt.character && (
-          <CharacterThumbnail character={message.prompt.character} />
-        )}
-        <MessagePrompt
-          promptText={stateMessage.prompt.text}
-          effect={(mode != "fast" && message.prompt.character?.effect) || null}
+      {stateMessage && (
+        <MessageItem
+          prompt={stateMessage.prompt}
+          mode={mode}
           key={stateMessage.id}
           onFinished={() => setStage("respond")}
         />
-      </div>
+      )}
 
       {stateMessage.responder && stage == "respond" && (
         <FadeIn>
