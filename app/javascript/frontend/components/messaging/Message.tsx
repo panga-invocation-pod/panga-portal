@@ -30,12 +30,12 @@ export default function Message({ message, respond, mode }: MessageProps) {
   return (
     <div className="message">
       <div className="message-item">
-        {message.character && (
-          <CharacterThumbnail character={message.character} />
+        {message.prompt.character && (
+          <CharacterThumbnail character={message.prompt.character} />
         )}
         <MessagePrompt
-          prompt={stateMessage.prompt}
-          effect={(mode != "fast" && message?.character?.effect) || null}
+          promptText={stateMessage.prompt.text}
+          effect={(mode != "fast" && message.prompt.character?.effect) || null}
           key={stateMessage.id}
           onFinished={() => setStage("respond")}
         />

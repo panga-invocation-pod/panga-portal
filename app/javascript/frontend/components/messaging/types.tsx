@@ -9,11 +9,15 @@ export interface ITextResponder {
 
 export type IResponder = ISelectOptionResponder | ITextResponder
 
+export interface IPrompt {
+  text: string
+  character: ICharacter | null
+}
+
 export interface IMessage {
   id: string
-  prompt: string
+  prompt: IPrompt
   responder: IResponder | null
-  character: ICharacter | null
 }
 
 export interface IChatStatus {

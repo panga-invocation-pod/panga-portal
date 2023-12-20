@@ -1,5 +1,6 @@
 require_relative 'transition_group'
 require_relative 'command'
+require_relative 'prompt'
 
 module Messaging
   class Message
@@ -9,7 +10,7 @@ module Messaging
 
     def initialize(data)
       @id = data['id']
-      @prompt = data['prompt']
+      @prompt = Prompt.from_data(data['prompt'])
       @responder = data['responder']
       @transitions = TransitionGroup.from_data(data['transitions'])
       @command = ::Messaging::Command.from_data(data['command'])
@@ -25,10 +26,9 @@ module Messaging
     def as_json(interpolator = nil, script_defaults = {})
       results = {
         id: id,
-        prompt: interpolator ? interpolated_prompt(interpolator) : prompt,
+        prompt: prompt.as_json(interpolator, script_defaults),
         responder: responder,
       }
-      results[:character] = character(script_defaults).as_json if character(script_defaults)
       results
     end
 
@@ -38,16 +38,8 @@ module Messaging
       end
     end
 
-    private
-
-    attr_reader :default_character
-
-    def character(script_defaults = {})
-      script_defaults[:character]
-    end
-
-    def interpolated_prompt(interpolator)
-      interpolator.interpolate prompt
+    def prompt_text
+      prompt.text
     end
   end
 end

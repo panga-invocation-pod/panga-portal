@@ -14,7 +14,7 @@ module Messaging
           message = subject.find_message 'whats_your_name?'
 
           expect(message).to_not be_nil
-          expect(message.prompt).to eq('How exciting, and what should I call you?')
+          expect(message.prompt_text).to eq('How exciting, and what should I call you?')
         end
       end
     end
@@ -35,7 +35,7 @@ module Messaging
         message = subject.message_for_transition Transitions::ToMessage.new('whats_your_name?')
 
         expect(message).to_not be_nil
-        expect(message.prompt).to eq('How exciting, and what should I call you?')
+        expect(message.prompt_text).to eq('How exciting, and what should I call you?')
       end
     end
   end

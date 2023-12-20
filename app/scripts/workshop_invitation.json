@@ -117,16 +117,26 @@
       "prompt": "Panga is in it's early stages, growing slowly at the speed of trust.\n\n {{invitation.inviter.short_name}} specifically asked me to invite you because of your interest in collective practices.\n\nHang-on, I have a personal message from them here somewhere...",
       "responder": {
         "responder_type": "select_option",
-        "options": ["Hit me", "Could we speed this up?"]
+        "options": [
+          "Oh, what did they say?",
+          "Let's just jump to the workshop details"
+        ]
       },
       "transitions": {
-        "Hit me": "hit_me",
-        "Could we speed this up?": "hit_me"
+        "Oh, what did they say?": "personal_message",
+        "Let's just jump to the workshop details": "workshop_details"
       }
     },
     {
-      "id": "hit_me",
-      "prompt": "Here it is:\n\n(put the message here)"
+      "id": "personal_message",
+      "prompt": [
+        "I know I put it in one of these memory banks...",
+        "Some dummy message"
+      ]
+    },
+    {
+      "id": "workshop_details",
+      "prompt": "The workshop will be held on ..."
     }
   ]
 }

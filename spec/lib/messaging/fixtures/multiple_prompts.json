@@ -1,0 +1,9 @@
+{
+  "entries": ["two_string_prompts"],
+  "messages": [
+    {
+      "id": "two_string_prompts",
+      "prompt": ["first string", "second string"]
+    }
+  ]
+}
