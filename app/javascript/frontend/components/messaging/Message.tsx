@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { IMessage, Respond } from "./types"
 import Responder from "./Responder"
-import CharacterThumbnail from "../characters/CharacterThumbnail"
-import PromptText from "./PromptText"
 import FadeIn from "react-fade-in"
-import MessageItem from "./MessageItem"
+import MessageItems from "./MessageItems"
 
 interface MessageProps {
   message: IMessage
@@ -31,7 +29,7 @@ export default function Message({ message, respond, mode }: MessageProps) {
   return (
     <div className="message">
       {stateMessage && (
-        <MessageItem
+        <MessageItems
           prompt={stateMessage.prompt}
           mode={mode}
           key={stateMessage.id}

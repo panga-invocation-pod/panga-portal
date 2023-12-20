@@ -16,7 +16,7 @@ export interface IPrompt {
 
 export interface IMessage {
   id: string
-  prompt: IPrompt
+  prompt: IPrompt | Array<IPrompt>
   responder: IResponder | null
 }
 
