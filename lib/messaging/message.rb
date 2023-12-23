@@ -41,5 +41,9 @@ module Messaging
     def prompt_text
       prompt.text
     end
+
+    def command_for_stage(stage)
+      command && command.for_stage?(stage) ? command : nil
+    end
   end
 end

@@ -16,6 +16,28 @@
     },
     {
       "id": "foobar"
+    },
+    {
+      "id": "with_response_command",
+      "prompt": "Execute a command when you get my response",
+      "responder": {
+        "responder_type": "text"
+      },
+      "command": {
+        "name": "do_command",
+        "stage": "response"
+      }
+    },
+    {
+      "id": "with_request_command",
+      "prompt": "Execute a command before sending this message",
+      "responder": {
+        "responder_type": "text"
+      },
+      "command": {
+        "name": "do_command",
+        "stage": "request"
+      }
     }
   ]
 }

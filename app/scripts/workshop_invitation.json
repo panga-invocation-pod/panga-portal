@@ -161,7 +161,11 @@
     },
     {
       "id": "workshop_details",
-      "prompt": "The workshop will be held on ..."
+      "prompt": "The workshop will be held on ...",
+      "command": {
+        "name": "log_in_invitee",
+        "on": "request"
+      }
     }
   ]
 }
