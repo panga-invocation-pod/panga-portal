@@ -4,7 +4,8 @@ module Commands
       invitation = context.invitation
       raise ArgumentError unless invitation
 
-      raise NotImplementedError, "not implemented yet, got input #{input.inspect} and invitation #{invitation.inspect}"
+      invitation.send(input.to_sym)
+      invitation.save!
     end
   end
 end

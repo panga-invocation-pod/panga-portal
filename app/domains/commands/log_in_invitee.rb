@@ -3,7 +3,10 @@ require 'messaging/command_results/failure'
 module Commands
   class LogInInvitee
     def call(input, context)
-      invitee = context.invitation&.invitee
+      invitation = context.invitation
+      raise ArgumentError, "no invitation" if invitation.nil?
+
+      invitee = invitation&.invitee
 
       raise ArgumentError, "no invitee" if invitee.nil?
 
@@ -15,7 +18,7 @@ module Commands
         invitee.create_user!(email: nil)
       end
 
-      context.invitation.confirm_identity!
+      invitation.confirm_identity! if invitation.may_confirm_identity?
 
       context.sign_in invitee.user
       return nil

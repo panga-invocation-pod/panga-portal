@@ -18,7 +18,7 @@ class Invitation < ApplicationRecord
     end
 
     event :workshop_explained do
-      transitions from: :confirm_identity, to: :considering_availability
+      transitions from: :confirmed_identity, to: :considering_availability
     end
   end
 
