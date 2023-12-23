@@ -3,7 +3,7 @@ require_relative 'interpolator'
 
 module Messaging
   class Exchange
-    def initialize(script:, context: nil)
+    def initialize(script:, context: nil, command_processor: nil)
       @script = script
       @context = context
       @interpolator = Interpolator.new(context)
@@ -11,6 +11,7 @@ module Messaging
       @input = nil
       @response_message = nil
       @command_result = nil
+      @command_processor = command_processor
     end
 
     def user_input(to:, input:)
@@ -25,6 +26,7 @@ module Messaging
         @response_message = target.get_message script
         raise "no message found to transition to with #{target.inspect}" unless @response_message
 
+        #target.run_request_command command_processor
         target.apply_overrides @response_message
       else
         raise "no transition found for #{command_result ? command_result.error_name : input}"
@@ -32,7 +34,7 @@ module Messaging
       @response_message
     end
 
-    def process_response_commands(command_processor)
+    def process_response_commands
       return unless previous_message
 
       command = previous_message.command_for_stage("response")
@@ -52,7 +54,7 @@ module Messaging
     private
 
     attr_reader :script, :previous_message, :response_message, :input,
-                :context, :interpolator, :command_result
+                :context, :interpolator, :command_result, :command_processor
 
     def script_defaults
       {
