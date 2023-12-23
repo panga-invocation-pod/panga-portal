@@ -27,22 +27,12 @@ module Messaging
         @response_message = target.get_message script
         raise "no message found to transition to with #{target.inspect}" unless @response_message
 
-        #target.run_request_command command_processor
+        process_request_commands(@response_message)
         target.apply_overrides @response_message
       else
         raise "no transition found for #{command_result ? command_result.error_name : input}"
       end
       @response_message
-    end
-
-    def process_response_commands
-      return unless previous_message
-
-      command = previous_message.command_for_stage("response")
-
-      if command
-        @command_result = command_processor.process_command_named command.name, input, context
-      end
     end
 
     def as_json
@@ -61,6 +51,24 @@ module Messaging
       {
         character: script.character
       }
+    end
+
+    def process_response_commands
+      return unless previous_message
+
+      command = previous_message.command_for_stage("response")
+
+      if command
+        @command_result = command_processor.process_command_named command.name, input, context
+      end
+    end
+
+    def process_request_commands(message)
+      command = message.command_for_stage("request")
+
+      if command
+        @command_result = command_processor.process_command_named command.name, command.input, context
+      end
     end
   end
 end

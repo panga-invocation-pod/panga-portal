@@ -58,6 +58,20 @@ module Messaging
 
           expect(processor.received_commands).to eq([])
         end
+
+        it "does execute the command if there's a response requested" do
+          subject.user_input to: 'to_request_command', input: {}
+          expect(subject.determine_response.id).to eq('with_request_command')
+
+          expect(processor.received_commands).to eq([['do_command', nil]])
+        end
+
+        it "can pass through a specified input value" do
+          subject.user_input to: 'to_request_command_with_input', input: {}
+          expect(subject.determine_response.id).to eq('with_request_command_with_input')
+
+          expect(processor.received_commands).to eq([['do_command', "some_input"]])
+        end
       end
     end
   end

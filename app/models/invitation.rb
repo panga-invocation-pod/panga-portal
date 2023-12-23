@@ -16,6 +16,10 @@ class Invitation < ApplicationRecord
     event :confirm_identity do
       transitions from: :new, to: :confirmed_identity
     end
+
+    event :workshop_explained do
+      transitions from: :confirm_identity, to: :considering_availability
+    end
   end
 
   def applicable_workshop_sessions(limit:)

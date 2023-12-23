@@ -163,8 +163,9 @@
       "id": "workshop_details",
       "prompt": "The workshop will be held on ...",
       "command": {
-        "name": "log_in_invitee",
-        "on": "request"
+        "name": "invitation_event",
+        "input": "workshop_explained",
+        "stage": "request"
       }
     }
   ]
