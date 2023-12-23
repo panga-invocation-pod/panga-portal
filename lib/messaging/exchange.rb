@@ -32,7 +32,7 @@ module Messaging
       @response_message
     end
 
-    def process_commands(command_processor)
+    def process_response_commands(command_processor)
       return unless previous_message
 
       command = previous_message.command_for_stage("response")
