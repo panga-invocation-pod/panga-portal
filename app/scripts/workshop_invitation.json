@@ -154,7 +154,8 @@
       "prompt": [
         "I know I put it in one of these memory banks...",
         {
-          "text": "{{invitation.message}}"
+          "text": "{{invitation.message}}",
+          "character": ""
         }
       ]
     },
