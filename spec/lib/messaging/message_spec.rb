@@ -74,9 +74,28 @@ module Messaging
         end
       end
 
+      context "with an object prompt" do
+        it "finds the string prompt at the key text" do
+          message = load_message(:prompt_variants, 'object_prompt')
+          expect(message.as_json(nil)[:prompt]).to eq(
+            { text: "string prompt" }
+          )
+        end
+      end
+
       context "with a list of prompts" do
         it "returns two string prompts" do
-          message = load_message(:multiple_prompts, 'two_string_prompts')
+          message = load_message(:prompt_variants, 'two_string_prompts')
+          expect(message.as_json(nil)[:prompt]).to eq(
+            [
+              { text: "first string" },
+              { text: "second string" }
+            ]
+          )
+        end
+
+        it "finds the string prompt at the key text with two messages" do
+          message = load_message(:prompt_variants, 'two_object_prompts')
           expect(message.as_json(nil)[:prompt]).to eq(
             [
               { text: "first string" },

@@ -8,7 +8,9 @@ module Messaging
         return PromptGroup.new(data.map { |datum| self.from_data(datum) })
       end
 
-      new(data)
+      input = data.is_a?(String) ? { "text" => data } : data
+
+      new(input['text'])
     end
 
     def initialize(text)

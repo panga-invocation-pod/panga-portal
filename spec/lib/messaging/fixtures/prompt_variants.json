@@ -1,0 +1,26 @@
+{
+  "entries": ["two_string_prompts"],
+  "messages": [
+    {
+      "id": "two_string_prompts",
+      "prompt": ["first string", "second string"]
+    },
+    {
+      "id": "object_prompt",
+      "prompt": {
+        "text": "string prompt"
+      }
+    },
+    {
+      "id": "two_object_prompts",
+      "prompt": [
+        {
+          "text": "first string"
+        },
+        {
+          "text": "second string"
+        }
+      ]
+    }
+  ]
+}
