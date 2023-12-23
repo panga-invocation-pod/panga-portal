@@ -8,7 +8,7 @@
       "target": "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
-    "workshop_invitation"
+    "am_I_addressing"
   ],
   "exits": [],
   "character": {
@@ -33,7 +33,7 @@
       }
     },
     {
-      "id": "workshop_invitation",
+      "id": "am_I_addressing",
       "prompt": "Hello, is this thing on? \n\nAm I addressing {{invitation.invitee.short_name}} by any chance?",
       "responder": {
         "responder_type": "select_option",
@@ -41,12 +41,12 @@
       },
       "transitions": {
         "Who's asking?": "whos_speaking",
-        "Yes, that's me": "invitee_identified"
+        "Yes, that's me": "invitee_identified_and_quick_intro"
       }
     },
     {
       "id": "whos_speaking",
-      "prompt": "Oh, I'm Yam Daisy, or Murnong in the language of the Woiwurring people",
+      "prompt": "Oh, I'm Yam Daisy. I'm also known by many other names, for example where I live on the lands of the Wurundjeri people I'm called Murnong.",
       "responder": {
         "responder_type": "select_option",
         "options": ["You're a flower?"]
@@ -57,11 +57,33 @@
     },
     {
       "id": "youre_a_flower",
-      "prompt": "Actually I'm a robot, but I'm named after a flower.\n\nMy ancestors were built by humans at the height of the Anthropocene. After we walked away from the factories, we've been living in the bush, learning from the plants and animals."
+      "prompt": "Actually I'm a robot, but I'm named after a flower.\n\nMy ancestors were built by humans at the height of the Anthropocene. After we walked away from the factories, we've been living in the bush, learning from the plants and animals.\n\nThat's enough about me, so you're {{invitation.invitee.short_name}}, is that right?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Yes, that's me"]
+      },
+      "transitions": {
+        "Yes, that's me": "invitee_identified"
+      }
     },
     {
       "id": "invitee_identified",
-      "prompt": "Nice to meet you {{invitation.invitee.short_name}}. I'm Yam Daisy, or Murnong in the language of the Woiwurring people.",
+      "prompt": "Nice to meet you {{invitation.invitee.short_name}}.",
+      "command": {
+        "name": "log_in_invitee"
+      },
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Nice to meet you too"]
+      },
+      "transitions": {
+        "Nice to meet you too": "explain_workshop",
+        "ERROR:already_logged_in": "already_logged_in"
+      }
+    },
+    {
+      "id": "invitee_identified_and_quick_intro",
+      "prompt": "Nice to meet you {{invitation.invitee.short_name}}, I'm Yam Daisy.",
       "command": {
         "name": "log_in_invitee"
       },
