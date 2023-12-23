@@ -12,6 +12,10 @@ class Invitation < ApplicationRecord
     state :new, initial: true
     state :confirmed_identity
     state :considering_availability
+
+    event :confirm_identity do
+      transitions from: :new, to: :confirmed_identity
+    end
   end
 
   def applicable_workshop_sessions(limit:)

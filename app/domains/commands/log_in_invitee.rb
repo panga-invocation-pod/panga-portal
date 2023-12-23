@@ -15,6 +15,8 @@ module Commands
         invitee.create_user!(email: nil)
       end
 
+      context.invitation.confirm_identity!
+
       context.sign_in invitee.user
       return nil
     end
