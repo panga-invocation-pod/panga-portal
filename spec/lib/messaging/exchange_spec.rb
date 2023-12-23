@@ -34,23 +34,19 @@ module Messaging
       describe "with a response command" do
         it "can explicitly specify command stage" do
           subject.user_input to: 'with_response_command', input: { 'text' => 'response text' }
-          subject.process_response_commands
 
           expect(processor.received_commands).to eq([['do_command', {'text' => 'response text'}]])
         end
 
         it 'sends commands to command processor' do
           subject.user_input to: 'with_command', input: { 'text' => 'I do not know' }
-          subject.process_response_commands
 
           expect(processor.received_commands).to eq([['have_existential_crisis', {'text' => 'I do not know'}]])
         end
 
         it 'makes the command result available for transitions' do
-          subject.user_input to: 'with_command', input: { 'text' => 'I do not know' }
           processor.fail_with 'foobar'
-
-          subject.process_response_commands
+          subject.user_input to: 'with_command', input: { 'text' => 'I do not know' }
 
           expect(subject.determine_response.id).to eq('foobar')
         end
@@ -59,7 +55,6 @@ module Messaging
       describe "with a request command" do
         it "doesn't execute in response to input" do
           subject.user_input to: 'with_request_command', input: { 'text' => 'response text' }
-          subject.process_response_commands
 
           expect(processor.received_commands).to eq([])
         end

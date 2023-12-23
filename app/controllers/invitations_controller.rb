@@ -16,7 +16,6 @@ class InvitationsController < ApplicationController
 
     exchange = Messaging::Exchange.new script: script, context: context, command_processor: command_processor
     exchange.user_input to: reply[:to], input: reply[:input] if reply
-    exchange.process_response_commands
     exchange.determine_response
 
     render json: exchange.as_json

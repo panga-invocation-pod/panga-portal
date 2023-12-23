@@ -17,6 +17,7 @@ module Messaging
     def user_input(to:, input:)
       @previous_message = script.find_message(to)
       @input = input
+      process_response_commands
     end
 
     def determine_response
