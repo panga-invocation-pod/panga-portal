@@ -10,6 +10,8 @@ module Contexts
 
     attr_reader :invitation, :current_user
 
+    delegate :considering_availability?, to: :invitation, prefix: true
+
     def current_person
       current_user&.person
     end

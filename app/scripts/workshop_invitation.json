@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "target": "considering_availability",
+      "if": {
+        "type": "context",
+        "condition": "invitation_considering_availability?"
+      }
+    },
+    {
       "target": "logged_in_but_not_invitee",
       "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
     },
@@ -167,6 +174,10 @@
         "input": "workshop_explained",
         "stage": "request"
       }
+    },
+    {
+      "id": "considering_availability",
+      "prompt": "TODO: this is where we come back to after login if you're in this stage"
     }
   ]
 }
