@@ -18,3 +18,4 @@
         %td= record.aasm_state
         %td
           = edit_link(record)
+          = link_to("Reset", reset_admin_invitation_path(record), method: :put, data: {confirm: "This will set the #{record.invitee.short_name} back to the start of the invitation flow. Are you sure?"})

@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, except: [:show]
     resources :people, except: [:show]
-    resources :invitations, except: [:show]
+    resources :invitations, except: [:show] do
+      member do
+        put :reset
+      end
+    end
+
     resources :workshops, except: [:show]
     resources :workshop_sessions, except: [:show]
     get '/', to: redirect('/admin/users')
