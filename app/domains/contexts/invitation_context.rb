@@ -16,6 +16,10 @@ module Contexts
       current_user&.person
     end
 
+    def inviter_thumbnail
+      invitation.inviter.avatar.variant(:thumb).url if invitation.inviter.avatar.attached?
+    end
+
     def logged_in_but_not_invitee?
       current_user && current_user.person != invitation.invitee
     end

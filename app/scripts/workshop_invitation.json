@@ -12,7 +12,7 @@
       "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
     },
     {
-      "target": "logged_in_as_invitee",
+      "target": "personal_message", // "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
     "am_I_addressing"
@@ -165,7 +165,7 @@
           "character": {
             "id": "{{invitation.inviter.id}}",
             "name": "{{invitation.inviter.short_name}}}}",
-            "thumbnail": "foobar.jpg"
+            "thumbnail": "{{inviter_thumbnail}}"
           }
         }
       ]

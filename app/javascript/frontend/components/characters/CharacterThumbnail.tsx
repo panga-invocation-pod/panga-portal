@@ -14,7 +14,7 @@ const THUMBNAILS: { [key: string]: any } = {
 export default function CharacterThumbnail({
   character,
 }: CharacterThumbnailProps) {
-  const thumbnail = THUMBNAILS[character.id] as string
+  const thumbnail = character.thumbnail || (THUMBNAILS[character.id] as string)
   return (
     <Avatar
       src={thumbnail}

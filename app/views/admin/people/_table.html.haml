@@ -1,12 +1,14 @@
 %table.table
   %thead
     %tr
+      %th.avatar{scope: "col"}
       %th{scope: "col"} Short name
       %th{scope: "col"} Full name
       %th{scope: "col"} Actions
   %tbody
     - @records.each do |record|
       %tr
+        %td= image_tag(record.avatar.variant(:thumb), class: 'avatar small') if record.avatar.attached?
         %td= record.short_name
         %td= record.full_name
         %td
