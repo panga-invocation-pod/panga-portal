@@ -25,6 +25,10 @@
       color: #ccc;
       white-space: pre-line;
     }
+
+    &.avatar-right {
+      flex-direction: row-reverse;
+    }
   }
 
   .responder {

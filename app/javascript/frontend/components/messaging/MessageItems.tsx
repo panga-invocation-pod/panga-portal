@@ -15,6 +15,10 @@ export default function MessageItems({
 }: MessageItemsProps) {
   const prompts = Array.isArray(prompt) ? prompt : [prompt]
 
+  if (prompts.length === 0) return null
+
+  const initialCharacter = prompts[0].character
+
   return (
     <div className="message-items">
       {prompts.map((prompt, index) => (
@@ -23,6 +27,7 @@ export default function MessageItems({
           mode={mode}
           key={index}
           onFinished={onFinished}
+          avatarSide={prompt.character === initialCharacter ? "left" : "right"}
         />
       ))}
     </div>
