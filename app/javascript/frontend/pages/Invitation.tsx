@@ -9,6 +9,7 @@ import {
 import ChatClient from "../api/chat_client"
 import { useLocation, useParams } from "react-router-dom"
 import "../stylesheets/chat.scss"
+import { Center, Spinner } from "@chakra-ui/react"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
@@ -32,7 +33,13 @@ export default function Invitation() {
   }, [])
 
   if (!message) {
-    return <div>Loading...</div>
+    return (
+      <div className="chat-container">
+        <Center>
+          <Spinner />
+        </Center>
+      </div>
+    )
   }
 
   const respond = (input: IInput) => {

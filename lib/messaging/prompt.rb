@@ -26,7 +26,7 @@ module Messaging
       result = {
         text: interpolated_text(interpolator)
       }
-      result[:character] = character.as_json if character
+      result[:character] = character.as_json(interpolator) if character
       result
     end
 

@@ -18,12 +18,21 @@ module Messaging
       @effect = effect
     end
 
-    def as_json
+    def as_json(interpolator = nil)
       {
-        id: id,
-        name: name,
+        id: interpolated_text(id, interpolator),
+        name: interpolated_text(name, interpolator),
         effect: effect
-    }.compact
+      }.compact
+    end
+
+    private
+
+
+    private
+
+    def interpolated_text(text, interpolator = nil)
+      interpolator ? interpolator.interpolate(text) : text
     end
   end
 end
