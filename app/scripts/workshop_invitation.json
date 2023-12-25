@@ -12,7 +12,7 @@
       "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
     },
     {
-      "target": "personal_message", // "logged_in_as_invitee",
+      "target": "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
     "am_I_addressing"
@@ -169,7 +169,14 @@
             "thumbnail": "{{inviter_thumbnail}}"
           }
         }
-      ]
+      ],
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Ok, what are the details?"]
+      },
+      "transitions": {
+        "Ok, what are the details?": "workshop_details"
+      }
     },
     {
       "id": "workshop_details",
