@@ -30,7 +30,7 @@ export default function Invitation() {
     client.get((data) => {
       setMessage(data.message)
     })
-  }, [])
+  }, [token])
 
   if (!message) {
     return (

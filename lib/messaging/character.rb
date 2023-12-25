@@ -6,23 +6,26 @@ module Messaging
       new(
         id: data['id'],
         name: data['name'],
-        effect: data['effect']
+        effect: data['effect'],
+        thumbnail: data['thumbnail']
       )
     end
 
-    attr_reader :id, :name, :effect
+    attr_reader :id, :name, :effect, :thumbnail
 
-    def initialize(id:, name:, effect:)
+    def initialize(id:, name:, effect: nil, thumbnail: nil)
       @id = id
       @name = name
       @effect = effect
+      @thumbnail = thumbnail
     end
 
     def as_json(interpolator = nil)
       {
         id: interpolated_text(id, interpolator),
         name: interpolated_text(name, interpolator),
-        effect: effect
+        effect: effect,
+        thumbnail: interpolated_text(thumbnail, interpolator)
       }.compact
     end
 

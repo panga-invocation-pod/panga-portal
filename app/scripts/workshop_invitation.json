@@ -19,7 +19,7 @@
   ],
   "exits": [],
   "character": {
-    "id": " yam_daisy",
+    "id": "yam_daisy",
     "name": "Yam Daisy",
     "effect": "robot"
   },
@@ -163,9 +163,9 @@
         {
           "text": "{{invitation.message}}",
           "character": {
-            "id": " invitee",
+            "id": "{{invitation.inviter.id}}",
             "name": "{{invitation.inviter.short_name}}}}",
-            "effect": "robot"
+            "thumbnail": "foobar.jpg"
           }
         }
       ]
