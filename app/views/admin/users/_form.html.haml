@@ -3,5 +3,6 @@
 
   = f.input :email
   = f.association :person, collection: Person.all, include_blank: true
+  = f.association :roles, collection: Role.all, include_blank: false, input_html: { multiple: true }, hint: "Ctrl+click to select multiple roles"
 
   = form_actions(f)

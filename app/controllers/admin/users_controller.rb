@@ -4,6 +4,6 @@ class Admin::UsersController < AdminController
   private
 
   def permit_record_fields(fields)
-    fields.permit(:email, :person_id)
+    fields.permit(:email, :person_id, :role_ids)
   end
 end
