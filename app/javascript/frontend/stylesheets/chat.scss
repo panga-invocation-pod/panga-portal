@@ -46,3 +46,9 @@
 #invitation {
   padding-top: 4em;
 }
+
+.typing-indicator {
+  &.invisible {
+    display: none;
+  }
+}

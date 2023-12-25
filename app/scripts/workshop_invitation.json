@@ -165,6 +165,7 @@
           "character": {
             "id": "{{invitation.inviter.id}}",
             "name": "{{invitation.inviter.short_name}}}}",
+            "effect": "typing_indicator",
             "thumbnail": "{{inviter_thumbnail}}"
           }
         }

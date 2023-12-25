@@ -40,11 +40,13 @@ export interface IPostReply {
   reply: IReply
 }
 
-export type Effect = "robot" | null
+export type Effect = "robot" | "typing_indicator"
+
+export type MaybeEffect = Effect | null
 
 export interface ICharacter {
   id: string
   name: string
   thumbnail: string
-  effect: Effect
+  effect: MaybeEffect
 }

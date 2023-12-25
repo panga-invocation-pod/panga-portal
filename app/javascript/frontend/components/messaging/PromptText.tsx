@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react"
-import Typewriter from "./helpers/typewriter/Typewriter"
-import { Effect, IPrompt } from "./types"
+import { MaybeEffect } from "./types"
+import RobotEffect from "./effects/RobotEffect"
+import TypingIndicatorEffect from "./effects/TypingIndicatorEffect"
+import NoEffect from "./effects/NoEffect"
+
+const components: { [key: string]: React.ReactNode } = {
+  robot: RobotEffect,
+  typing_indicator: TypingIndicatorEffect,
+}
 
 interface PromptTextProps {
   text: string
-  effect: Effect
+  effect: MaybeEffect
   onFinished: () => void
 }
 
@@ -28,22 +35,13 @@ export default function PromptText({
     } else {
       setEffectFinished(false)
     }
-  }, [effect, prompt])
+  }, [effect, text])
+
+  const EffectComponent = (effect && components[effect]) || NoEffect
 
   return (
     <div className="prompt">
-      {effect === "robot" && (
-        <Typewriter
-          text={text.split("\n\n")}
-          onFinished={onEffectFinished}
-          cursor={!effectFinished}
-          speed={30}
-          random={30}
-          delay={400}
-          startDelay={300}
-        />
-      )}
-      {effect === null && text}
+      <EffectComponent text={text} onFinished={onFinished} />
     </div>
   )
 }
