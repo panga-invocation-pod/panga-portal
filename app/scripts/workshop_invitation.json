@@ -162,7 +162,11 @@
         "I know I put it in one of these memory banks...",
         {
           "text": "{{invitation.message}}",
-          "character": ""
+          "character": {
+            "id": " invitee",
+            "name": "{{invitation.inviter.short_name}}}}",
+            "effect": "robot"
+          }
         }
       ]
     },

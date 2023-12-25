@@ -10,21 +10,28 @@ module Messaging
 
       input = data.is_a?(String) ? { "text" => data } : data
 
-      new(input['text'])
+      new(input['text'], Character.from_data(input['character']))
     end
 
-    def initialize(text)
+    def initialize(text, character = nil)
       @text = text
+      @character = character
     end
 
-    attr_reader :text
+    attr_reader :text, :character
 
     def as_json(interpolator = nil, script_defaults = {})
+      character = best_character(script_defaults)
+
       result = {
         text: interpolated_text(interpolator)
       }
-      result[:character] = script_defaults[:character].as_json if script_defaults[:character]
+      result[:character] = character.as_json if character
       result
+    end
+
+    def best_character(script_defaults = {})
+      character || script_defaults[:character]
     end
 
     private

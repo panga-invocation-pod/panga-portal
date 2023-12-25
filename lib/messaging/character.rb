@@ -4,24 +4,26 @@ module Messaging
       return nil if data.nil?
 
       new(
-        data['id'],
-        data['name']
+        id: data['id'],
+        name: data['name'],
+        effect: data['effect']
       )
     end
 
-    attr_reader :id, :name
+    attr_reader :id, :name, :effect
 
-    def initialize(id, name)
+    def initialize(id:, name:, effect:)
       @id = id
       @name = name
+      @effect = effect
     end
 
     def as_json
       {
         id: id,
         name: name,
-        effect: "robot"
-      }
+        effect: effect
+    }.compact
     end
   end
 end

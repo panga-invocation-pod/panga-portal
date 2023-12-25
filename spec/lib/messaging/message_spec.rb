@@ -55,21 +55,20 @@ module Messaging
         end
       end
 
-      context 'with a character for the script' do
-        let(:character) { instance_double('Character', as_json: { 'name' => 'Bob' }) }
+      context 'with a character' do
+        let(:character) { instance_double('Character', as_json: { name: 'Bob' }) }
 
-        it 'includes character data in structured prompt' do
+        it 'includes character data in structured prompt if supplied for the script' do
           message = load_message(:two_messages, 'new_user?')
-          expect(message.as_json(nil, { character: character })).to eq(
-            id: 'new_user?',
-            prompt: {
-              character: { 'name' => 'Bob' },
-              text: 'Welcome, are you new here?'
-            },
-            responder: {
-              'responder_type' => 'select_option',
-              'options' => ['yes', 'no']
-            }
+          expect(message.as_json(nil, { character: character })[:prompt][:character]).to eq(
+            { name: 'Bob' }
+          )
+        end
+
+        it 'includes a character in structured prompt if supplied for the prompt' do
+          message = load_message(:prompt_variants, 'prompt_character')
+          expect(message.as_json(nil, { character: character })[:prompt][:character]).to eq(
+            { id: 'ralf', name: 'Ralf' }
           )
         end
       end

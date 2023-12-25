@@ -21,6 +21,16 @@
           "text": "second string"
         }
       ]
+    },
+    {
+      "id": "prompt_character",
+      "prompt": {
+        "text": "string prompt",
+        "character": {
+          "id": "ralf",
+          "name": "Ralf"
+        }
+      }
     }
   ]
 }
