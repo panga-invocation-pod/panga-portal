@@ -40,7 +40,7 @@ export interface IPostReply {
   reply: IReply
 }
 
-export type Effect = "robot" | "typing_indicator"
+export type Effect = "robot" | "sms_with_typing_indicator"
 
 export type MaybeEffect = Effect | null
 

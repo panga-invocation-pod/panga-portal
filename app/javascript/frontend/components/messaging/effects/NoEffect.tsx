@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react"
-import Typewriter from "./typewriter/Typewriter"
+import React, { useEffect } from "react"
+import { EffectProps } from "./effects_shared"
 
-interface NoEffectProps {
-  text: string
-  onFinished: () => void
-}
-
-export default function NoEffect({ text, onFinished }: NoEffectProps) {
+export default function NoEffect({ text, onFinished }: EffectProps) {
   useEffect(() => {
     onFinished()
   }, [text])

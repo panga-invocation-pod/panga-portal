@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { MaybeEffect } from "./types"
 import RobotEffect from "./effects/RobotEffect"
-import TypingIndicatorEffect from "./effects/TypingIndicatorEffect"
 import NoEffect from "./effects/NoEffect"
+import SmsWithTypingIndicatorEffect from "./effects/SmsWithTypingIndicatorEffect"
 
 const components: { [key: string]: React.ReactNode } = {
   robot: RobotEffect,
-  typing_indicator: TypingIndicatorEffect,
+  sms_with_typing_indicator: SmsWithTypingIndicatorEffect,
 }
 
 interface PromptTextProps {

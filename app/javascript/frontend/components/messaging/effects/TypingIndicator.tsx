@@ -3,11 +3,13 @@ import React from "react"
 interface TypingIndicatorProps {
   onFinished: () => void
   numFlashes: number
+  displayClass: string
 }
 
 export default function TypingIndicator({
   onFinished,
   numFlashes,
+  displayClass,
 }: TypingIndicatorProps) {
   const [visible, setVisible] = React.useState(false)
   const [flashes, setFlashes] = React.useState(1)
@@ -36,7 +38,11 @@ export default function TypingIndicator({
   }, [visible])
 
   return (
-    <div className={`typing-indicator ${visible ? "visible" : "invisible"}`}>
+    <div
+      className={`typing-indicator ${
+        visible ? "visible sms-typing-indicator" : "invisible"
+      }`}
+    >
       &#x2022; &#x2022; &#x2022;
     </div>
   )
