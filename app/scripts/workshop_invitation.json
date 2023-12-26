@@ -134,7 +134,7 @@
       "transitions": {
         "OK": {
           "type": "script",
-          "to": "start"
+          "to": "entry"
         },
         "ERROR:already_logged_in": "already_logged_in"
       }

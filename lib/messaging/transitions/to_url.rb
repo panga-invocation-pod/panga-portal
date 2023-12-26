@@ -14,7 +14,7 @@ module Messaging
         nil
       end
 
-      def get_message(_script)
+      def get_message(script:, context: nil, command_result: nil)
         UrlTransitionMessage.new(@url)
       end
     end

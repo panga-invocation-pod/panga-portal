@@ -24,7 +24,7 @@ module Messaging
       target = script.transition_for context: context, input: input, command_result: command_result, previous: previous_message
 
       if target
-        @response_message = target.get_message script
+        @response_message = target.get_message script: script, context: context, command_result: command_result
         raise "no message found to transition to with #{target.inspect}" unless @response_message
 
         process_request_commands(@response_message)
