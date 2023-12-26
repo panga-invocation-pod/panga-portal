@@ -21,8 +21,8 @@ module Messaging
       if hash['url']
         ToUrl.new hash['url']
       else
-        raise ArgumentEror, "hash must have a \"to\" field: #{hash.inspect}" if hash['to'].blank?
-        ToMessage.new hash['to'], overrides: hash['overrides']
+        raise ArgumentEror, "hash must have a \"to\" field: #{hash.inspect}" if hash['to'].nil?
+        ToMessage.new hash['to'], overrides: hash['overrides'], if_condition: Conditions::Factory.from_data(hash["if"])
       end
     end
   end

@@ -13,7 +13,7 @@ module Messaging
       end
 
       it 'returns the first one in the simple case using object structure' do
-        subject = ScriptEntryGroup.from_data([{ "target" => "foo"}, "bar"])
+        subject = ScriptEntryGroup.from_data([{ "to" => "foo"}, "bar"])
         result = subject.transition_for(input: nil)
 
         expect(result.target_message_id).to eq("foo")

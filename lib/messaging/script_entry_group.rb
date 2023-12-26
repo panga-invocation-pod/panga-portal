@@ -4,7 +4,7 @@ module Messaging
   class ScriptEntryGroup
     def self.from_data(data)
       entries = data.map do |entry_data|
-        Transitions::ScriptEntry.from_data entry_data
+        Transitions.from_data entry_data
       end
 
       new(entries)

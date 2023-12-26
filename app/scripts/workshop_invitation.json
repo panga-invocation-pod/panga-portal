@@ -1,18 +1,18 @@
 {
   "entries": [
     {
-      "target": "considering_availability",
+      "to": "considering_availability",
       "if": {
         "type": "context",
         "condition": "invitation_considering_availability?"
       }
     },
     {
-      "target": "logged_in_but_not_invitee",
+      "to": "logged_in_but_not_invitee",
       "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
     },
     {
-      "target": "logged_in_as_invitee",
+      "to": "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
     "am_I_addressing"
