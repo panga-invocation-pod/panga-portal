@@ -45,7 +45,15 @@ module Messaging
       else
         raise "no transition found for #{command_result ? command_result.error_name : input}"
       end
-      response_message
+
+      return response_message if response_message.display?
+
+      @previous_message = response_message
+      @input = nil
+      @command_result = nil
+
+      process_response_commands
+      determine_response_message
     end
 
     attr_reader :script, :previous_message, :response_message, :input,

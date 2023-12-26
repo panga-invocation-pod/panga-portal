@@ -14,6 +14,7 @@ module Messaging
       @responder = data['responder']
       @transitions = TransitionsForInput.from_data(data['transitions'])
       @command = ::Messaging::Command.from_data(data['command'])
+      @display = data.key?('display') ? data['display'] : true
     end
 
     attr_reader :id, :responder, :transitions, :command
@@ -32,7 +33,7 @@ module Messaging
     end
 
     def display?
-      true
+      @display
     end
 
     def apply_overrides(overrides)

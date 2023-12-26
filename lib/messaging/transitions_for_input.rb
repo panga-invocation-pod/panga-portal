@@ -33,6 +33,7 @@ module Messaging
     end
 
     def transition_for_input(input)
+      return nil if input.nil?
       rules[input['text']]
     end
 

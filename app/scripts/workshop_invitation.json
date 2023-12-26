@@ -126,11 +126,9 @@
       "command": {
         "name": "log_in_invitee"
       },
-      "responder": {
-        "responder_type": "instant"
-      },
+      "display": false,
       "transitions": {
-        "OK": {
+        "DEFAULT": {
           "type": "script",
           "to": "entry"
         },
