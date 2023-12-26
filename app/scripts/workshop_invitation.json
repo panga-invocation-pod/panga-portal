@@ -233,7 +233,11 @@
     },
     {
       "id": "considering_availability",
-      "prompt": "TODO: this is where we come back to after login if you're in this stage"
+      "prompt": "TODO: this is where we come back to after login if you're in this stage",
+      "responder": {
+        "responder_type": "custom",
+        "name": "select_session_availability"
+      }
     }
   ]
 }

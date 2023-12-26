@@ -39,6 +39,15 @@ module Contexts
       {}
     end
 
+    def custom_responder(name)
+      case name
+      when 'select_session_availability'
+        CustomResponders::SelectSessionAvailability.new()
+      else
+        raise "unknown custom responder #{name}"
+      end
+    end
+
     private
 
     attr_reader :controller
