@@ -40,7 +40,7 @@ module Messaging
     end
 
     def message_for_transition(transition)
-      find_message transition.target_message_id
+      find_message transition.to
     end
 
     private

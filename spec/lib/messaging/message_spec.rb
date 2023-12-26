@@ -16,7 +16,7 @@ module Messaging
 
           target = message.transition_for(input: input)
 
-          expect(target.target_message_id).to eq('whats_your_name?')
+          expect(target.to).to eq('whats_your_name?')
         end
 
         it 'returns id for default by default' do
@@ -25,7 +25,7 @@ module Messaging
 
           target = message.transition_for(input: input)
 
-          expect(target.target_message_id).to eq('second')
+          expect(target.to).to eq('second')
         end
       end
     end

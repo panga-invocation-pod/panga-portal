@@ -26,7 +26,7 @@ module Messaging
 
         target = subject.transition_for(input: input, previous: message)
 
-        expect(target.target_message_id).to eq('whats_your_name?')
+        expect(target.to).to eq('whats_your_name?')
       end
     end
 

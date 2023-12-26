@@ -24,12 +24,15 @@ module Messaging
     end
 
     def as_json(interpolator = nil, script_defaults = {})
-      results = {
+      {
         id: id,
-        prompt: prompt.as_json(interpolator, script_defaults),
+        prompt: prompt&.as_json(interpolator, script_defaults),
         responder: responder,
-      }
-      results
+      }.compact
+    end
+
+    def display?
+      true
     end
 
     def apply_overrides(overrides)

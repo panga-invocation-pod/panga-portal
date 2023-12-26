@@ -123,13 +123,11 @@
     },
     {
       "id": "invitee_identified_and_resume",
-      "prompt": "Welcome back {{invitation.invitee.short_name}}, let's press on.",
       "command": {
         "name": "log_in_invitee"
       },
       "responder": {
-        "responder_type": "select_option",
-        "options": ["OK"]
+        "responder_type": "instant"
       },
       "transitions": {
         "OK": {
