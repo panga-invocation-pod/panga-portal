@@ -15,15 +15,20 @@ module Messaging
     end
 
     def self.from_string(string)
-      ToMessage.new string
+      from_hash({ 'to' => string })
     end
 
     def self.from_hash(hash)
-      if hash['url']
-        ToUrl.new hash['url']
-      else
+      transition_type = hash['type'] || 'message'
+
+      case transition_type
+      when 'url'
+        return ToUrl.new hash['to']
+      when 'message'
         raise ArgumentEror, "hash must have a \"to\" field: #{hash.inspect}" if hash['to'].nil?
-        ToMessage.new hash['to'], overrides: hash['overrides'], if_condition: Conditions::Factory.from_data(hash["if"])
+        return ToMessage.new hash['to'], overrides: hash['overrides'], if_condition: Conditions::Factory.from_data(hash["if"])
+      when 'script'
+        return ToScript.new hash['to']
       end
     end
   end
