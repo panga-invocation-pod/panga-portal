@@ -7,7 +7,16 @@ export interface ITextResponder {
   responder_type: "text"
 }
 
-export type IResponder = ISelectOptionResponder | ITextResponder
+export interface ICustomResponder {
+  responder_type: "custom"
+  name: string
+  custom_data: any
+}
+
+export type IResponder =
+  | ISelectOptionResponder
+  | ITextResponder
+  | ICustomResponder
 
 export interface IPrompt {
   text: string
