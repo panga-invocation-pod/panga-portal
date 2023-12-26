@@ -19,11 +19,35 @@ module Messaging
       def as_json
         text
       end
+
+      def valid?(context)
+        true
+      end
+    end
+
+    class OptionList
+      def self.from_data(data)
+        new data.map { |option| Option.from_data(option) }
+      end
+
+      def initialize(options)
+        @options = options
+      end
+
+      attr_reader :options
+
+      def as_json(context = nil)
+        valid_options(context).map { |option| option.as_json }
+      end
+
+      def valid_options(context)
+        options.select { |option| option.valid?(context) }
+      end
     end
 
     class SelectOption < BaseResponder
       def self.from_data(data)
-        new options: data['options'].map { |option| Option.from_data(option) }
+        new options: OptionList.from_data(data['options'])
       end
 
       def initialize(options:)
@@ -36,10 +60,10 @@ module Messaging
         'select_option'
       end
 
-      def as_json
+      def as_json(context)
         {
           responder_type: responder_type,
-          options: options&.map { |option| option.as_json },
+          options: options&.as_json(context),
         }
       end
     end

@@ -26,7 +26,7 @@ module Messaging
 
     def as_json
       {
-        message: response_message.as_json(interpolator, script_defaults),
+        message: response_message.as_json(interpolator, script_defaults, context),
         data: (context ? context.as_json : {})
       }
     end

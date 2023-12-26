@@ -25,11 +25,11 @@ module Messaging
       transitions.transition_for(context: context, input: input, command_result: command_result)
     end
 
-    def as_json(interpolator = nil, script_defaults = {})
+    def as_json(interpolator = nil, script_defaults = {}, context = nil)
       {
         id: id,
         prompt: prompt&.as_json(interpolator, script_defaults),
-        responder: responder&.as_json,
+        responder: responder&.as_json(context),
       }.compact
     end
 
