@@ -1,6 +1,7 @@
 require_relative 'transitions_for_input'
 require_relative 'command'
 require_relative 'prompt'
+require_relative 'responders'
 
 module Messaging
   class Message
@@ -11,7 +12,7 @@ module Messaging
     def initialize(data)
       @id = data['id']
       @prompt = Prompt.from_data(data['prompt'])
-      @responder = data['responder']
+      @responder = Responders::from_data(data['responder'])
       @transitions = TransitionsForInput.from_data(data['transitions'])
       @command = ::Messaging::Command.from_data(data['command'])
       @display = data.key?('display') ? data['display'] : true
@@ -28,7 +29,7 @@ module Messaging
       {
         id: id,
         prompt: prompt&.as_json(interpolator, script_defaults),
-        responder: responder,
+        responder: responder&.as_json,
       }.compact
     end
 

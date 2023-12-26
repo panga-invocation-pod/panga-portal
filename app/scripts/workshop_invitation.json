@@ -8,13 +8,6 @@
       "to": "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
-    // {
-    //   "to": "considering_availability",
-    //   "if": {
-    //     "type": "context",
-    //     "condition": "invitation_considering_availability?"
-    //   }
-    // },
     {
       "to": "am_I_still_addressing",
       "if": {
