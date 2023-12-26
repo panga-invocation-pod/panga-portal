@@ -22,7 +22,7 @@ class Invitation < ApplicationRecord
     end
 
     event :reset do
-      transitions to: :new
+      transitions to: :confirmed_identity
     end
   end
 

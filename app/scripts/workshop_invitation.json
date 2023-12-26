@@ -194,7 +194,7 @@
       },
       "transitions": {
         "Oh, what did they say?": "personal_message",
-        "Let's just jump to the workshop details": "workshop_details"
+        "Let's just jump to the workshop details": "workshop_explained"
       }
     },
     {
@@ -216,16 +216,19 @@
         "options": ["Ok, what are the details?"]
       },
       "transitions": {
-        "Ok, what are the details?": "workshop_details"
+        "Ok, what are the details?": "workshop_explained"
       }
     },
     {
-      "id": "workshop_details",
-      "prompt": "The workshop will be held on ...",
+      "id": "workshop_explained",
       "command": {
         "name": "invitation_event",
         "input": "workshop_explained",
         "stage": "request"
+      },
+      "display": false,
+      "transitions": {
+        "DEFAULT": "considering_availability"
       }
     },
     {
