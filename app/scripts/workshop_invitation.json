@@ -33,10 +33,26 @@
       "prompt": "Hi {{current_person.short_name}}, welcome back.\n\nWhat were we discussing?",
       "responder": {
         "responder_type": "select_option",
-        "options": ["Something about a workshop"]
+        "options": [
+          {
+            "text": "Something about a workshop",
+            "if": {
+              "type": "context",
+              "condition": "invitation_confirmed_identity?"
+            }
+          },
+          {
+            "text": "Workshop details",
+            "if": {
+              "type": "context",
+              "condition": "invitation_considering_availability?"
+            }
+          }
+        ]
       },
       "transitions": {
-        "Something about a workshop": "explain_workshop"
+        "Something about a workshop": "explain_workshop",
+        "Workshop details": "considering_availability"
       }
     },
     {

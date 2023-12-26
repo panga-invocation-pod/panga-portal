@@ -10,7 +10,7 @@ module Contexts
 
     attr_reader :invitation, :current_user
 
-    delegate :considering_availability?, :in_progress?, to: :invitation, prefix: true
+    delegate :new?, :confirmed_identity?, :considering_availability?, :in_progress?, to: :invitation, prefix: true
 
     def current_person
       current_user&.person
@@ -21,12 +21,10 @@ module Contexts
     end
 
     def logged_in_but_not_invitee?
-      #raise "checking for log in #{current_user.inspect}"
       current_user && current_user.person != invitation.invitee
     end
 
     def logged_in_as_invitee?
-      #raise "checking for log in 2 #{current_user.inspect}"
       current_user && current_user.person == invitation.invitee
     end
 

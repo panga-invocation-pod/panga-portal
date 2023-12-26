@@ -6,12 +6,12 @@ module Messaging
       def self.from_data(data)
         hash = data.is_a?(Hash) ? data : { 'text' => data }
 
-        new text: hash['text'], if_condition: hash['if']
+        new text: hash['text'], if_condition: Conditions::Factory.from_data(hash["if"])
       end
 
       def initialize(text:, if_condition: nil)
         @text = text
-        @if = if_condition
+        @if_condition = if_condition
       end
 
       attr_reader :text, :if_condition
@@ -21,7 +21,8 @@ module Messaging
       end
 
       def valid?(context)
-        true
+        return true unless if_condition
+        if_condition.valid?(context: context)
       end
     end
 
@@ -41,7 +42,7 @@ module Messaging
       end
 
       def valid_options(context)
-        options.select { |option| option.valid?(context) }
+        options.reject { |option| !option.valid?(context) }
       end
     end
 
