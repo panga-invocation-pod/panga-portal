@@ -16,8 +16,7 @@ module Messaging
 
     def transition_for(context: nil, input:, command_result: nil)
       entries.each do |entry|
-        transition = entry.transition_for(context: context, input: input, command_result: command_result)
-        return transition if transition
+        return entry if entry.valid?(context: context)
       end
 
       nil

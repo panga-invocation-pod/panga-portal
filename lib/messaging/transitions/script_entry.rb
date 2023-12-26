@@ -24,10 +24,6 @@ module Messaging
       def get_message(script)
         script.find_message target_message_id
       end
-
-      def transition_for(context:, input:, command_result: nil)
-        self if valid?(context: context)
-      end
     end
   end
 end
