@@ -1,9 +1,9 @@
-require_relative 'base_transition'
+require_relative 'to_message'
 require_relative "../conditions/factory"
 
 module Messaging
   module Transitions
-    class ScriptEntry < BaseTransition
+    class ScriptEntry < ToMessage
       attr_reader :target_message_id
 
       def self.from_data(data)
@@ -14,7 +14,7 @@ module Messaging
 
       def initialize(target_message_id, if_condition: nil)
         @target_message_id = target_message_id
-        super if_condition: if_condition
+        super
       end
 
       def apply_overrides(message)

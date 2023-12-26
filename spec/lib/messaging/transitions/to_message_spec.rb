@@ -8,7 +8,7 @@ module Messaging
       describe '#apply_overrides' do
         it 'does nothing if there are no overrides' do
           message = Message.new('prompt' => 'hi there')
-          subject = ToMessage.new('target', 'prompt' => 'bye')
+          subject = ToMessage.new('target', overrides: {'prompt' => 'bye'})
           subject.apply_overrides message
 
           expect(message.prompt).to eq('bye')

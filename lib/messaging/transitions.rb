@@ -22,7 +22,7 @@ module Messaging
         ToUrl.new hash['url']
       else
         raise ArgumentEror, "hash must have a \"to\" field: #{hash.inspect}" if hash['to'].blank?
-        ToMessage.new hash['to'], hash['overrides']
+        ToMessage.new hash['to'], overrides: hash['overrides']
       end
     end
   end

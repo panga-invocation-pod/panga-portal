@@ -3,9 +3,10 @@ require_relative 'base_transition'
 module Messaging
   module Transitions
     class ToMessage < BaseTransition
-      def initialize(target_message_id, overrides = {})
+      def initialize(target_message_id, overrides: {}, if_condition: nil)
         @target_message_id = target_message_id
         @overrides = overrides
+        super if_condition: if_condition
       end
 
       def inspect
