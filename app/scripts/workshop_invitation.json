@@ -1,19 +1,26 @@
 {
   "entries": [
     {
-      "to": "considering_availability",
-      "if": {
-        "type": "context",
-        "condition": "invitation_considering_availability?"
-      }
-    },
-    {
       "to": "logged_in_but_not_invitee",
       "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
     },
     {
       "to": "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
+    },
+    // {
+    //   "to": "considering_availability",
+    //   "if": {
+    //     "type": "context",
+    //     "condition": "invitation_considering_availability?"
+    //   }
+    // },
+    {
+      "to": "am_I_still_addressing",
+      "if": {
+        "type": "context",
+        "condition": "invitation_in_progress?"
+      }
     },
     "am_I_addressing"
   ],
@@ -49,6 +56,17 @@
       "transitions": {
         "Who's asking?": "whos_speaking",
         "Yes, that's me": "invitee_identified_and_quick_intro"
+      }
+    },
+    {
+      "id": "am_I_still_addressing",
+      "prompt": "Hello, is that you again {{invitation.invitee.short_name}}?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Yep, it's me"]
+      },
+      "transitions": {
+        "Yep, it's me": "invitee_identified_and_resume"
       }
     },
     {
@@ -100,6 +118,24 @@
       },
       "transitions": {
         "Nice to meet you too": "explain_workshop",
+        "ERROR:already_logged_in": "already_logged_in"
+      }
+    },
+    {
+      "id": "invitee_identified_and_resume",
+      "prompt": "Welcome back {{invitation.invitee.short_name}}, let's press on.",
+      "command": {
+        "name": "log_in_invitee"
+      },
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["OK"]
+      },
+      "transitions": {
+        "OK": {
+          "type": "script",
+          "to": "start"
+        },
         "ERROR:already_logged_in": "already_logged_in"
       }
     },

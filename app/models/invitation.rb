@@ -29,4 +29,8 @@ class Invitation < ApplicationRecord
   def applicable_workshop_sessions(limit:)
     WorkshopSession.future.limit(limit)
   end
+
+  def in_progress?
+    !new?
+  end
 end
