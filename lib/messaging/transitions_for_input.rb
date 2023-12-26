@@ -2,7 +2,7 @@ require_relative 'transitions'
 require_relative 'transitions/to_message'
 
 module Messaging
-  class TransitionGroup
+  class TransitionsForInput
     def self.from_data(data)
       new data
     end

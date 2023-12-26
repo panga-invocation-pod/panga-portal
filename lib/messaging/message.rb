@@ -1,4 +1,4 @@
-require_relative 'transition_group'
+require_relative 'transitions_for_input'
 require_relative 'command'
 require_relative 'prompt'
 
@@ -12,7 +12,7 @@ module Messaging
       @id = data['id']
       @prompt = Prompt.from_data(data['prompt'])
       @responder = data['responder']
-      @transitions = TransitionGroup.from_data(data['transitions'])
+      @transitions = TransitionsForInput.from_data(data['transitions'])
       @command = ::Messaging::Command.from_data(data['command'])
     end
 
