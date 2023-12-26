@@ -1,6 +1,8 @@
+require_relative 'base_transition'
+
 module Messaging
   module Transitions
-    class ToMessage
+    class ToMessage < BaseTransition
       def initialize(target_message_id, overrides = {})
         @target_message_id = target_message_id
         @overrides = overrides

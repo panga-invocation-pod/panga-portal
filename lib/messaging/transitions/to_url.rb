@@ -1,8 +1,9 @@
+require_relative 'base_transition'
 require 'messaging/url_transition_message'
 
 module Messaging
   module Transitions
-    class ToUrl
+    class ToUrl < BaseTransition
       def initialize(url)
         raise ArgumentError, 'url required' if url.blank?
         @url = url
