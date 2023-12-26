@@ -1,5 +1,5 @@
 module Messaging
-  class ScriptEntryGroup
+  class TransitionList
     def self.from_data(data)
       entries = data.map do |entry_data|
         Transitions.from_data entry_data
