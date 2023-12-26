@@ -1,5 +1,6 @@
 require_relative 'transitions/to_message'
 require_relative 'transitions/to_url'
+require_relative 'conditions/factory'
 
 module Messaging
   module Transitions

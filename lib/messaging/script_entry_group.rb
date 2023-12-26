@@ -1,5 +1,3 @@
-require_relative './transitions/script_entry'
-
 module Messaging
   class ScriptEntryGroup
     def self.from_data(data)
