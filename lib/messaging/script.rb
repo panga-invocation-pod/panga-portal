@@ -1,6 +1,6 @@
 require 'json'
 require_relative 'message_group'
-require_relative 'transitions/script_entry_group'
+require_relative 'script_entry_group'
 require_relative 'character'
 
 module Messaging
@@ -11,7 +11,7 @@ module Messaging
 
     def self.from_data(data)
       new(
-        Transitions::ScriptEntryGroup.from_data(data['entries']),
+        ScriptEntryGroup.from_data(data['entries']),
         data['exits'],
         MessageGroup.from_data(data['messages']),
         Character.from_data(data['character'])
