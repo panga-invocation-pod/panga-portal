@@ -2,6 +2,7 @@ import React from "react"
 import { IResponder, Respond } from "./types"
 import SelectOptionResponder from "./responders/SelectOptionResponder"
 import TextResponder from "./responders/TextResponder"
+import { MessagingContext } from "./context"
 
 interface ResponderProps {
   responder: IResponder
@@ -16,7 +17,14 @@ const responderComponents: {
 }
 
 export default function Responder(props: ResponderProps) {
-  const ResponderComponent = responderComponents[props.responder.responder_type]
+  const config = React.useContext(MessagingContext)
+  const { responder_type } = props.responder
+
+  let ResponderComponent = responderComponents[responder_type]
+
+  if (responder_type == "custom") {
+    ResponderComponent = config.responders[props.responder.name]
+  }
 
   if (!ResponderComponent) {
     return <div>Unknown responder type: {props.responder.responder_type}</div>

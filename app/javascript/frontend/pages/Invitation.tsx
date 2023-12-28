@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react"
 import Message from "../components/messaging/Message"
-import {
-  IMessage,
-  IPostReply,
-  IInput,
-  ICharacter,
-} from "../components/messaging/types"
+import { IMessage, IPostReply, IInput } from "../components/messaging/types"
 import ChatClient from "../api/chat_client"
 import { useLocation, useParams } from "react-router-dom"
 import "../stylesheets/chat.scss"
 import { Center, Spinner } from "@chakra-ui/react"
+import { MessagingContext } from "../components/messaging/context"
+import SelectSessionAvailability from "../components/panga_messaging/responders/SelectSessionAvailability"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
@@ -55,13 +52,21 @@ export default function Invitation() {
     })
   }
 
+  const providerConfig = {
+    responders: {
+      select_session_availability: SelectSessionAvailability,
+    },
+  }
+
   return (
     <div className="chat-container">
-      <Message
-        message={message}
-        respond={respond}
-        mode={hash == "#fast" ? "fast" : null}
-      />
+      <MessagingContext.Provider value={providerConfig}>
+        <Message
+          message={message}
+          respond={respond}
+          mode={hash == "#fast" ? "fast" : null}
+        />
+      </MessagingContext.Provider>
     </div>
   )
 }
