@@ -5,7 +5,10 @@ import ChatClient from "../api/chat_client"
 import { useLocation, useParams } from "react-router-dom"
 import "../stylesheets/chat.scss"
 import { Center, Spinner } from "@chakra-ui/react"
-import { MessagingContext } from "../components/messaging/context"
+import {
+  IMessagingConfig,
+  MessagingContext,
+} from "../components/messaging/context"
 import SelectSessionAvailability from "../components/panga_messaging/responders/SelectSessionAvailability"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
@@ -52,7 +55,7 @@ export default function Invitation() {
     })
   }
 
-  const providerConfig = {
+  const providerConfig: IMessagingConfig = {
     responders: {
       select_session_availability: SelectSessionAvailability,
     },

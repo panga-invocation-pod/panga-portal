@@ -42,7 +42,7 @@ module Contexts
     def custom_responder(name)
       case name
       when 'select_session_availability'
-        CustomResponders::SelectSessionAvailability.new()
+        CustomResponders::SelectSessionAvailability.new(workshop: workshop)
       else
         raise "unknown custom responder #{name}"
       end
@@ -51,5 +51,9 @@ module Contexts
     private
 
     attr_reader :controller
+
+    def workshop
+      @workshop ||= Workshop.find_by_name("Panga Context Setting")
+    end
   end
 end

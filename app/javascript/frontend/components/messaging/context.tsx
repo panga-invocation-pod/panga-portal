@@ -1,7 +1,7 @@
 import { createContext } from "react"
 
-interface IMessagingConfig {
-  responders: { [key: string]: React.FC }
+export interface IMessagingConfig {
+  responders: { [key: string]: React.ReactNode }
 }
 
 export const defaultConfig = {

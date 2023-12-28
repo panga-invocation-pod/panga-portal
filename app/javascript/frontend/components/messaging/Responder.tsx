@@ -1,11 +1,16 @@
 import React from "react"
-import { IResponder, Respond } from "./types"
+import { ICustomResponder, IResponder, Respond } from "./types"
 import SelectOptionResponder from "./responders/SelectOptionResponder"
 import TextResponder from "./responders/TextResponder"
 import { MessagingContext } from "./context"
 
-interface ResponderProps {
+export interface ResponderProps {
   responder: IResponder
+  respond: Respond
+}
+
+export interface CustomResponderProps {
+  responder: ICustomResponder
   respond: Respond
 }
 
