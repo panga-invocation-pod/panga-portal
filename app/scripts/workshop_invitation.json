@@ -52,7 +52,7 @@
       },
       "transitions": {
         "Something about a workshop": "explain_workshop",
-        "Workshop details": "considering_availability"
+        "Workshop details": "considering_accessibility"
       }
     },
     {
@@ -228,7 +228,19 @@
       },
       "display": false,
       "transitions": {
-        "DEFAULT": "considering_availability"
+        "DEFAULT": "considering_accessibility"
+      }
+    },
+    {
+      "id": "considering_accessibility",
+      "prompt": "Before we start comparing diaries, I need to know if you have any requirements to make the workshop accessible to you.\n\nFor context, the workshop will be held in person in Narrm (Melbourne), and typically has somewhere between 5-10 participants, and runs for about 2 hours. It includes both presentation and group activities.\n\nWhat do you need to be able to participate?",
+      "responder": {
+        "responder_type": "form",
+        "fields": [{ "name": "accessibility_needs", "field_type": "text" }],
+        "buttons": [
+          { "name": "submit", "button_type": "submit" },
+          { "name": "cancel", "button_type": "cancel" }
+        ]
       }
     },
     {

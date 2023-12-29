@@ -1,21 +1,19 @@
+require_relative 'base_responder'
+
 module Messaging
   module Responders
-    class BaseResponder
+    class Form < BaseResponder
       def self.from_data(data)
         new data
       end
 
       def initialize(data)
-        @data = data
+        super
       end
 
-      def as_json(context = nil)
-        data
+      def responder_type
+        'form'
       end
-
-      private
-
-      attr_reader :data
     end
   end
 end
