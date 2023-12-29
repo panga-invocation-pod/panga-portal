@@ -233,7 +233,7 @@
     },
     {
       "id": "considering_availability",
-      "prompt": "TODO: this is where we come back to after login if you're in this stage",
+      "prompt": "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you.",
       "responder": {
         "responder_type": "custom",
         "name": "select_session_availability"

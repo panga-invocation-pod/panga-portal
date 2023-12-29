@@ -14,7 +14,11 @@ export default function SelectOptionResponder({
   return (
     <div className="select-option-responder">
       {responder.options.map((option) => (
-        <Button key={option} onClick={() => respond({ text: option })}>
+        <Button
+          colorScheme="primary"
+          key={option}
+          onClick={() => respond({ text: option })}
+        >
           {option}
         </Button>
       ))}
