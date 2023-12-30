@@ -57,8 +57,6 @@ export default function FormResponder({
   })
   const { errors } = methods.formState
 
-  console.log("errors", errors)
-
   const handleButtonClick =
     ({ button_type, name }: IFormResponderButton) =>
     () => {
@@ -90,6 +88,7 @@ export default function FormResponder({
                 key={field.name}
                 field={field}
                 errors={errors[field.name]}
+                registerProps={methods.register(field.name)}
               />
             ))}
             <div className="button-group">

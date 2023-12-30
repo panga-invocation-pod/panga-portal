@@ -4,8 +4,16 @@ import { ValidatedFormControl } from "../../../utility/forms"
 import { nameToTitle } from "../../../utility/strings"
 import { IFormResponderField } from "../../types"
 
-const FormResponderTextField = ({ name, placeholder }: IFormResponderField) => {
-  return <Textarea name={name} placeholder={placeholder} />
+interface IResponderFieldProps {
+  registerProps: any
+}
+
+const FormResponderTextField = ({
+  name,
+  placeholder,
+  registerProps,
+}: IFormResponderField & IResponderFieldProps) => {
+  return <Textarea name={name} placeholder={placeholder} {...registerProps} />
 }
 
 const fieldTypes = {
@@ -15,9 +23,11 @@ const fieldTypes = {
 const FormResponderField = ({
   field,
   errors,
+  registerProps,
 }: {
   field: IFormResponderField
   errors: any
+  registerProps: any
 }) => {
   const FieldComponent = fieldTypes[field.field_type]
   if (!FieldComponent)
@@ -26,7 +36,7 @@ const FormResponderField = ({
   return (
     <ValidatedFormControl fieldError={errors}>
       <FormLabel fontWeight="bold">{nameToTitle(field.name)}</FormLabel>
-      <FieldComponent {...field} />
+      <FieldComponent {...field} registerProps={registerProps} />
     </ValidatedFormControl>
   )
 }

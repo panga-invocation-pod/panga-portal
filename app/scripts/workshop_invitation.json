@@ -284,6 +284,7 @@
           }
         ]
       },
+      "command": "set_workshop_accessibility_needs",
       "transitions": {
         "alternatives_to_workshop": "alternatives_to_workshop",
         "no_accessibility_needs": "no_accessibility_needs"
