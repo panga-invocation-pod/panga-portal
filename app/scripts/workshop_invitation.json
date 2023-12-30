@@ -40,7 +40,7 @@
     },
     {
       "id": "logged_in_as_invitee",
-      "prompt": "Hi {{current_person.short_name}}, welcome back.\n\nWhat were we discussing?",
+      "prompt": "Hi {{current_person.short_name}}, welcome back.\n\nWhat were we discussing?\n\nRemove me later\n\nI'm not needed",
       "responder": {
         "responder_type": "select_option",
         "options": [
@@ -259,7 +259,7 @@
     },
     {
       "id": "considering_accessibility",
-      "prompt": "Before we start comparing diaries, I need to know if you have any requirements to make the workshop accessible to you.\n\nFor context, the workshop will be held in person in Narrm (Melbourne), and typically has somewhere between 5-10 participants, and runs for about 2 hours. It includes both presentation and group activities.\n\nWhat do you need to be able to participate?",
+      "prompt": "Before we start comparing diaries, it would help to know if you have any requirements to make the workshop accessible to you.\n\nFor context, the workshop will be held in person in Narrm (Melbourne), and typically has somewhere between 5-10 participants, and runs for about 2 hours. It includes both presentation and group activities.\n\nWhat do you need to be able to participate?",
       "responder": {
         "responder_type": "form",
         "fields": [
