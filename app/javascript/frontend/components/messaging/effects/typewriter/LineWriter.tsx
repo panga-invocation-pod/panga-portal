@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react"
 interface ILineWriterProps {
   lines: string[]
   delay?: number
-  children: (line: string) => React.ReactNode
+  children: (line: string, onFinished?: () => void) => React.ReactNode
+  onFinished?: () => void
 }
 
 const defaultDelay = 1000
@@ -13,6 +14,7 @@ export default function LineWriter({
   lines,
   delay,
   children,
+  onFinished,
 }: ILineWriterProps) {
   const [currentLineIndex, setCurrentLineIndex] = useState(0)
 
@@ -26,9 +28,15 @@ export default function LineWriter({
 
   return (
     <div>
-      {lines.slice(0, currentLineIndex + 1).map((line, index) => (
-        <p key={index}>{children(line)}</p>
-      ))}
+      {lines.slice(0, currentLineIndex + 1).map((line, index) => {
+        const isLastLine = index === lines.length - 1
+
+        return (
+          <p key={index}>
+            {children(line, isLastLine ? onFinished : undefined)}
+          </p>
+        )
+      })}
     </div>
   )
 }

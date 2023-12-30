@@ -33,8 +33,14 @@ export default function RobotEffect({ text, onFinished }: EffectProps) {
   // )
   return (
     <div className="robot-effect">
-      <LineWriter lines={text.split("\n\n")} delay={800}>
-        {(line: string) => <WordWriter text={line} perLetterDelay={30} />}
+      <LineWriter
+        lines={text.split("\n\n")}
+        delay={800}
+        onFinished={onEffectFinished}
+      >
+        {(line: string, onFinished) => (
+          <WordWriter text={line} perLetterDelay={30} onFinished={onFinished} />
+        )}
       </LineWriter>
     </div>
   )
