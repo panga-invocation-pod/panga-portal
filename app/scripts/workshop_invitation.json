@@ -40,7 +40,7 @@
     },
     {
       "id": "logged_in_as_invitee",
-      "prompt": "Hi {{current_person.short_name}}, welcome back.\n\nWhat were we discussing?\n\nRemove me later\n\nI'm not needed",
+      "prompt": "Hi {{current_person.short_name}}, welcome back.\n\nWhat were we discussing?",
       "responder": {
         "responder_type": "select_option",
         "options": [

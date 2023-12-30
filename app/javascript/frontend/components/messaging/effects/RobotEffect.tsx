@@ -3,6 +3,7 @@ import Typewriter from "./typewriter/Typewriter"
 import { EffectProps } from "./effects_shared"
 import LineWriter from "./typewriter/LineWriter"
 import WordWriter from "./typewriter/WordWriter"
+import LetterWriter from "./typewriter/LetterWriter"
 
 export default function RobotEffect({ text, onFinished }: EffectProps) {
   const [effectFinished, setEffectFinished] = useState(false)
@@ -39,7 +40,11 @@ export default function RobotEffect({ text, onFinished }: EffectProps) {
         onFinished={onEffectFinished}
       >
         {(line: string, onFinished) => (
-          <WordWriter text={line} perLetterDelay={30} onFinished={onFinished} />
+          <LetterWriter
+            text={line}
+            perLetterDelay={30}
+            onFinished={onFinished}
+          />
         )}
       </LineWriter>
     </div>
