@@ -13,6 +13,8 @@ class Invitation < ApplicationRecord
     state :confirmed_identity
     state :considering_accessibility
     state :considering_availability
+    state :cant_do_workshop
+    state :invitation_declined
 
     event :confirm_identity do
       transitions from: :new, to: :confirmed_identity

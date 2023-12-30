@@ -1,6 +1,10 @@
+export interface IOption {
+  text: string
+}
+
 export interface ISelectOptionResponder {
   responder_type: "select_option"
-  options: string[]
+  options: IOption[]
 }
 
 export interface ITextResponder {

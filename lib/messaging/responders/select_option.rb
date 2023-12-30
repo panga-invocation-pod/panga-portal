@@ -17,7 +17,9 @@ module Messaging
       attr_reader :text, :if_condition
 
       def as_json
-        text
+        {
+          text: text
+        }
       end
 
       def valid?(context)

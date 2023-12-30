@@ -38,7 +38,7 @@ module Messaging
           prompt: { text: 'Welcome, are you new here?' },
           responder: {
             responder_type: 'select_option',
-            options: ['yes', 'no']
+            options: [{text: "yes"}, {text: "no"}]
           }
         )
       end

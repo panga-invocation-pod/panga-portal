@@ -270,7 +270,8 @@
       "responder": {
         "responder_type": "select_option",
         "options": [
-          "Yes please, this isn't for me",
+          "I'm keen but can't do a workshop",
+          { "text": "This whole Panga thing isn't for me" },
           "Let's go back to accessibility"
         ]
       },
