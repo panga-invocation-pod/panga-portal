@@ -1,12 +1,18 @@
 import React from "react"
-import { Stack, Button } from "@chakra-ui/react"
+import { Stack, Button, FormLabel, Textarea } from "@chakra-ui/react"
 import {
   IFormResponder,
   IFormResponderButton,
   IFormResponderField,
   Respond,
 } from "../types"
-import { titleCase } from "title-case"
+import { ValidatedFormControl } from "../../utility/forms"
+
+const capitalizeFirstLetter = (string: string) =>
+  string.charAt(0).toUpperCase() + string.slice(1)
+
+const nameToTitle = (name: string) =>
+  capitalizeFirstLetter(name.replace(/_/g, " "))
 
 interface FormResponderProps {
   responder: IFormResponder
@@ -24,25 +30,36 @@ const FormResponderButton = ({
       colorScheme="primary"
       variant={button_type == "submit" ? "solid" : "outline"}
     >
-      {text || titleCase(name)}
+      {text || nameToTitle(name)}
     </Button>
   )
 }
 
-const FormResponderTextField = ({ name }: IFormResponderField) => {
-  return <div>Text field: {name}</div>
+const FormResponderTextField = ({ name, placeholder }: IFormResponderField) => {
+  return <Textarea name={name} placeholder={placeholder} />
 }
 
 const fieldTypes = {
   text: FormResponderTextField,
 }
 
-const FormResponderField = (field: IFormResponderField) => {
+const FormResponderField = ({
+  field,
+  errors,
+}: {
+  field: IFormResponderField
+  errors: any
+}) => {
   const FieldComponent = fieldTypes[field.field_type]
   if (!FieldComponent)
     throw new Error(`Unknown field type: ${field.field_type}`)
 
-  return <FieldComponent {...field} />
+  return (
+    <ValidatedFormControl fieldError={errors}>
+      <FormLabel fontWeight="bold">{nameToTitle(field.name)}</FormLabel>
+      <FieldComponent {...field} />
+    </ValidatedFormControl>
+  )
 }
 
 export default function FormResponder({
@@ -56,7 +73,7 @@ export default function FormResponder({
       <form>
         <Stack spacing={4} align="stretch">
           {fields.map((field) => (
-            <FormResponderField {...field} />
+            <FormResponderField field={field} errors={null} />
           ))}
         </Stack>
       </form>

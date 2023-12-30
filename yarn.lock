@@ -2576,11 +2576,6 @@ tiny-invariant@^1.0.6:
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
   integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
 
-title-case@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/title-case/-/title-case-4.2.0.tgz#b7ed22558b0a2885be7fd585b0f6ccf7b0560c36"
-  integrity sha512-rNoF1XCDvb1aSlhFp6f1PhLM9WaP3S768r6EUMdB7ntFX9AwidZIxsc+Vlq4zbwskmkATXvN0T12TCWL/bjmFQ==
-
 to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"

@@ -244,7 +244,13 @@
       "prompt": "Before we start comparing diaries, I need to know if you have any requirements to make the workshop accessible to you.\n\nFor context, the workshop will be held in person in Narrm (Melbourne), and typically has somewhere between 5-10 participants, and runs for about 2 hours. It includes both presentation and group activities.\n\nWhat do you need to be able to participate?",
       "responder": {
         "responder_type": "form",
-        "fields": [{ "name": "accessibility_needs", "field_type": "text" }],
+        "fields": [
+          {
+            "name": "accessibility_needs",
+            "field_type": "text",
+            "placeholder": "Be as specific as you like, for example: I'll need a wheel-chair accessible toilet and an access ramp into the building/room with a minimum weight capacity of 160kg and a minimum width of 80cm."
+          }
+        ],
         "buttons": [
           { "name": "submit", "button_type": "submit" },
           {

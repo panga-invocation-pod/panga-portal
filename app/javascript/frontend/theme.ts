@@ -1,5 +1,34 @@
 import { extendTheme, theme as chakraTheme } from "@chakra-ui/react"
 
+const colors = {
+  ...chakraTheme.colors,
+  primary: {
+    main: "#016A6D",
+    50: "#015557",
+    100: "#015f62",
+    200: "#016A6D", //! main
+    300: "#1a797c",
+    400: "#34888a",
+    500: "#4d9799",
+    600: "#67a6a7",
+    700: "#80b5b6",
+    800: "#99c3c5",
+    900: "#b3d2d3",
+  },
+  primaryFontColor: chakraTheme.colors.gray["300"],
+  earth: {
+    100: "#070404",
+    200: "#140b0b",
+    300: "#211212",
+    400: "#2f1919",
+    500: "#3c2020",
+    600: "#4a2727",
+    700: "#572e2e",
+    800: "#643535",
+    900: "#723c3c",
+  },
+}
+
 export const theme = extendTheme({
   config: {
     initialColorMode: "dark",
@@ -8,26 +37,11 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "#150b0b",
+        bg: "earth.300",
       },
     },
   },
-  colors: {
-    ...chakraTheme.colors,
-    primary: {
-      main: "#016A6D",
-      50: "#015557",
-      100: "#015f62",
-      200: "#016A6D", //! main
-      300: "#1a797c",
-      400: "#34888a",
-      500: "#4d9799",
-      600: "#67a6a7",
-      700: "#80b5b6",
-      800: "#99c3c5",
-      900: "#b3d2d3",
-    },
-  },
+  colors: colors,
   components: {
     Button: {
       variants: {
@@ -44,6 +58,24 @@ export const theme = extendTheme({
         md: {
           pt: "4px",
           pb: "2px",
+        },
+      },
+    },
+    Textarea: {
+      variants: {
+        outline: {
+          color: colors.primaryFontColor,
+          borderColor: "black",
+          borderWidth: "2px",
+          backgroundColor: "earth.600",
+          _placeholder: {
+            color: colors.primaryFontColor,
+            opacity: 0.6,
+          },
+          _focus: {
+            borderColor: "primary.600",
+            boxShadow: "0 0 0 1px #016A6D",
+          },
         },
       },
     },
