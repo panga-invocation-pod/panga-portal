@@ -294,7 +294,8 @@
       },
       "transitions": {
         "Let's go back to accessibility": "considering_accessibility",
-        "I'm keen but can't do a workshop": "cant_do_workshop"
+        "I'm keen but can't do a workshop": "cant_do_workshop",
+        "This whole Panga thing isn't for me": "not_for_me"
       }
     },
     {
@@ -305,6 +306,19 @@
         "input": "cant_do_workshop",
         "stage": "request"
       }
+    },
+    {
+      "id": "not_for_me",
+      "prompt": "Ok, I've let them know that this isn't for you. Thanks for taking the time to chat with me {{invitation.invitee.short_name}}.",
+      "command": {
+        "name": "invitation_event",
+        "input": "invitation_declined",
+        "stage": "request"
+      }
+    },
+    {
+      "id": "already_logged_in",
+      "prompt": "You're already logged in as {{current_person.short_name}}. If you want to see what {{invitation.invitee.short_name}} will see, log out first."
     },
     {
       "id": "considering_availability",

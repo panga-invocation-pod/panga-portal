@@ -32,6 +32,10 @@ class Invitation < ApplicationRecord
       transitions from: [:considering_accessibility, :considering_availability], to: :cant_do_workshop
     end
 
+    event :invitation_declined do
+      transitions from: [:considering_accessibility, :considering_availability], to: :invitation_declined
+    end
+
     event :reset do
       transitions to: :confirmed_identity
     end
