@@ -1,5 +1,6 @@
 export interface IOption {
   text: string
+  type?: "primary" | "secondary"
 }
 
 export interface ISelectOptionResponder {

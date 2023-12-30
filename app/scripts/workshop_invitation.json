@@ -270,9 +270,12 @@
       "responder": {
         "responder_type": "select_option",
         "options": [
-          "I'm keen but can't do a workshop",
-          { "text": "This whole Panga thing isn't for me" },
-          "Let's go back to accessibility"
+          "Let's go back to accessibility",
+          { "text": "I'm keen but can't do a workshop", "type": "secondary" },
+          {
+            "text": "This whole Panga thing isn't for me",
+            "type": "secondary"
+          }
         ]
       },
       "transitions": {

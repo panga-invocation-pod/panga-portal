@@ -6,20 +6,22 @@ module Messaging
       def self.from_data(data)
         hash = data.is_a?(Hash) ? data : { 'text' => data }
 
-        new text: hash['text'], if_condition: Conditions::Factory.from_data(hash["if"])
+        new text: hash['text'], option_type: hash['type'], if_condition: Conditions::Factory.from_data(hash["if"])
       end
 
-      def initialize(text:, if_condition: nil)
+      def initialize(text:, option_type: nil, if_condition: nil)
         @text = text
+        @option_type = option_type
         @if_condition = if_condition
       end
 
-      attr_reader :text, :if_condition
+      attr_reader :text, :if_condition, :option_type
 
       def as_json
         {
-          text: text
-        }
+          text: text,
+          type: option_type,
+      }.compact
       end
 
       def valid?(context)

@@ -13,9 +13,10 @@ export default function SelectOptionResponder({
 }: SelectOptionResponderProps) {
   return (
     <div className="button-group">
-      {responder.options.map(({ text }: IOption) => (
+      {responder.options.map(({ text, type }: IOption) => (
         <Button
           colorScheme="primary"
+          variant={type == "secondary" ? "outline" : "solid"}
           key={text}
           onClick={() => respond({ text: text })}
         >
