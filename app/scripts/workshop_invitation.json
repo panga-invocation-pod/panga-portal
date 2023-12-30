@@ -188,12 +188,12 @@
       "responder": {
         "responder_type": "select_option",
         "options": [
-          "I'm not sure we are moving past last-stage capitalism",
+          "Are we actually moving past last-stage capitalism?",
           "Sounds great, but why me?"
         ]
       },
       "transitions": {
-        "I'm not sure we are moving past last-stage capitalism": "not_past_capitalism",
+        "Are we actually moving past last-stage capitalism?": "not_past_capitalism",
         "Sounds great, but why me?": "why_me"
       }
     },
