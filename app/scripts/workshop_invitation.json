@@ -247,7 +247,11 @@
         "fields": [{ "name": "accessibility_needs", "field_type": "text" }],
         "buttons": [
           { "name": "submit", "button_type": "submit" },
-          { "name": "cancel", "button_type": "cancel" }
+          {
+            "name": "alternatives_to_workshop",
+            "text": "Is there another way to participate?",
+            "button_type": "cancel"
+          }
         ]
       }
     },

@@ -3,6 +3,7 @@ import { ICustomResponder, IResponder, Respond } from "./types"
 import SelectOptionResponder from "./responders/SelectOptionResponder"
 import TextResponder from "./responders/TextResponder"
 import { MessagingContext } from "./context"
+import FormResponder from "./responders/FormResponder"
 
 export interface ResponderProps {
   responder: IResponder
@@ -19,6 +20,7 @@ const responderComponents: {
 } = {
   select_option: SelectOptionResponder as React.FC<ResponderProps>,
   text: TextResponder as React.FC<ResponderProps>,
+  form: FormResponder as React.FC<ResponderProps>,
 }
 
 export default function Responder(props: ResponderProps) {

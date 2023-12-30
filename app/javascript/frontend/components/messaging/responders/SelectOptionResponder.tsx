@@ -12,7 +12,7 @@ export default function SelectOptionResponder({
   respond,
 }: SelectOptionResponderProps) {
   return (
-    <div className="select-option-responder">
+    <div className="button-group">
       {responder.options.map((option) => (
         <Button
           colorScheme="primary"

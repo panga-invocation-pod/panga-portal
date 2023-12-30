@@ -76,7 +76,7 @@ export default function SelectSessionAvailability({
                 </Stack>
               </CheckboxGroup>
             </ValidatedFormControl>
-            <div className="select-option-responder">
+            <div className="button-group">
               <Button type="submit" colorScheme="primary">
                 Done
               </Button>
@@ -84,7 +84,7 @@ export default function SelectSessionAvailability({
           </Stack>
         </form>
       </FormProvider>
-      <div className="select-option-responder">
+      <div className="button-group">
         <Button type="submit" colorScheme="primary" variant="outline">
           I'm keen, but none of these work
         </Button>

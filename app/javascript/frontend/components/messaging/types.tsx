@@ -7,6 +7,23 @@ export interface ITextResponder {
   responder_type: "text"
 }
 
+export interface IFormResponderButton {
+  name: string
+  text?: string
+  button_type: "submit" | "cancel"
+}
+
+export interface IFormResponderField {
+  name: string
+  field_type: "text"
+}
+
+export interface IFormResponder {
+  responder_type: "form"
+  buttons: IFormResponderButton[]
+  fields: IFormResponderField[]
+}
+
 export interface ICustomResponder {
   responder_type: "custom"
   name: string
@@ -16,6 +33,7 @@ export interface ICustomResponder {
 export type IResponder =
   | ISelectOptionResponder
   | ITextResponder
+  | IFormResponder
   | ICustomResponder
 
 export interface IPrompt {
