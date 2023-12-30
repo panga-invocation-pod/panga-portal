@@ -42,6 +42,13 @@
             }
           },
           {
+            "text": "Workshop accessibility",
+            "if": {
+              "type": "context",
+              "condition": "invitation_considering_accessibility?"
+            }
+          },
+          {
             "text": "Workshop details",
             "if": {
               "type": "context",
@@ -52,6 +59,7 @@
       },
       "transitions": {
         "Something about a workshop": "explain_workshop",
+        "Workshop accessibility": "considering_accessibility",
         "Workshop details": "considering_accessibility"
       }
     },

@@ -11,6 +11,7 @@ class Invitation < ApplicationRecord
   aasm do
     state :new, initial: true
     state :confirmed_identity
+    state :considering_accessibility
     state :considering_availability
 
     event :confirm_identity do
@@ -18,7 +19,11 @@ class Invitation < ApplicationRecord
     end
 
     event :workshop_explained do
-      transitions from: [:new, :confirmed_identity], to: :considering_availability
+      transitions from: [:new, :confirmed_identity], to: :considering_accessibility
+    end
+
+    event :accessibility_needs_provided do
+      transitions from: :considering_accessibility, to: :considering_availability
     end
 
     event :reset do
