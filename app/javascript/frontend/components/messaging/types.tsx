@@ -22,6 +22,7 @@ export interface IFormResponderField {
   name: string
   field_type: "text"
   placeholder?: string
+  required?: boolean
 }
 
 export interface IFormResponder {

@@ -17,11 +17,28 @@ interface FormResponderProps {
   respond: Respond
 }
 
+function schemaTypeFromField(field: IFormResponderField) {
+  switch (field.field_type) {
+    case "text":
+      return yup.string()
+    default:
+      throw new Error(`Unknown field type: ${field.field_type}`)
+  }
+}
+
+function schemaFromField(field: IFormResponderField) {
+  let result = schemaTypeFromField(field)
+  if (field.required) {
+    result = result.required("Required")
+  }
+  return result
+}
+
 function schemaFromFields(fields: IFormResponderField[]) {
   const schema: { [key: string]: any } = {}
 
   fields.forEach((field) => {
-    schema[field.name] = yup.string().required()
+    schema[field.name] = schemaFromField(field)
   })
 
   return yup.object().shape(schema)

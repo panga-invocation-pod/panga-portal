@@ -74,6 +74,10 @@
       }
     },
     {
+      "id": "already_logged_in",
+      "prompt": "You're already logged in as {{current_person.short_name}}. If you want to see what {{invitation.invitee.short_name}} will see, log out first."
+    },
+    {
       "id": "welcome_back_opted_out",
       "prompt": "Hi {{current_person.short_name}}, nice to see you again.\n\nI see you've opted out of the workshop. If you change your mind, reach out to {{invitation.inviter.short_name}} and they can reset your invite link."
     },
@@ -262,11 +266,17 @@
           {
             "name": "accessibility_needs",
             "field_type": "text",
-            "placeholder": "Be as specific as you like, for example: I'll need a wheel-chair accessible toilet and an access ramp into the building/room with a minimum weight capacity of 160kg and a minimum width of 80cm."
+            "placeholder": "Be as specific as you like, for example: I'll need a wheel-chair accessible toilet and an access ramp into the building/room with a minimum weight capacity of 160kg and a minimum width of 80cm.",
+            "required": true
           }
         ],
         "buttons": [
           { "name": "submit", "button_type": "submit" },
+          {
+            "name": "no_accessibility_needs",
+            "button_type": "cancel",
+            "text": "I don't have any accessibility needs"
+          },
           {
             "name": "alternatives_to_workshop",
             "text": "Is there another way to participate?",
@@ -275,7 +285,8 @@
         ]
       },
       "transitions": {
-        "alternatives_to_workshop": "alternatives_to_workshop"
+        "alternatives_to_workshop": "alternatives_to_workshop",
+        "no_accessibility_needs": "no_accessibility_needs"
       }
     },
     {
@@ -317,8 +328,16 @@
       }
     },
     {
-      "id": "already_logged_in",
-      "prompt": "You're already logged in as {{current_person.short_name}}. If you want to see what {{invitation.invitee.short_name}} will see, log out first."
+      "id": "no_accessibility_needs",
+      "command": {
+        "name": "invitation_event",
+        "input": "no_accessibility_needs",
+        "stage": "request"
+      },
+      "display": false,
+      "transitions": {
+        "DEFAULT": "considering_availability"
+      }
     },
     {
       "id": "considering_availability",
