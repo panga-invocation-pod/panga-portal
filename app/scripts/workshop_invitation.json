@@ -59,7 +59,7 @@
             }
           },
           {
-            "text": "Workshop details",
+            "text": "Workshop times",
             "if": {
               "type": "context",
               "condition": "invitation_considering_availability?"
@@ -70,7 +70,7 @@
       "transitions": {
         "Something about a workshop": "explain_workshop",
         "Workshop accessibility": "considering_accessibility",
-        "Workshop details": "considering_accessibility"
+        "Workshop times": "considering_availability"
       }
     },
     {
@@ -346,7 +346,16 @@
       "prompt": "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you.",
       "responder": {
         "responder_type": "custom",
-        "name": "select_session_availability"
+        "name": "select_session_availability",
+        "custom_data": {
+          "buttons": [
+            {
+              "name": "no_times_suit",
+              "button_type": "cancel",
+              "text": "I'm keen, but none of these work"
+            }
+          ]
+        }
       }
     }
   ]

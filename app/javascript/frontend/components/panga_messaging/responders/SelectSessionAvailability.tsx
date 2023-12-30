@@ -13,6 +13,8 @@ import { FormProvider, useForm } from "react-hook-form"
 import { ValidatedFormControl } from "../../utility/forms"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { IFormResponderButton } from "../../messaging/types"
+import FormResponderButton from "../../messaging/responders/atoms/FormResponderButton"
 
 interface SessionData {
   id: string
@@ -21,7 +23,8 @@ interface SessionData {
 }
 
 interface SelectSessionAvailabilityData {
-  sessions: Array<SessionData>
+  sessions: SessionData[]
+  buttons?: IFormResponderButton[]
 }
 
 interface SessionAvailabilityFormFieldValues {
@@ -83,12 +86,14 @@ export default function SelectSessionAvailability({
         </form>
       </FormProvider>
       <div className="button-group">
-        <Button type="submit" colorScheme="primary" variant="outline">
-          I'm keen, but none of these work
-        </Button>
-        <Button type="submit" colorScheme="primary" variant="outline">
-          I think I'll pass on the workshop
-        </Button>
+        {data.buttons &&
+          data.buttons.map((button) => (
+            <FormResponderButton
+              {...button}
+              key={button.name}
+              onClick={() => respond({ text: button.name })}
+            />
+          ))}
       </div>
     </Stack>
   )
