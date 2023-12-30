@@ -259,6 +259,24 @@
             "button_type": "cancel"
           }
         ]
+      },
+      "transitions": {
+        "alternatives_to_workshop": "alternatives_to_workshop"
+      }
+    },
+    {
+      "id": "alternatives_to_workshop",
+      "prompt": "I get you, and in-person workshop isn't for everyone.\n\nThe Panga folks hope to have some other ways to participate in the future, but for now, the workshop is the main way to get involved.\n\nIf you like, I can let them know that this isn't for you, and they can reach out to chat about engaging differently in the future.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          "Yes please, this isn't for me",
+          "Let's go back to accessibility"
+        ]
+      },
+      "transitions": {
+        "Yes please, this isn't for me": "not_for_me",
+        "Let's go back to accessibility": "considering_accessibility"
       }
     },
     {
