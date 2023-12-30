@@ -74,14 +74,10 @@ export default function FormResponder({
     (button) => button.button_type != "submit",
   )
 
-  const onSubmit = (data: any) => {
-    console.log("on submit", data)
-  }
-
   return (
     <Stack spacing={4} align="stretch">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(respond)}>
           <Stack spacing={4} align="stretch">
             {fields.map((field) => (
               <FormResponderField

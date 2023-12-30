@@ -286,6 +286,7 @@
       },
       "command": "set_workshop_accessibility_needs",
       "transitions": {
+        "DEFAULT": "considering_availability",
         "alternatives_to_workshop": "alternatives_to_workshop",
         "no_accessibility_needs": "no_accessibility_needs"
       }
