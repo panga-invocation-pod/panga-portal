@@ -15,7 +15,7 @@ const FormResponderButton = ({
 }: FormResponderButtonProps) => {
   return (
     <Button
-      type="submit"
+      type={button_type == "submit" ? "submit" : "button"}
       colorScheme="primary"
       variant={button_type == "submit" ? "solid" : "outline"}
       onClick={onClick}

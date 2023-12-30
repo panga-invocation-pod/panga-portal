@@ -3,9 +3,7 @@ import {
   CheckboxGroup,
   Stack,
   Checkbox,
-  FormControl,
   FormLabel,
-  Box,
   Button,
 } from "@chakra-ui/react"
 import { CustomResponderProps } from "../../messaging/Responder"
