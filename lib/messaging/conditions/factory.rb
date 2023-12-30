@@ -1,3 +1,6 @@
+require_relative 'context_condition'
+require_relative 'and_condition'
+
 module Messaging
   module Conditions
     class Factory
@@ -5,7 +8,7 @@ module Messaging
         return nil unless data
 
         type_name = data['type']
-        condition_class = Messaging::Conditions.const_get(type_name.camelcase)
+        condition_class = Messaging::Conditions.const_get(type_name.camelcase + "Condition")
 
         condition_class.from_data(data)
       end

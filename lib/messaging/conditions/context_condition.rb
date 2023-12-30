@@ -1,6 +1,6 @@
 module Messaging
   module Conditions
-    class Context
+    class ContextCondition
       def self.from_data(data)
         new(data['condition'])
       end

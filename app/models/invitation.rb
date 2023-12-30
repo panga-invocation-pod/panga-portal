@@ -28,6 +28,10 @@ class Invitation < ApplicationRecord
       transitions from: :considering_accessibility, to: :considering_availability
     end
 
+    event :cant_do_workshop do
+      transitions from: [:considering_accessibility, :considering_availability], to: :cant_do_workshop
+    end
+
     event :reset do
       transitions to: :confirmed_identity
     end
@@ -39,5 +43,9 @@ class Invitation < ApplicationRecord
 
   def in_progress?
     !new?
+  end
+
+  def opted_out?
+    cant_do_workshop? || invitation_declined?
   end
 end

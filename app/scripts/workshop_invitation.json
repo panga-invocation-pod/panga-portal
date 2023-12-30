@@ -5,6 +5,16 @@
       "if": { "type": "context", "condition": "logged_in_but_not_invitee?" }
     },
     {
+      "to": "welcome_back_opted_out",
+      "if": {
+        "type": "and",
+        "conditions": [
+          { "type": "context", "condition": "logged_in_as_invitee?" },
+          { "type": "context", "condition": "invitation_opted_out?" }
+        ]
+      }
+    },
+    {
       "to": "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
@@ -62,6 +72,10 @@
         "Workshop accessibility": "considering_accessibility",
         "Workshop details": "considering_accessibility"
       }
+    },
+    {
+      "id": "welcome_back_opted_out",
+      "prompt": "Hi {{current_person.short_name}}, nice to see you again.\n\nI see you've opted out of the workshop. If you change your mind, reach out to {{invitation.inviter.short_name}} and they can reset your invite link."
     },
     {
       "id": "am_I_addressing",
@@ -279,8 +293,17 @@
         ]
       },
       "transitions": {
-        "Yes please, this isn't for me": "not_for_me",
-        "Let's go back to accessibility": "considering_accessibility"
+        "Let's go back to accessibility": "considering_accessibility",
+        "I'm keen but can't do a workshop": "cant_do_workshop"
+      }
+    },
+    {
+      "id": "cant_do_workshop",
+      "prompt": "Ok, I've let them know that you're keen but can't do a workshop. They'll reach out to chat about engaging differently in the future.",
+      "command": {
+        "name": "invitation_event",
+        "input": "cant_do_workshop",
+        "stage": "request"
       }
     },
     {
