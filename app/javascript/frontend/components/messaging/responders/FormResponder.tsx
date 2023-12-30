@@ -1,6 +1,11 @@
 import React from "react"
 import { Stack, Button } from "@chakra-ui/react"
-import { IFormResponder, IFormResponderButton, Respond } from "../types"
+import {
+  IFormResponder,
+  IFormResponderButton,
+  IFormResponderField,
+  Respond,
+} from "../types"
 import { titleCase } from "title-case"
 
 interface FormResponderProps {
@@ -8,7 +13,11 @@ interface FormResponderProps {
   respond: Respond
 }
 
-const FormButton = ({ button_type, name, text }: IFormResponderButton) => {
+const FormResponderButton = ({
+  button_type,
+  name,
+  text,
+}: IFormResponderButton) => {
   return (
     <Button
       type="submit"
@@ -20,15 +29,40 @@ const FormButton = ({ button_type, name, text }: IFormResponderButton) => {
   )
 }
 
+const FormResponderTextField = ({ name }: IFormResponderField) => {
+  return <div>Text field: {name}</div>
+}
+
+const fieldTypes = {
+  text: FormResponderTextField,
+}
+
+const FormResponderField = (field: IFormResponderField) => {
+  const FieldComponent = fieldTypes[field.field_type]
+  if (!FieldComponent)
+    throw new Error(`Unknown field type: ${field.field_type}`)
+
+  return <FieldComponent {...field} />
+}
+
 export default function FormResponder({
   responder,
   respond,
 }: FormResponderProps) {
+  const { fields, buttons } = responder
+
   return (
     <Stack spacing={4} align="stretch">
+      <form>
+        <Stack spacing={4} align="stretch">
+          {fields.map((field) => (
+            <FormResponderField {...field} />
+          ))}
+        </Stack>
+      </form>
       <div className="button-group">
-        {responder.buttons.map((button) => (
-          <FormButton {...button} />
+        {buttons.map((button) => (
+          <FormResponderButton {...button} />
         ))}
       </div>
     </Stack>
