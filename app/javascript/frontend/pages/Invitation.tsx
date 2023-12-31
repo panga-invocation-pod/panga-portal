@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react"
 import Message from "../components/messaging/Message"
-import { IMessage, IPostReply, IInput } from "../components/messaging/types"
+import {
+  IMessage,
+  IPostReply,
+  IInput,
+  IChatStatus,
+} from "../components/messaging/types"
 import ChatClient from "../api/chat_client"
 import { useLocation, useParams } from "react-router-dom"
 import "../stylesheets/chat.scss"
-import { Center, Spinner } from "@chakra-ui/react"
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Center,
+  Spinner,
+} from "@chakra-ui/react"
 import {
   IMessagingConfig,
   MessagingContext,
@@ -17,19 +29,23 @@ export default function Invitation() {
   let { token } = useParams()
   const { hash } = useLocation()
 
-  const image = null
-
   if (!token) {
     return <div>Invalid token</div>
   }
 
-  const [message, setMessage] = useState<IMessage | null>(null)
+  const [message, setMessage] = useState<IMessage | "error" | null>(null)
   const client = new ChatClient(token)
 
+  const onData = (data: IChatStatus) => {
+    setMessage(data.message)
+  }
+
+  const onError = () => {
+    setMessage("error")
+  }
+
   useEffect(() => {
-    client.get((data) => {
-      setMessage(data.message)
-    })
+    client.get(onData, onError)
   }, [token])
 
   if (!message) {
@@ -42,17 +58,15 @@ export default function Invitation() {
     )
   }
 
-  const respond = (input: IInput) => {
+  const respond = (messageId: string, input: IInput) => {
     const postReply: IPostReply = {
       reply: {
-        to: message.id,
+        to: messageId,
         input,
       },
     }
 
-    client.post(postReply, (data) => {
-      setMessage(data.message)
-    })
+    client.post(postReply, onData, onError)
   }
 
   const providerConfig: IMessagingConfig = {
@@ -61,12 +75,24 @@ export default function Invitation() {
     },
   }
 
+  if (message == "error") {
+    return (
+      <Alert status="error" flexDirection="column">
+        <AlertIcon />
+        <AlertTitle>There was an error</AlertTitle>
+        <AlertDescription>
+          Sorry, this shouldn't happen. Please reach out to us and let us know.
+        </AlertDescription>
+      </Alert>
+    )
+  }
+
   return (
     <div className="chat-container">
       <MessagingContext.Provider value={providerConfig}>
         <Message
           message={message}
-          respond={respond}
+          respond={(input: IInput) => respond(message.id, input)}
           mode={hash == "#fast" ? "fast" : null}
         />
       </MessagingContext.Provider>

@@ -7,7 +7,7 @@ export default class ChatClient {
     this.inviteToken = inviteToken
   }
 
-  get(callback: (response: IChatStatus) => void) {
+  get(callback: (response: IChatStatus) => void, onError?: () => void) {
     fetch(this.endpoint(), {
       method: "GET",
     })
@@ -16,10 +16,17 @@ export default class ChatClient {
         callback(data)
         console.log(data)
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.log(error)
+        if (onError) onError()
+      })
   }
 
-  post(postReply: IPostReply, callback: (response: IChatStatus) => void) {
+  post(
+    postReply: IPostReply,
+    callback: (response: IChatStatus) => void,
+    onError?: () => void,
+  ) {
     fetch(this.endpoint(), {
       method: "POST",
       body: JSON.stringify(postReply),
@@ -32,7 +39,10 @@ export default class ChatClient {
         console.log(data)
         callback(data)
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.log(error)
+        if (onError) onError()
+      })
   }
 
   endpoint(): string {
