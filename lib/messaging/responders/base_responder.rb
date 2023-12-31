@@ -9,7 +9,7 @@ module Messaging
         @data = data
       end
 
-      def as_json(context = nil)
+      def as_json(context: nil, interpolator: nil)
         data
       end
 

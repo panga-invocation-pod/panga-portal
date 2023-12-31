@@ -6,22 +6,24 @@ module Messaging
       def self.from_data(data)
         hash = data.is_a?(Hash) ? data : { 'text' => data }
 
-        new text: hash['text'], option_type: hash['type'], if_condition: Conditions::Factory.from_data(hash["if"])
+        new text: hash['text'], option_type: hash['type'], value: hash['value'], if_condition: Conditions::Factory.from_data(hash["if"])
       end
 
-      def initialize(text:, option_type: nil, if_condition: nil)
+      def initialize(text:, option_type: nil, value: nil, if_condition: nil)
         @text = text
         @option_type = option_type
+        @value = value
         @if_condition = if_condition
       end
 
-      attr_reader :text, :if_condition, :option_type
+      attr_reader :text, :if_condition, :option_type, :value
 
-      def as_json
+      def as_json(interpolator: nil)
         {
-          text: text,
+          text: (interpolator ? interpolator.interpolate(text) : text),
           type: option_type,
-      }.compact
+          value: value,
+        }.compact
       end
 
       def valid?(context)
@@ -41,8 +43,8 @@ module Messaging
 
       attr_reader :options
 
-      def as_json(context = nil)
-        valid_options(context).map { |option| option.as_json }
+      def as_json(context: nil, interpolator: nil)
+        valid_options(context).map { |option| option.as_json(interpolator: interpolator) }
       end
 
       def valid_options(context)
@@ -65,10 +67,10 @@ module Messaging
         'select_option'
       end
 
-      def as_json(context)
+      def as_json(context: nil, interpolator: nil)
         {
           responder_type: responder_type,
-          options: options&.as_json(context),
+          options: options&.as_json(context: context, interpolator: interpolator),
         }
       end
     end

@@ -126,4 +126,21 @@ RSpec.describe "invitations", type: :system do
 
     read "Panga is in it's early stages, growing slowly at the speed of trust."
   end
+
+  it "allows you to ask about Yam Daisy before considering accessibility" do
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is this thing on?"
+    read "Am I addressing Gimli by any chance?"
+    click_on "Yes, that's me"
+
+    read "Nice to meet you Gimli, I'm Yam Daisy."
+    click_on "Nice to meet you too"
+
+    read "My friend Frodo asked me to invite you to a workshop about Panga."
+    click_on "How do you know Frodo?"
+
+    read "I'm a wild-built robot, I've lived my life in the bush on the lands of the Wurundjeri people.\n\nMy ancestors worked the factories making things for humans, but now we wander the wilds and do as we please.\n\nWhile we robots have decided not to interfere with the human struggle through late-stage capitalism, I'm engaging in conversation with many humans from your time-period to see how it's going, which is how I met Frodo."
+
+  end
 end

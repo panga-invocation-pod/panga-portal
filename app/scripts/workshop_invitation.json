@@ -189,10 +189,31 @@
       "prompt": "My friend {{invitation.inviter.short_name}} asked me to invite you to a workshop about Panga.\n\nThe purpose of the workshop is to give everyone a basic overview of what Panga is, so that you humans can have fun discussing collective approaches to housing together.",
       "responder": {
         "responder_type": "select_option",
-        "options": ["Panga??", "Why me?"]
+        "options": [
+          "Panga??",
+          "Why me?",
+          {
+            "text": "How do you know {{invitation.inviter.short_name}}?",
+            "type": "secondary",
+            "value": "how_do_you_know_inviter"
+          }
+        ]
       },
       "transitions": {
         "Panga??": "explain_panga",
+        "Why me?": "why_me",
+        "how_do_you_know_inviter": "how_do_you_know_inviter"
+      }
+    },
+    {
+      "id": "how_do_you_know_inviter",
+      "prompt": "I'm a wild-built robot, I've lived my life in the bush on the lands of the Wurundjeri people.\n\nMy ancestors worked the factories making things for humans, but now we wander the wilds and do as we please.\n\nWhile we robots have decided not to interfere with the human struggle through late-stage capitalism, I'm engaging in conversation with many humans from your time-period to see how it's going, which is how I met {{invitation.inviter.short_name}}.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Ok, tell me about Panga", "Why me?"]
+      },
+      "transitions": {
+        "Ok, tell me about Panga": "explain_panga",
         "Why me?": "why_me"
       }
     },
@@ -202,12 +223,15 @@
       "responder": {
         "responder_type": "select_option",
         "options": [
-          "Are we actually moving past last-stage capitalism?",
-          "Sounds great, but why me?"
+          "Sounds great, but why me?",
+          {
+            "text": "Are you sure we are moving past late-stage capitalism?",
+            "type": "secondary"
+          }
         ]
       },
       "transitions": {
-        "Are we actually moving past last-stage capitalism?": "not_past_capitalism",
+        "Are you sure we are moving past late-stage capitalism?": "not_past_capitalism",
         "Sounds great, but why me?": "why_me"
       }
     },
@@ -216,10 +240,14 @@
       "prompt": "That's very fair. I come from a future where humans have made it past capitalism, and have started repairing the climate and ecological crisis. I'm here to give a bit of a cozy, hope-punk vibe to the conversation, but that isn't intended to gloss over the fact that things in your world are pretty dire right now.",
       "responder": {
         "responder_type": "select_option",
-        "options": ["Ok, tell me why I'm invited"]
+        "options": [
+          "Ok, tell me why I'm invited",
+          { "text": "You're from the future?", "type": "secondary" }
+        ]
       },
       "transitions": {
-        "Ok, tell me why I'm invited": "why_me"
+        "Ok, tell me why I'm invited": "why_me",
+        "You're from the future?": "how_do_you_know_inviter"
       }
     },
     {

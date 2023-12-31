@@ -1,6 +1,6 @@
 import React from "react"
 import { IOption, ISelectOptionResponder, Respond } from "../types"
-import { Button } from "@chakra-ui/react"
+import { Button, Text } from "@chakra-ui/react"
 
 interface SelectOptionResponderProps {
   responder: ISelectOptionResponder
@@ -13,14 +13,17 @@ export default function SelectOptionResponder({
 }: SelectOptionResponderProps) {
   return (
     <div className="button-group">
-      {responder.options.map(({ text, type }: IOption) => (
+      {responder.options.map(({ text, value, type }: IOption) => (
         <Button
           colorScheme="primary"
           variant={type == "secondary" ? "outline" : "solid"}
           key={text}
-          onClick={() => respond({ text: text })}
+          onClick={() => respond({ text: value || text })}
+          whiteSpace="normal"
+          height="auto"
+          blockSize="auto"
         >
-          {text}
+          <Text paddingY={2}>{text}</Text>
         </Button>
       ))}
     </div>

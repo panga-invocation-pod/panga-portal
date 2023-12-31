@@ -12,7 +12,7 @@ module Messaging
 
       attr_reader :name, :custom_data
 
-      def as_json(context)
+      def as_json(context: nil, interpolator: nil)
         {
           responder_type: 'custom',
           name: name,

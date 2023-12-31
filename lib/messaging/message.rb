@@ -29,7 +29,7 @@ module Messaging
       {
         id: id,
         prompt: prompt&.as_json(interpolator, script_defaults),
-        responder: responder&.as_json(context),
+        responder: responder&.as_json(context: context, interpolator: interpolator),
       }.compact
     end
 
