@@ -16,4 +16,10 @@ FactoryBot.define do
     invitee { create(:person, :gimli) }
     message { 'You should check out this awesome Panga thing' }
   end
+
+  factory :workshop do
+    trait :panga_context_settting do
+      name { 'Panga Context Setting' }
+    end
+  end
 end
