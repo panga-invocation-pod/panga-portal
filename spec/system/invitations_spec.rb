@@ -3,19 +3,20 @@ require 'rails_helper'
 RSpec.describe "invitations", type: :system do
   include ChatHelpers
 
+  before :each do
+    @invitation = create(:invitation)
+    create(:workshop, :panga_context_settting)
+  end
+
   it "shows you your invitation at a unique URL" do
-    invitation = create(:invitation)
-    visit "/hi/#{invitation.token}#fast"
+    visit "/hi/#{@invitation.token}#fast"
 
     read "Hello, is this thing on?"
     read "Am I addressing Gimli by any chance?"
   end
 
   it "allows you to go straight through the invitation in one go by the fastest route" do
-    invitation = create(:invitation)
-    create(:workshop, :panga_context_settting)
-
-    visit "/hi/#{invitation.token}#fast"
+    visit "/hi/#{@invitation.token}#fast"
 
     read "Hello, is this thing on?"
     read "Am I addressing Gimli by any chance?"
@@ -25,7 +26,7 @@ RSpec.describe "invitations", type: :system do
     click_on "Nice to meet you too"
 
     read "My friend Frodo asked me to invite you to a workshop about Panga.\n\nThe purpose of the workshop is to give everyone a basic overview of what Panga is, so that you humans can have fun discussing collective approaches to housing together."
-    expect(invitation.reload).to be_confirmed_identity
+    expect(@invitation.reload).to be_confirmed_identity
 
     click_on "Why me?"
 
@@ -37,13 +38,55 @@ RSpec.describe "invitations", type: :system do
     click_on "Ok, what are the details?"
 
     read "Before we start comparing diaries, it would help to know if you have any requirements to make the workshop accessible to you.\n\nFor context, the workshop will be held in person in Narrm (Melbourne), and typically has somewhere between 5-10 participants, and runs for about 2 hours. It includes both presentation and group activities.\n\nWhat do you need to be able to participate?"
-    expect(invitation.reload).to be_considering_accessibility
+    expect(@invitation.reload).to be_considering_accessibility
 
     fill_in "Accessibility needs", with: "I need to bring my emotional support axe"
     click_on "Submit"
 
     read "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you.\nSelect all suitable times"
-    expect(invitation.reload).to be_considering_availability
-    expect(invitation.workshop_accessibility_needs).to eq("I need to bring my emotional support axe")
+    expect(@invitation.reload).to be_considering_availability
+    expect(@invitation.workshop_accessibility_needs).to eq("I need to bring my emotional support axe")
+  end
+
+  it "allows you to pick up from confirmed identity" do
+    @invitation.confirm_identity!
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "Something about a workshop"
+
+    read "My friend Frodo asked me to invite you to a workshop about Panga."
+  end
+
+  it "allows you to pick up from considering accessibility" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "Workshop accessibility"
+
+    read "Before we start comparing diaries, it would help to know if you have any requirements"
+  end
+
+  it "allows you to pick up from considering availability" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "Workshop times"
+
+    read "So, to schedule the workshop, I need to know when you're available."
   end
 end
