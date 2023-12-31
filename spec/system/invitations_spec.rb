@@ -23,11 +23,10 @@ RSpec.describe "invitations", type: :system do
     click_on "Yes, that's me"
 
     read "Nice to meet you Gimli, I'm Yam Daisy."
+    expect(@invitation.reload).to be_confirmed_identity
     click_on "Nice to meet you too"
 
     read "My friend Frodo asked me to invite you to a workshop about Panga.\n\nThe purpose of the workshop is to give everyone a basic overview of what Panga is, so that you humans can have fun discussing collective approaches to housing together."
-    expect(@invitation.reload).to be_confirmed_identity
-
     click_on "Why me?"
 
     read "Panga is in it's early stages, growing slowly at the speed of trust.\n\n Frodo specifically asked me to invite you because of your interest in collective practices.\n\nHang-on, I have a personal message from them here somewhere..."

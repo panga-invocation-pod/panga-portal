@@ -128,32 +128,46 @@
     },
     {
       "id": "invitee_identified",
-      "prompt": "Nice to meet you {{invitation.invitee.short_name}}.",
       "command": {
         "name": "log_in_invitee"
       },
-      "responder": {
-        "responder_type": "select_option",
-        "options": ["Nice to meet you too"]
-      },
+      "display": false,
       "transitions": {
-        "Nice to meet you too": "explain_workshop",
+        "DEFAULT": "post_invitee_identified",
         "ERROR:already_logged_in": "already_logged_in"
       }
     },
     {
-      "id": "invitee_identified_and_quick_intro",
-      "prompt": "Nice to meet you {{invitation.invitee.short_name}}, I'm Yam Daisy.",
-      "command": {
-        "name": "log_in_invitee"
-      },
+      "id": "post_invitee_identified",
+      "prompt": "Nice to meet you {{invitation.invitee.short_name}}.",
       "responder": {
         "responder_type": "select_option",
         "options": ["Nice to meet you too"]
       },
       "transitions": {
-        "Nice to meet you too": "explain_workshop",
+        "Nice to meet you too": "explain_workshop"
+      }
+    },
+    {
+      "id": "invitee_identified_and_quick_intro",
+      "command": {
+        "name": "log_in_invitee"
+      },
+      "display": false,
+      "transitions": {
+        "DEFAULT": "post_invitee_identified_and_quick_intro",
         "ERROR:already_logged_in": "already_logged_in"
+      }
+    },
+    {
+      "id": "post_invitee_identified_and_quick_intro",
+      "prompt": "Nice to meet you {{invitation.invitee.short_name}}, I'm Yam Daisy.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Nice to meet you too"]
+      },
+      "transitions": {
+        "Nice to meet you too": "explain_workshop"
       }
     },
     {
