@@ -47,8 +47,8 @@ module Messaging
       prompt.text
     end
 
-    def command_for_stage(stage)
-      command && command.for_stage?(stage) ? command : nil
+    def command_for_stage(stage, input:)
+      command && command.valid_for?(stage, input: input) ? command : nil
     end
   end
 end

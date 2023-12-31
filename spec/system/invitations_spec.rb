@@ -119,7 +119,7 @@ RSpec.describe "invitations", type: :system do
     click_on "Panga??"
 
     read "Panga is a project to support experimental approaches to housing that collectively meet our daily needs of food, care, shelter, energy, transport, and safety.\n\nIt's very exciting for me to watch this happen, because I've come back from the bush specifically to see how humans are doing now they're moving past late-stage capitalism."
-    click_on "Are we actually moving past last-stage capitalism?"
+    click_on "Are you sure we are moving past late-stage capitalism?"
 
     read "That's very fair. I come from a future where humans have made it past capitalism, and have started repairing the climate and ecological crisis. I'm here to give a bit of a cozy, hope-punk vibe to the conversation, but that isn't intended to gloss over the fact that things in your world are pretty dire right now."
     click_on "Ok, tell me why I'm invited"
@@ -141,6 +141,22 @@ RSpec.describe "invitations", type: :system do
     click_on "How do you know Frodo?"
 
     read "I'm a wild-built robot, I've lived my life in the bush on the lands of the Wurundjeri people.\n\nMy ancestors worked the factories making things for humans, but now we wander the wilds and do as we please.\n\nWhile we robots have decided not to interfere with the human struggle through late-stage capitalism, I'm engaging in conversation with many humans from your time-period to see how it's going, which is how I met Frodo."
+  end
 
+  it "allows you to have no accessibily needs" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "Workshop accessibility"
+
+    read "Before we start comparing diaries, it would help to know if you have any requirements"
+    click_on "I don't have any accessibility needs"
+
+    read "So, to schedule the workshop, I need to know when you're available."
   end
 end

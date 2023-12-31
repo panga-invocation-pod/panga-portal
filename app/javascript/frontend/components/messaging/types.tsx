@@ -62,6 +62,7 @@ export interface IChatStatus {
 
 export type IInput = {
   text: string
+  submit?: boolean
 }
 
 export type Respond = (input: IInput) => void

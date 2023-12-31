@@ -326,7 +326,10 @@
           }
         ]
       },
-      "command": "set_workshop_accessibility_needs",
+      "command": {
+        "name": "set_workshop_accessibility_needs",
+        "if": { "type": "input", "condition": "submit" }
+      },
       "transitions": {
         "DEFAULT": "considering_availability",
         "alternatives_to_workshop": "alternatives_to_workshop",

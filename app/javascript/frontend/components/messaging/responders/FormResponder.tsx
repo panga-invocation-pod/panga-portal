@@ -60,11 +60,7 @@ export default function FormResponder({
   const handleButtonClick =
     ({ button_type, name }: IFormResponderButton) =>
     () => {
-      if (button_type == "submit") {
-        console.log("handle submit")
-      } else {
-        respond({ text: name || button_type })
-      }
+      respond({ text: name || button_type, submit: false })
     }
 
   const submitButtons = buttons.filter(
@@ -74,10 +70,14 @@ export default function FormResponder({
     (button) => button.button_type != "submit",
   )
 
+  const handleSubmit = (data: any) => {
+    respond({ ...data, submit: true })
+  }
+
   return (
     <Stack spacing={4} align="stretch">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(respond)}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <Stack spacing={4} align="stretch">
             {fields.map((field) => (
               <FormResponderField

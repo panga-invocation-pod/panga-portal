@@ -9,7 +9,7 @@ module Messaging
         @condition = condition.to_sym
       end
 
-      def valid?(context: nil)
+      def valid?(context: nil, input: nil)
         raise ArgumentError unless context
         !!context.send(condition)
       end

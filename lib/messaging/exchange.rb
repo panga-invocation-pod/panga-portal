@@ -68,7 +68,7 @@ module Messaging
     def process_response_commands
       return unless previous_message
 
-      command = previous_message.command_for_stage("response")
+      command = previous_message.command_for_stage("response", input: input)
 
       if command
         @command_result = command_processor.process_command_named command.name, input, context
@@ -76,7 +76,7 @@ module Messaging
     end
 
     def process_request_commands(message)
-      command = message.command_for_stage("request")
+      command = message.command_for_stage("request", input: nil)
 
       if command
         @command_result = command_processor.process_command_named command.name, command.input, context

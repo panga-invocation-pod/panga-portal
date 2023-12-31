@@ -15,7 +15,7 @@ module Messaging
         @conditions = conditions
       end
 
-      def valid?(context: nil)
+      def valid?(context: nil, input: nil)
         raise ArgumentError unless context
 
         conditions.all? do |condition|

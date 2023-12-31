@@ -1,4 +1,5 @@
 require_relative 'context_condition'
+require_relative 'input_condition'
 require_relative 'and_condition'
 
 module Messaging
