@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 interface IWordWriterProps {
   text: string
   perLetterDelay?: number
-  onFinished?: () => void
+  onFinished: () => void
 }
 
 const defaultPerLetterDelay = 50

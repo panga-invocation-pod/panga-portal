@@ -8,6 +8,12 @@ interface ILetterWriterProps {
 
 const defaultPerLetterDelay = 50
 
+const firstWordOf = (text: string) => {
+  const words = text.split(" ")
+  if (words.length === 0) return ""
+  return words[0]
+}
+
 export default function LetterWriter({
   text,
   perLetterDelay,
@@ -27,5 +33,14 @@ export default function LetterWriter({
     }, delay)
   }, [text, currentLetterIndex])
 
-  return text.slice(0, currentLetterIndex + 1)
+  const visibleText = text.slice(0, currentLetterIndex + 1)
+  const remainingText = text.slice(currentLetterIndex + 1)
+  const remainingWord = firstWordOf(remainingText)
+
+  return (
+    <span className="letter-writer">
+      <span className="visible-letters">{visibleText}</span>
+      <span className="invisible-letters">{remainingWord}</span>
+    </span>
+  )
 }
