@@ -15,6 +15,7 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { IFormResponderButton } from "../../messaging/types"
 import FormResponderButton from "../../messaging/responders/atoms/FormResponderButton"
+import FormNonSubmitButtons from "../../messaging/responders/atoms/FormNonSubmitButtons"
 
 interface SessionData {
   id: string
@@ -37,8 +38,6 @@ export default function SelectSessionAvailability({
 }: CustomResponderProps) {
   const data: SelectSessionAvailabilityData = responder.custom_data
 
-  console.log("data", data)
-
   const validationSchema = yup.object().shape({
     sessions: yup.array().min(1).required(),
   })
@@ -51,8 +50,6 @@ export default function SelectSessionAvailability({
     resolver: yupResolver(validationSchema),
   })
   const { errors } = methods.formState
-
-  console.log("errors", errors)
 
   return (
     <Stack spacing={4} align="stretch">
@@ -85,16 +82,7 @@ export default function SelectSessionAvailability({
           </Stack>
         </form>
       </FormProvider>
-      <div className="button-group">
-        {data.buttons &&
-          data.buttons.map((button) => (
-            <FormResponderButton
-              {...button}
-              key={button.name}
-              onClick={() => respond({ text: button.name })}
-            />
-          ))}
-      </div>
+      <FormNonSubmitButtons respond={respond} buttons={data.buttons} />
     </Stack>
   )
 }

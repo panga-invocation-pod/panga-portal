@@ -48,6 +48,9 @@ module Messaging
 
         it 'performs string interpolating using context' do
           allow(interpolator).to receive(:interpolate).with('Welcome back {{current_user.name}}').and_return('Welcome back Bob')
+          allow(interpolator).to receive(:interpolate).with('yes').and_return('yes')
+          allow(interpolator).to receive(:interpolate).with('no').and_return('no')
+
           message = load_message(:two_messages, 'new_user?')
           message.prompt = Prompt.from_data 'Welcome back {{current_user.name}}'
 

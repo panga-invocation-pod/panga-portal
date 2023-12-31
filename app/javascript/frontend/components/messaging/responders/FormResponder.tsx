@@ -11,6 +11,7 @@ import FormResponderField from "./atoms/FormResponderField"
 import * as yup from "yup"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import FormNonSubmitButtons from "./atoms/FormNonSubmitButtons"
 
 interface FormResponderProps {
   responder: IFormResponder
@@ -57,12 +58,6 @@ export default function FormResponder({
   })
   const { errors } = methods.formState
 
-  const handleButtonClick =
-    ({ button_type, name }: IFormResponderButton) =>
-    () => {
-      respond({ text: name || button_type, submit: false })
-    }
-
   const submitButtons = buttons.filter(
     (button) => button.button_type == "submit",
   )
@@ -95,15 +90,7 @@ export default function FormResponder({
           </Stack>
         </form>
       </FormProvider>
-      <div className="button-group">
-        {otherButtons.map((button) => (
-          <FormResponderButton
-            {...button}
-            key={button.name}
-            onClick={handleButtonClick(button)}
-          />
-        ))}
-      </div>
+      <FormNonSubmitButtons respond={respond} buttons={otherButtons} />
     </Stack>
   )
 }
