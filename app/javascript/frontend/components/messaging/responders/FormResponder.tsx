@@ -12,6 +12,7 @@ import * as yup from "yup"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import FormNonSubmitButtons from "./atoms/FormNonSubmitButtons"
+import FormSubmitButtons from "./atoms/FormSubmitButtons"
 
 interface FormResponderProps {
   responder: IFormResponder
@@ -82,11 +83,7 @@ export default function FormResponder({
                 registerProps={methods.register(field.name)}
               />
             ))}
-            <div className="button-group">
-              {submitButtons.map((button) => (
-                <FormResponderButton {...button} key={button.name} />
-              ))}
-            </div>
+            <FormSubmitButtons buttons={submitButtons} />
           </Stack>
         </form>
       </FormProvider>

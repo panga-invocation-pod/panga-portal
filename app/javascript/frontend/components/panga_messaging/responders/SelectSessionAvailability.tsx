@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { IFormResponderButton } from "../../messaging/types"
 import FormResponderButton from "../../messaging/responders/atoms/FormResponderButton"
 import FormNonSubmitButtons from "../../messaging/responders/atoms/FormNonSubmitButtons"
+import FormSubmitButtons from "../../messaging/responders/atoms/FormSubmitButtons"
 
 interface SessionData {
   id: string
@@ -74,11 +75,11 @@ export default function SelectSessionAvailability({
                 </Stack>
               </CheckboxGroup>
             </ValidatedFormControl>
-            <div className="button-group">
-              <Button type="submit" colorScheme="primary">
-                Done
-              </Button>
-            </div>
+            <FormSubmitButtons
+              buttons={[
+                { name: "submit", button_type: "submit", text: "Done" },
+              ]}
+            />
           </Stack>
         </form>
       </FormProvider>
