@@ -3,39 +3,51 @@ import React, { useEffect, useState } from "react"
 
 interface ILineWriterProps {
   lines: string[]
-  delay?: number
+  beforeLineDelay?: number
+  betweenLineDelay?: number
   children: (line: string, onFinished?: () => void) => React.ReactNode
   onFinished?: () => void
 }
 
-const defaultDelay = 1000
+const defaultBetweenLineDelay = 1000
 
 export default function LineWriter({
   lines,
-  delay,
+  beforeLineDelay,
+  betweenLineDelay,
   children,
   onFinished,
 }: ILineWriterProps) {
-  const [currentLineIndex, setCurrentLineIndex] = useState(0)
+  const [lineIndex, setLineIndex] = useState(0)
+
+  const incrementLine = () => {
+    if (lineIndex < lines.length) {
+      setLineIndex(lineIndex + 1)
+    }
+  }
 
   useEffect(() => {
-    setTimeout(() => {
-      if (currentLineIndex < lines.length - 1) {
-        setCurrentLineIndex(currentLineIndex + 1)
-      }
-    }, delay || defaultDelay)
-  }, [currentLineIndex, lines])
+    if (beforeLineDelay) {
+      setTimeout(incrementLine, beforeLineDelay)
+    } else {
+      incrementLine()
+    }
+  }, [lines])
+
+  const onChildFinished = (childIndex: number) => {
+    const isLastLine = childIndex >= lines.length - 1
+
+    if (isLastLine) {
+      if (onFinished) onFinished()
+    } else {
+      setTimeout(incrementLine, betweenLineDelay || defaultBetweenLineDelay)
+    }
+  }
 
   return (
     <div>
-      {lines.slice(0, currentLineIndex + 1).map((line, index) => {
-        const isLastLine = index === lines.length - 1
-
-        return (
-          <p key={index}>
-            {children(line, isLastLine ? onFinished : undefined)}
-          </p>
-        )
+      {lines.slice(0, lineIndex).map((line, index) => {
+        return <p key={index}>{children(line, () => onChildFinished(index))}</p>
       })}
     </div>
   )
