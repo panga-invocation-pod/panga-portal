@@ -13,7 +13,14 @@ const FormResponderTextField = ({
   placeholder,
   registerProps,
 }: IFormResponderField & IResponderFieldProps) => {
-  return <Textarea name={name} placeholder={placeholder} {...registerProps} />
+  return (
+    <Textarea
+      name={name}
+      placeholder={placeholder}
+      rows={5}
+      {...registerProps}
+    />
+  )
 }
 
 const fieldTypes = {
