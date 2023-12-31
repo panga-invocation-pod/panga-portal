@@ -83,7 +83,43 @@
   }
 }
 
+@-webkit-keyframes borderBlink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #67a6a7;
+  }
+}
+@keyframes borderBlink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #67a6a7;
+  }
+}
+
 .letter-writer {
+  .visible-letters {
+    border-right: 3px solid transparent;
+  }
+
+  &.in-progress {
+    .visible-letters {
+      border-right: 3px solid #67a6a7;
+    }
+
+    &.paused {
+      .visible-letters {
+        -webkit-animation: borderBlink 0.5s step-end infinite;
+        animation: borderBlink 0.5s step-end infinite;
+      }
+    }
+  }
+
   .invisible-letters {
     color: rgba(0, 0, 0, 0);
   }

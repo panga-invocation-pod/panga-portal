@@ -9,8 +9,6 @@ interface ILineWriterProps {
   onFinished?: () => void
 }
 
-const defaultBetweenLineDelay = 1000
-
 export default function LineWriter({
   lines,
   beforeLineDelay,
@@ -26,12 +24,16 @@ export default function LineWriter({
     }
   }
 
-  useEffect(() => {
-    if (beforeLineDelay) {
-      setTimeout(incrementLine, beforeLineDelay)
+  const delayedIncrementLine = (delay: number | undefined) => {
+    if (delay) {
+      setTimeout(incrementLine, delay)
     } else {
       incrementLine()
     }
+  }
+
+  useEffect(() => {
+    delayedIncrementLine(beforeLineDelay)
   }, [lines])
 
   const onChildFinished = (childIndex: number) => {
@@ -40,7 +42,7 @@ export default function LineWriter({
     if (isLastLine) {
       if (onFinished) onFinished()
     } else {
-      setTimeout(incrementLine, betweenLineDelay || defaultBetweenLineDelay)
+      delayedIncrementLine(betweenLineDelay)
     }
   }
 
