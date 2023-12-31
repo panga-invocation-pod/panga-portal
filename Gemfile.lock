@@ -114,6 +114,11 @@ GEM
     dry-cli (1.0.0)
     erubi (1.12.0)
     erubis (2.7.0)
+    factory_bot (6.4.5)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -321,6 +326,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  factory_bot_rails
   haml-rails (~> 2.0)
   html2haml
   image_processing (~> 1.2)
