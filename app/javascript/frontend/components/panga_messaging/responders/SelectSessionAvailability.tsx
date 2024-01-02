@@ -23,7 +23,7 @@ import FormSubmitButtons from "../../messaging/responders/atoms/FormSubmitButton
 import FormCheckboxGroup from "../../messaging/responders/atoms/FormCheckboxGroup"
 
 interface SessionData {
-  id: string
+  id: string | number
   start_at: string
   end_at: string
 }
@@ -64,11 +64,12 @@ export default function SelectSessionAvailability({
     })
   const { errors } = methods.formState
 
-  const options = [
-    { value: "1", label: "one" },
-    { value: "3", label: "three" },
-    { value: "2", label: "two" },
-  ]
+  console.log("data.sessions", data.sessions)
+
+  const options = data.sessions.map((session) => ({
+    value: session.id.toString(),
+    label: session.start_at,
+  }))
 
   return (
     <Stack spacing={4} align="stretch">
