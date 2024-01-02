@@ -5,7 +5,7 @@ RSpec.describe "invitations", type: :system do
 
   before :each do
     @invitation = create(:invitation)
-    create(:workshop, :panga_context_settting)
+    @workshop = create(:workshop, :panga_context_settting, :three_sessions)
   end
 
   it "shows you your invitation at a unique URL" do
@@ -45,6 +45,12 @@ RSpec.describe "invitations", type: :system do
     read "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you.\nSelect all suitable times"
     expect(@invitation.reload).to be_considering_availability
     expect(@invitation.workshop_accessibility_needs).to eq("I need to bring my emotional support axe")
+    #find(:css, "#session[value='#{@workshop.sessions.first.id}']").set(true)
+    page.execute_script("$('#session[value='#{@workshop.sessions.first.id}']').click()")
+    #check("Wed 1 Jan, 10am - 11am", allow_label_click: true)
+    click_on "Done"attr('onClick', 'return true;')
+
+    read "foobar"
   end
 
   it "allows you to pick up from confirmed identity" do

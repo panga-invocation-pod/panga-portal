@@ -1,22 +1,26 @@
 import React from "react"
 import {
-  CheckboxGroup,
   Stack,
   Checkbox,
   FormLabel,
-  Button,
+  forwardRef,
+  CheckboxProps,
 } from "@chakra-ui/react"
 import { CustomResponderProps } from "../../messaging/Responder"
-import { DateTime } from "luxon"
-import TimeRange from "../../utility/TimeRange"
-import { FormProvider, useForm } from "react-hook-form"
+import {
+  Controller,
+  FieldValues,
+  FormProvider,
+  UseFormReturn,
+  useForm,
+} from "react-hook-form"
 import { ValidatedFormControl } from "../../utility/forms"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { IFormResponderButton } from "../../messaging/types"
-import FormResponderButton from "../../messaging/responders/atoms/FormResponderButton"
 import FormNonSubmitButtons from "../../messaging/responders/atoms/FormNonSubmitButtons"
 import FormSubmitButtons from "../../messaging/responders/atoms/FormSubmitButtons"
+import FormCheckboxGroup from "../../messaging/responders/atoms/FormCheckboxGroup"
 
 interface SessionData {
   id: string
@@ -29,8 +33,12 @@ interface SelectSessionAvailabilityData {
   buttons?: IFormResponderButton[]
 }
 
-interface SessionAvailabilityFormFieldValues {
-  sessions: Array<string>
+interface SessionFieldValues extends FieldValues {
+  id: string
+}
+
+interface SessionAvailabilityFormFieldValues extends FieldValues {
+  sessions: Array<SessionFieldValues>
 }
 
 export default function SelectSessionAvailability({
@@ -43,37 +51,33 @@ export default function SelectSessionAvailability({
     sessions: yup.array().min(1).required(),
   })
 
-  const onSubmit = () => {
-    console.log("onSubmit")
+  const handleSubmit = (data: any) => {
+    respond({ ...data, submit: true })
   }
 
-  const methods = useForm<SessionAvailabilityFormFieldValues>({
-    resolver: yupResolver(validationSchema),
-  })
+  const methods: UseFormReturn<SessionAvailabilityFormFieldValues> =
+    useForm<SessionAvailabilityFormFieldValues>({
+      resolver: yupResolver(validationSchema),
+      defaultValues: {
+        sessions: [],
+      },
+    })
   const { errors } = methods.formState
+
+  const options = [
+    { value: "1", label: "one" },
+    { value: "3", label: "three" },
+    { value: "2", label: "two" },
+  ]
 
   return (
     <Stack spacing={4} align="stretch">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <Stack spacing={4} align="stretch">
             <ValidatedFormControl fieldError={errors.sessions as any}>
               <FormLabel fontWeight="bold">Select all suitable times</FormLabel>
-              <CheckboxGroup colorScheme="primary" defaultValue={[]}>
-                <Stack spacing={2} direction="column">
-                  {data.sessions.map((session) => {
-                    const startAt = DateTime.fromISO(session.start_at)
-                    const endAt = DateTime.fromISO(session.end_at)
-
-                    return (
-                      <Checkbox key={session.id}>
-                        {startAt.toFormat("ccc d LLL")}
-                        , <TimeRange startAt={startAt} endAt={endAt} />
-                      </Checkbox>
-                    )
-                  })}
-                </Stack>
-              </CheckboxGroup>
+              <FormCheckboxGroup name="sessions" options={options} />
             </ValidatedFormControl>
             <FormSubmitButtons
               buttons={[
