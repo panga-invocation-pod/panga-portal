@@ -1,5 +1,7 @@
 module CustomResponders
   class SelectSessionAvailability
+    include DatetimeHelper
+
     def initialize(workshop:)
       @workshop = workshop
     end
@@ -7,7 +9,10 @@ module CustomResponders
     def as_json
       {
         sessions: sessions.map do |session|
-          session.as_json(only: [:id, :start_at], methods: [:end_at])
+          {
+            id: session.id.to_s,
+            label: "#{format_date(session.start_at)}: #{format_time_range(session.start_at, session.end_at)}",
+          }
         end
       }
     end

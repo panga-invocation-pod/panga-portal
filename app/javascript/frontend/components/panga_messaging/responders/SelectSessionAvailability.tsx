@@ -66,11 +66,6 @@ export default function SelectSessionAvailability({
 
   console.log("data.sessions", data.sessions)
 
-  const options = data.sessions.map((session) => ({
-    value: session.id.toString(),
-    label: session.start_at,
-  }))
-
   return (
     <Stack spacing={4} align="stretch">
       <FormProvider {...methods}>
@@ -78,7 +73,7 @@ export default function SelectSessionAvailability({
           <Stack spacing={4} align="stretch">
             <ValidatedFormControl fieldError={errors.sessions as any}>
               <FormLabel fontWeight="bold">Select all suitable times</FormLabel>
-              <FormCheckboxGroup name="sessions" options={options} />
+              <FormCheckboxGroup name="sessions" options={data.sessions} />
             </ValidatedFormControl>
             <FormSubmitButtons
               buttons={[
