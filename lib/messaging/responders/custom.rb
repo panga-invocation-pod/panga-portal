@@ -15,9 +15,8 @@ module Messaging
       def as_json(context: nil, interpolator: nil)
         {
           responder_type: 'custom',
-          name: name,
-          custom_data: custom_data.merge(context.custom_responder(name).as_json)
-        }
+          name: name
+       }.merge(context.custom_responder(name, custom_data: custom_data).as_json)
       end
     end
   end

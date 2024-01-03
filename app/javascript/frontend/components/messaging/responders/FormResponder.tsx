@@ -17,6 +17,8 @@ function schemaTypeFromField(field: IFormResponderField) {
   switch (field.field_type) {
     case "text":
       return yup.string()
+    case "checkbox_group":
+      return yup.array().of(yup.string())
     default:
       throw new Error(`Unknown field type: ${field.field_type}`)
   }
@@ -25,7 +27,12 @@ function schemaTypeFromField(field: IFormResponderField) {
 function schemaFromField(field: IFormResponderField) {
   let result = schemaTypeFromField(field)
   if (field.required) {
-    result = result.required("Required")
+    switch (field.field_type) {
+      case "checkbox_group":
+        result = result.min(1).required()
+      default:
+        result = result.required("Required")
+    }
   }
   return result
 }

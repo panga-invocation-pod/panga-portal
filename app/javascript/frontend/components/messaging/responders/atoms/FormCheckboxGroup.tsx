@@ -18,7 +18,7 @@ export default function FormCheckboxGroup({
         render={({ field: { onChange, value } }) => {
           console.log("value", value)
           return (
-            <Box mt={4}>
+            <Box mt={4} key="internal">
               <CheckboxGroup
                 colorScheme="green"
                 value={value}
@@ -26,9 +26,11 @@ export default function FormCheckboxGroup({
               >
                 <Stack spacing={2} direction="column">
                   {options.map((option) => (
-                    <Checkbox key={option.value} value={option.value}>
-                      {option.label}
-                    </Checkbox>
+                    <div key={option.value}>
+                      <Checkbox key={option.value} value={option.value}>
+                        {option.label}
+                      </Checkbox>
+                    </div>
                   ))}
                 </Stack>
               </CheckboxGroup>

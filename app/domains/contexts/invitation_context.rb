@@ -41,10 +41,10 @@ module Contexts
       {}
     end
 
-    def custom_responder(name)
+    def custom_responder(name, custom_data: nil)
       case name
       when 'select_session_availability'
-        CustomResponders::SelectSessionAvailability.new(workshop: workshop)
+        CustomResponders::SelectSessionAvailability.new(workshop: workshop, custom_data: custom_data)
       else
         raise "unknown custom responder #{name}"
       end

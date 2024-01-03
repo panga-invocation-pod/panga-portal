@@ -395,6 +395,10 @@
         "custom_data": {
           "buttons": [
             {
+              "name": "submit_times",
+              "button_type": "submit"
+            },
+            {
               "name": "no_times_suit",
               "button_type": "cancel",
               "text": "I'm keen, but none of these work"
