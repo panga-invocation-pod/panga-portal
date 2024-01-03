@@ -17,6 +17,8 @@ function schemaTypeFromField(field: IFormResponderField) {
   switch (field.field_type) {
     case "text":
       return yup.string()
+    case "email":
+      return yup.string().email("Invalid email")
     case "checkbox_group":
       return yup.array().of(yup.string())
     default:
@@ -29,7 +31,7 @@ function schemaFromField(field: IFormResponderField) {
   if (field.required) {
     switch (field.field_type) {
       case "checkbox_group":
-        result = result.min(1).required()
+        result = result.min(1).required("Required")
       default:
         result = result.required("Required")
     }

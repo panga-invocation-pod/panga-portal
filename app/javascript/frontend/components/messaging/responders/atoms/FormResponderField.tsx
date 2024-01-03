@@ -1,9 +1,10 @@
 import React from "react"
-import { Textarea, FormLabel } from "@chakra-ui/react"
+import { Textarea, FormLabel, Input } from "@chakra-ui/react"
 import { ValidatedFormControl } from "../../../utility/forms"
 import { nameToTitle } from "../../../utility/strings"
 import {
   IFormResponderCheckboxGroupField,
+  IFormResponderEmailField,
   IFormResponderField,
   IFormResponderTextField,
 } from "../../types"
@@ -27,6 +28,13 @@ const FormResponderTextField = ({
   )
 }
 
+const FormResponderEmailField = ({
+  field,
+  registerProps,
+}: IResponderFieldProps & { field: IFormResponderEmailField }) => {
+  return <Input type="email" placeholder={field.placeholder} />
+}
+
 const FormResponderCheckboxGroupField = ({
   field,
 }: IResponderFieldProps & { field: IFormResponderCheckboxGroupField }) => (
@@ -36,6 +44,7 @@ const FormResponderCheckboxGroupField = ({
 const fieldTypes = {
   text: FormResponderTextField,
   checkbox_group: FormResponderCheckboxGroupField,
+  email: FormResponderEmailField,
 }
 
 const FormResponderField = ({
@@ -53,7 +62,9 @@ const FormResponderField = ({
 
   return (
     <ValidatedFormControl fieldError={errors}>
-      <FormLabel fontWeight="bold">{nameToTitle(field.name)}</FormLabel>
+      <FormLabel fontWeight="bold">
+        {field.label || nameToTitle(field.name)}
+      </FormLabel>
       <FieldComponent field={field as any} registerProps={registerProps} />
     </ValidatedFormControl>
   )

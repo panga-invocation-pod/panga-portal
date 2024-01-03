@@ -13,6 +13,7 @@ class Invitation < ApplicationRecord
     state :confirmed_identity
     state :considering_accessibility
     state :considering_availability
+    state :collecting_contact_details
     state :cant_do_workshop
     state :invitation_declined
 
@@ -42,6 +43,10 @@ class Invitation < ApplicationRecord
 
     event :accessibility_needs_recorded do
       transitions from: :considering_accessibility, to: :considering_availability
+    end
+
+    event :availability_recorded do
+      transitions from: :considering_availability, to: :collecting_contact_details
     end
 
     event :reset do

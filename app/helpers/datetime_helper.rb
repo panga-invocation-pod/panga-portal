@@ -15,7 +15,7 @@ module DatetimeHelper
   end
 
   def format_date(date)
-    result = date.strftime('%a, %b %-d')
+    result = date.strftime('%a, %-d %b')
     if date.year != Time.zone.now.year
       result += ", #{date.year}"
     end

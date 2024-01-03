@@ -64,13 +64,21 @@
               "type": "context",
               "condition": "invitation_considering_availability?"
             }
+          },
+          {
+            "text": "Contact details",
+            "if": {
+              "type": "context",
+              "condition": "invitation_collecting_contact_details?"
+            }
           }
         ]
       },
       "transitions": {
         "Something about a workshop": "explain_workshop",
         "Workshop accessibility": "considering_accessibility",
-        "Workshop times": "considering_availability"
+        "Workshop times": "considering_availability",
+        "Contact details": "requesting_email"
       }
     },
     {
@@ -408,13 +416,33 @@
       },
       "command": { "name": "set_session_availability" },
       "transitions": {
-        "DEFAULT": "availability_confirmed",
+        "DEFAULT": "requesting_email",
         "no_times_suit": "no_times_suit"
       }
     },
     {
+      "id": "requesting_email",
+      "prompt": "I've got your availability, thanks {{invitation.invitee.short_name}}.\n\nI'll let {{invitation.inviter.short_name}} know that you're keen and available for a workshop, and they'll get back to you soon with an invitation.\n\nWhat's the best email address for them to reach you on?",
+      "responder": {
+        "responder_type": "form",
+        "fields": [{ "name": "email", "field_type": "email" }],
+        "buttons": [{ "name": "submit", "button_type": "submit" }]
+      }
+    },
+    {
       "id": "availability_confirmed",
-      "prompt": "Thanks for that, I've let {{invitation.inviter.short_name}} know that you're available at those times. They'll reach out to confirm the details."
+      "prompt": "Great! I've let {{invitation.inviter.short_name}} know that you're keen and available for a workshop.\n\nThey'll match up everyone's availability with a session, and get back to you soon with an invitation.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Sounds good"]
+      },
+      "transitions": {
+        "Sounds good": "waiting_for_invitation"
+      }
+    },
+    {
+      "id": "waiting_for_invitation",
+      "prompt": "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
     }
   ]
 }

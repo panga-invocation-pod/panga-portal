@@ -45,12 +45,13 @@ RSpec.describe "invitations", type: :system do
     read "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you.\nSelect all suitable times"
     expect(@invitation.reload).to be_considering_availability
     expect(@invitation.workshop_accessibility_needs).to eq("I need to bring my emotional support axe")
-    #find(:css, "#session[value='#{@workshop.sessions.first.id}']").set(true)
-    page.execute_script("$('#session[value='#{@workshop.sessions.first.id}']').click()")
-    #check("Wed 1 Jan, 10am - 11am", allow_label_click: true)
-    click_on "Done"attr('onClick', 'return true;')
+    check("Wed, 1 Jan, 2200: 10am - 11am", allow_label_click: true)
+    click_on "Submit times"
 
-    read "foobar"
+    read "I've got your availability, thanks Gimli.\nI'll let Frodo know that you're keen and available for a workshop, and they'll get back to you soon with an invitation.\nWhat's the best email address for them to reach you on?"
+    expect(@invitation.reload).to be_collecting_contact_details
+    fill_in "Email", with: "gilmi@thorinand.co"
+    click_on "Submit"
   end
 
   it "allows you to pick up from confirmed identity" do
@@ -93,6 +94,22 @@ RSpec.describe "invitations", type: :system do
     click_on "Workshop times"
 
     read "So, to schedule the workshop, I need to know when you're available."
+  end
+
+  it "allows you to pick up from collecting_contact_details" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @invitation.availability_recorded!
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "Contact details"
+
+    read "What's the best email address for them to reach you on?"
   end
 
   it "allows you to ask about Yam Daisy before confirming identity" do

@@ -21,12 +21,15 @@ export interface IFormResponderButton {
 
 export interface IFormResponderFieldBase {
   name: string
-  field_type: "text" | "checkbox_group"
+  label?: string
+  field_type: "text" | "checkbox_group" | "email"
   placeholder?: string
   required?: boolean
 }
 
 export type IFormResponderTextField = IFormResponderFieldBase & {}
+
+export type IFormResponderEmailField = IFormResponderFieldBase & {}
 
 export interface ICheckboxGroupOption {
   value: string

@@ -14,6 +14,11 @@ module Commands
         set_as_available(workshop_session, person)
       end
 
+      invitation = context.invitation
+      if invitation && invitation.may_availability_recorded?
+        invitation.availability_recorded!
+      end
+
       return nil
     end
 
