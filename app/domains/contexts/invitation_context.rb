@@ -50,12 +50,12 @@ module Contexts
       end
     end
 
-    private
-
-    attr_reader :controller
-
     def workshop
       @workshop ||= Workshop.find_by_name("Panga Context Setting")
     end
+
+    private
+
+    attr_reader :controller
   end
 end

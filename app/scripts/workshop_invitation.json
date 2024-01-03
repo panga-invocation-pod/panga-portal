@@ -405,7 +405,8 @@
             }
           ]
         }
-      }
+      },
+      "command": { "name": "set_session_availability" }
     }
   ]
 }
