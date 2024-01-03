@@ -17,10 +17,14 @@ import {
 import { ValidatedFormControl } from "../../utility/forms"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { IFormResponderButton } from "../../messaging/types"
+import {
+  IFormResponderButton,
+  IFormResponderField,
+} from "../../messaging/types"
 import FormNonSubmitButtons from "../../messaging/responders/atoms/FormNonSubmitButtons"
 import FormSubmitButtons from "../../messaging/responders/atoms/FormSubmitButtons"
 import FormCheckboxGroup from "../../messaging/responders/atoms/FormCheckboxGroup"
+import FormResponderField from "../../messaging/responders/atoms/FormResponderField"
 
 interface SessionData {
   id: string | number
@@ -30,6 +34,7 @@ interface SessionData {
 
 interface SelectSessionAvailabilityData {
   sessions: SessionData[]
+  fields: IFormResponderField[]
   buttons?: IFormResponderButton[]
 }
 
@@ -46,6 +51,7 @@ export default function SelectSessionAvailability({
   respond,
 }: CustomResponderProps) {
   const data: SelectSessionAvailabilityData = responder.custom_data
+  const { fields } = data
 
   const validationSchema = yup.object().shape({
     sessions: yup.array().min(1).required(),
@@ -71,6 +77,14 @@ export default function SelectSessionAvailability({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <Stack spacing={4} align="stretch">
+            {fields.map((field) => (
+              <FormResponderField
+                key={field.name}
+                field={field}
+                errors={errors[field.name]}
+                registerProps={methods.register(field.name)}
+              />
+            ))}
             <ValidatedFormControl fieldError={errors.sessions as any}>
               <FormLabel fontWeight="bold">Select all suitable times</FormLabel>
               <FormCheckboxGroup name="sessions" options={data.sessions} />

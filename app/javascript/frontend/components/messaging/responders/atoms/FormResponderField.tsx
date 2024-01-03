@@ -2,29 +2,40 @@ import React from "react"
 import { Textarea, FormLabel } from "@chakra-ui/react"
 import { ValidatedFormControl } from "../../../utility/forms"
 import { nameToTitle } from "../../../utility/strings"
-import { IFormResponderField } from "../../types"
+import {
+  IFormResponderCheckboxGroupField,
+  IFormResponderField,
+  IFormResponderTextField,
+} from "../../types"
+import FormCheckboxGroup from "./FormCheckboxGroup"
 
 interface IResponderFieldProps {
   registerProps: any
 }
 
 const FormResponderTextField = ({
-  name,
-  placeholder,
+  field,
   registerProps,
-}: IFormResponderField & IResponderFieldProps) => {
+}: IResponderFieldProps & { field: IFormResponderTextField }) => {
   return (
     <Textarea
-      name={name}
-      placeholder={placeholder}
+      name={field.name}
+      placeholder={field.placeholder}
       rows={5}
       {...registerProps}
     />
   )
 }
 
+const FormResponderCheckboxGroupField = ({
+  field,
+}: IResponderFieldProps & { field: IFormResponderCheckboxGroupField }) => (
+  <FormCheckboxGroup name={field.name} options={field.options} />
+)
+
 const fieldTypes = {
   text: FormResponderTextField,
+  checkbox_group: FormResponderCheckboxGroupField,
 }
 
 const FormResponderField = ({
@@ -43,7 +54,7 @@ const FormResponderField = ({
   return (
     <ValidatedFormControl fieldError={errors}>
       <FormLabel fontWeight="bold">{nameToTitle(field.name)}</FormLabel>
-      <FieldComponent {...field} registerProps={registerProps} />
+      <FieldComponent field={field as any} registerProps={registerProps} />
     </ValidatedFormControl>
   )
 }

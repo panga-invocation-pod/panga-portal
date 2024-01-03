@@ -19,12 +19,27 @@ export interface IFormResponderButton {
   button_type: "submit" | "cancel"
 }
 
-export interface IFormResponderField {
+export interface IFormResponderFieldBase {
   name: string
-  field_type: "text"
+  field_type: "text" | "checkbox_group"
   placeholder?: string
   required?: boolean
 }
+
+export type IFormResponderTextField = IFormResponderFieldBase & {}
+
+export interface ICheckboxGroupOption {
+  value: string
+  label: string
+}
+
+export type IFormResponderCheckboxGroupField = IFormResponderFieldBase & {
+  options: ICheckboxGroupOption[]
+}
+
+export type IFormResponderField =
+  | IFormResponderTextField
+  | IFormResponderCheckboxGroupField
 
 export interface IFormResponder {
   responder_type: "form"

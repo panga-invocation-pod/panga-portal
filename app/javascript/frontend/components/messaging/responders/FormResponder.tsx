@@ -1,12 +1,6 @@
 import React from "react"
 import { Stack } from "@chakra-ui/react"
-import {
-  IFormResponder,
-  IFormResponderButton,
-  IFormResponderField,
-  Respond,
-} from "../types"
-import FormResponderButton from "./atoms/FormResponderButton"
+import { IFormResponder, IFormResponderField, Respond } from "../types"
 import FormResponderField from "./atoms/FormResponderField"
 import * as yup from "yup"
 import { FormProvider, useForm } from "react-hook-form"
