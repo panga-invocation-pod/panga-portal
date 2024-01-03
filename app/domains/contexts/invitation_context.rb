@@ -31,7 +31,6 @@ module Contexts
     end
 
     def sign_in(user)
-      #raise "signing in"
       raise RuntimeError, "controller must be supplied to sign in a user" unless controller
       controller.sign_in user
       @current_user = user

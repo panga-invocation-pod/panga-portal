@@ -1,0 +1,15 @@
+%table.table
+  %thead
+    %tr
+      %th{scope: "col"} Person
+      %th{scope: "col"} Workshop Session
+      %th{scope: "col"} State
+      %th{scope: "col"} Actions
+  %tbody
+    - @records.each do |record|
+      %tr
+        %td= record.person
+        %td= record.workshop_session
+        %td= record.state
+        %td
+          = edit_link(record)

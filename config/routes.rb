@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     resources :workshops, except: [:show]
     resources :workshop_sessions, except: [:show]
+    resources :workshop_attendances, except: [:show]
     get '/', to: redirect('/admin/users')
   end
 
