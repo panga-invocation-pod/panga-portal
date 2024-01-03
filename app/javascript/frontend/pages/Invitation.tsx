@@ -21,7 +21,6 @@ import {
   IMessagingConfig,
   MessagingContext,
 } from "../components/messaging/context"
-import SelectSessionAvailability from "../components/panga_messaging/responders/SelectSessionAvailability"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
@@ -70,9 +69,7 @@ export default function Invitation() {
   }
 
   const providerConfig: IMessagingConfig = {
-    responders: {
-      select_session_availability: SelectSessionAvailability,
-    },
+    responders: {},
   }
 
   if (message == "error") {

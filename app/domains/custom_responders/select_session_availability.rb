@@ -12,7 +12,7 @@ module CustomResponders
         responder_type: 'form',
         fields: [
           {
-            "name": "sessions",
+            "name": "session_ids",
             "field_type": "checkbox_group",
             "label": "Select all suitable times",
             "required": true,

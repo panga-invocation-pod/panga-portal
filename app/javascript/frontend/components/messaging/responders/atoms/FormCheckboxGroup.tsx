@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react"
-import { Controller, FieldValues, UseFormReturn } from "react-hook-form"
+import { Controller } from "react-hook-form"
 
 export type FormCheckboxGroupProps = {
   name: string
@@ -14,29 +14,26 @@ export default function FormCheckboxGroup({
   return (
     <div>
       <Controller
-        name="sessions"
-        render={({ field: { onChange, value } }) => {
-          console.log("value", value)
-          return (
-            <Box mt={4} key="internal">
-              <CheckboxGroup
-                colorScheme="green"
-                value={value}
-                onChange={onChange}
-              >
-                <Stack spacing={2} direction="column">
-                  {options.map((option) => (
-                    <div key={option.value}>
-                      <Checkbox key={option.value} value={option.value}>
-                        {option.label}
-                      </Checkbox>
-                    </div>
-                  ))}
-                </Stack>
-              </CheckboxGroup>
-            </Box>
-          )
-        }}
+        name={name}
+        render={({ field: { onChange, value } }) => (
+          <Box mt={4} key="internal">
+            <CheckboxGroup
+              colorScheme="green"
+              value={value}
+              onChange={onChange}
+            >
+              <Stack spacing={2} direction="column">
+                {options.map((option) => (
+                  <div key={option.value}>
+                    <Checkbox key={option.value} value={option.value}>
+                      {option.label}
+                    </Checkbox>
+                  </div>
+                ))}
+              </Stack>
+            </CheckboxGroup>
+          </Box>
+        )}
       />
     </div>
   )
