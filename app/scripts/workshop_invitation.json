@@ -406,7 +406,15 @@
           ]
         }
       },
-      "command": { "name": "set_session_availability" }
+      "command": { "name": "set_session_availability" },
+      "transitions": {
+        "DEFAULT": "availability_confirmed",
+        "no_times_suit": "no_times_suit"
+      }
+    },
+    {
+      "id": "availability_confirmed",
+      "prompt": "Thanks for that, I've let {{invitation.inviter.short_name}} know that you're available at those times. They'll reach out to confirm the details."
     }
   ]
 }

@@ -1,5 +1,7 @@
 class WorkshopSession < ApplicationRecord
   belongs_to :workshop
+  has_many :attendances, class_name: 'WorkshopAttendance', dependent: :destroy
+
   validates :start_at, presence: true
 
   scope :future, -> { where('start_at > ?', Time.zone.now) }
@@ -14,5 +16,9 @@ class WorkshopSession < ApplicationRecord
 
   def end_at
     start_at + duration if duration
+  end
+
+  def to_s
+    "#{workshop&.name} #{start_at.to_s}"
   end
 end
