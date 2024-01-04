@@ -414,11 +414,18 @@
           ]
         }
       },
-      "command": { "name": "set_session_availability" },
+      "command": {
+        "name": "set_session_availability",
+        "if": { "type": "input", "condition": "submit" }
+      },
       "transitions": {
         "DEFAULT": "requesting_email",
         "no_times_suit": "no_times_suit"
       }
+    },
+    {
+      "id": "no_times_suit",
+      "prompt": "Ok, I've let {{invitation.inviter.short_name}} know that you're keen but none of the times suit. They'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
     },
     {
       "id": "requesting_email",

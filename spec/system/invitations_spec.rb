@@ -182,4 +182,23 @@ RSpec.describe "invitations", type: :system do
 
     read "So, to schedule the workshop, I need to know when you're available."
   end
+
+  it "allows you to find no times that suit" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "Workshop times"
+
+    read "So, to schedule the workshop, I need to know when you're available."
+    click_on "I'm keen, but none of these work"
+
+    read "Ok, I've let Frodo know that you're keen but none of the times suit. They'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
+    expect(@invitation.reload).to be_considering_availability
+  end
 end
