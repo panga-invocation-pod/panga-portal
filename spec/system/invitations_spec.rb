@@ -50,11 +50,12 @@ RSpec.describe "invitations", type: :system do
 
     read "Thanks Gimli, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to be erase your details from my memory."
     expect(@invitation.reload).to be_collecting_contact_details
-    fill_in "Email", with: "gilmi@thorinand.co"
+    fill_in "Email", with: "gimli@thorinand.co"
     click_on "Submit"
 
     read "Great! I've let Frodo know that you're keen and available for a workshop, and that I have a way to reach you.\n\nEveryone's availability will be matched up with a session, and I'll email you soon with an invitation."
     expect(@invitation.reload).to be_awaiting_workshop_invitation
+    expect(@invitation.invitee_email).to eq("gimli@thorinand.co")
     click_on "Sounds good"
 
     read "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
@@ -115,7 +116,7 @@ RSpec.describe "invitations", type: :system do
     read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
     click_on "Contact details"
 
-    read "What's the best email address for them to reach you on?"
+    read "What's the best email address for me to reach you on when I have more information?"
   end
 
   it "allows you to ask about Yam Daisy before confirming identity" do

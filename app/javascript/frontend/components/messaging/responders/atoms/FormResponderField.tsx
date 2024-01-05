@@ -32,7 +32,14 @@ const FormResponderEmailField = ({
   field,
   registerProps,
 }: IResponderFieldProps & { field: IFormResponderEmailField }) => {
-  return <Input type="email" placeholder={field.placeholder} />
+  return (
+    <Input
+      name={field.name}
+      type="email"
+      placeholder={field.placeholder}
+      {...registerProps}
+    />
+  )
 }
 
 const FormResponderCheckboxGroupField = ({

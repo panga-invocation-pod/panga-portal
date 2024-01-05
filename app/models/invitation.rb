@@ -14,6 +14,7 @@ class Invitation < ApplicationRecord
     state :considering_accessibility
     state :considering_availability
     state :collecting_contact_details
+    state :awaiting_workshop_invitation
     state :cant_do_workshop
     state :invitation_declined
 
@@ -49,6 +50,10 @@ class Invitation < ApplicationRecord
       transitions from: :considering_availability, to: :collecting_contact_details
     end
 
+    event :received_invitee_email do
+      transitions from: :collecting_contact_details, to: :awaiting_workshop_invitation
+    end
+
     event :reset do
       transitions to: :confirmed_identity
     end
@@ -64,5 +69,12 @@ class Invitation < ApplicationRecord
 
   def opted_out?
     cant_do_workshop? || invitation_declined?
+  end
+
+  def set_invitee_email!(email)
+    raise ArgumentError, "no email" if email.blank?
+    self.invitee_email = email
+    received_invitee_email if may_received_invitee_email?
+    save!
   end
 end

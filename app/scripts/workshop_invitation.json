@@ -432,7 +432,9 @@
       "prompt": "Thanks {{invitation.invitee.short_name}}, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to be erase your details from my memory.",
       "responder": {
         "responder_type": "form",
-        "fields": [{ "name": "email", "field_type": "email" }],
+        "fields": [
+          { "name": "email", "field_type": "email", "required": true }
+        ],
         "buttons": [{ "name": "submit", "button_type": "submit" }]
       },
       "command": {

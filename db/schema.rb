@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_014310) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_05_033632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_014310) do
     t.text "message"
     t.string "aasm_state"
     t.text "workshop_accessibility_needs"
+    t.string "invitee_email"
     t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
     t.index ["inviter_id"], name: "index_invitations_on_inviter_id"
   end
