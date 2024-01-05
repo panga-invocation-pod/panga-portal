@@ -119,6 +119,23 @@ RSpec.describe "invitations", type: :system do
     read "What's the best email address for me to reach you on when I have more information?"
   end
 
+  it "allows you to pick up from awaiting_workshop_invitation" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @invitation.availability_recorded!
+    @invitation.set_invitee_email!("gimli@thorinand.co")
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "The workshop invitation"
+
+    read "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
+  end
+
   it "allows you to ask about Yam Daisy before confirming identity" do
     visit "/hi/#{@invitation.token}#fast"
 

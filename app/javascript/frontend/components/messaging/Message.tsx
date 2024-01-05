@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { IMessage, Respond } from "./types"
-import Responder from "./Responder"
-import FadeIn from "react-fade-in"
-import MessageItems from "./MessageItems"
+import React from "react"
+import PromptMessage from "./PromptMessage"
+import { IMessage, IPromptMessage, IUrlMessage, Respond } from "./types"
+import UrlMessage from "./UrlMessage"
 
 interface MessageProps {
   message: IMessage
@@ -10,38 +9,18 @@ interface MessageProps {
   mode: null | "fast"
 }
 
-type MessageStage = "start" | "prompt" | "respond"
+export default function Message(props: MessageProps) {
+  const { message } = props
 
-export default function Message({ message, respond, mode }: MessageProps) {
-  const [stage, setStage] = useState<MessageStage>("start")
-  const [stateMessage, setMessage] = useState<IMessage>(message)
-
-  useEffect(() => {
-    setStage("start")
-    setMessage(message)
-    setTimeout(() => setStage("prompt"), 1)
-  }, [message.id])
-
-  if (stage == "start") {
-    return <div className="message" />
+  if (message.hasOwnProperty("url")) {
+    return <UrlMessage message={message as IUrlMessage} />
+  } else {
+    return (
+      <PromptMessage
+        key={message.id}
+        {...props}
+        message={message as IPromptMessage}
+      />
+    )
   }
-
-  return (
-    <div className="message">
-      {stateMessage && (
-        <MessageItems
-          prompt={stateMessage.prompt}
-          mode={mode}
-          key={stateMessage.id}
-          onFinished={() => setStage("respond")}
-        />
-      )}
-
-      {stateMessage.responder && stage == "respond" && (
-        <FadeIn>
-          <Responder responder={stateMessage.responder} respond={respond} />
-        </FadeIn>
-      )}
-    </div>
-  )
 }

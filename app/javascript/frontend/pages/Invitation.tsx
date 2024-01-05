@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Message from "../components/messaging/Message"
 import {
-  IMessage,
+  IPromptMessage,
   IPostReply,
   IInput,
   IChatStatus,
@@ -32,7 +32,7 @@ export default function Invitation() {
     return <div>Invalid token</div>
   }
 
-  const [message, setMessage] = useState<IMessage | "error" | null>(null)
+  const [message, setMessage] = useState<IPromptMessage | "error" | null>(null)
   const client = new ChatClient(token)
 
   const onData = (data: IChatStatus) => {

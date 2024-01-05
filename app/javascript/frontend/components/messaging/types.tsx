@@ -67,14 +67,21 @@ export interface IPrompt {
   character: ICharacter | null
 }
 
-export interface IMessage {
+export interface IPromptMessage {
   id: string
   prompt: IPrompt | Array<IPrompt>
   responder: IResponder | null
 }
 
+export interface IUrlMessage {
+  id: string
+  url: string
+}
+
+export type IMessage = IPromptMessage | IUrlMessage
+
 export interface IChatStatus {
-  message: IMessage
+  message: IPromptMessage
   data: any
 }
 

@@ -71,6 +71,13 @@
               "type": "context",
               "condition": "invitation_collecting_contact_details?"
             }
+          },
+          {
+            "text": "The workshop invitation",
+            "if": {
+              "type": "context",
+              "condition": "invitation_awaiting_workshop_invitation?"
+            }
           }
         ]
       },
@@ -78,7 +85,8 @@
         "Something about a workshop": "explain_workshop",
         "Workshop accessibility": "considering_accessibility",
         "Workshop times": "considering_availability",
-        "Contact details": "requesting_email"
+        "Contact details": "requesting_email",
+        "The workshop invitation": "waiting_for_invitation"
       }
     },
     {
@@ -458,7 +466,19 @@
     },
     {
       "id": "waiting_for_invitation",
-      "prompt": "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
+      "prompt": "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through.\n\nIf you want to read something related to Panga, I have a few links here for you.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          { "text": "About \"Prefigurative Politics\"", "type": "secondary" }
+        ]
+      },
+      "transitions": {
+        "About \"Prefigurative Politics\"": {
+          "type": "url",
+          "to": "https://commonslibrary.org/prefigurative-politics-in-practice/"
+        }
+      }
     }
   ]
 }
