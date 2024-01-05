@@ -53,6 +53,10 @@ module Crud
       render_record message: "#{model_class_const.to_s} deleted"
     end
 
+    def show
+      record
+    end
+
     private
 
     # guess the model name from the controller name

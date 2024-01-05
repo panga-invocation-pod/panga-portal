@@ -7,10 +7,15 @@ Rails.application.routes.draw do
         put :reset
       end
     end
-
     resources :workshops, except: [:show]
-    resources :workshop_sessions, except: [:show]
-    resources :workshop_attendances, except: [:show]
+    resources :workshop_sessions
+    resources :workshop_attendances, except: [:show] do
+      member do
+        put :make_invitee
+        put :unmake_invitee
+      end
+    end
+
     get '/', to: redirect('/admin/users')
   end
 

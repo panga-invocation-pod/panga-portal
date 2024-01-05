@@ -1,0 +1,38 @@
+%h2.h2= @record.class.name.titleize
+
+%h3.h3 Details
+%table.table
+  %tr
+    %th{scope: "row"} Workshop
+    %td= @record.workshop.name
+  %tr
+    %th{scope: "row"} Start
+    %td= @record.start_at
+  %tr
+    %th{scope: "row"} Duration
+    %td= format_duration @record.duration
+  %tr
+    %th{scope: "row"} Invited
+    %td= @record.attendances.invited.count
+
+%h3.h3 Attendees
+%table.table
+  %thead
+    %tr
+      %th{scope: "col"} Name
+      %th{scope: "col"} State
+      %th{scope: "col"} Other sessions
+      %th{scope: "col"} Actions
+  %tbody
+    - @record.attendances.each do |attendance|
+      %tr
+        %td= attendance.person.full_name
+        %td= attendance.aasm_state
+        %td
+          - attendance.others_for_person_and_workshop.pluck(:aasm_state).tally.each do |state, count|
+            %div= "#{state}: #{count}"
+        %td
+          - if attendance.may_make_invitee?
+            = link_to "Make invitee", make_invitee_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
+          - if attendance.may_unmake_invitee?
+            = link_to "Unmake invitee", unmake_invitee_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"

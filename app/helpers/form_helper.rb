@@ -32,4 +32,8 @@ module FormHelper
   def edit_link(record)
     link_to "Edit", { action: :edit, id: record.id }
   end
+
+  def show_link(record)
+    link_to "Show", { action: :show, id: record.id }
+  end
 end
