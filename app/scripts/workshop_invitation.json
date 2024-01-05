@@ -429,16 +429,23 @@
     },
     {
       "id": "requesting_email",
-      "prompt": "I've got your availability, thanks {{invitation.invitee.short_name}}.\n\nI'll let {{invitation.inviter.short_name}} know that you're keen and available for a workshop, and they'll get back to you soon with an invitation.\n\nWhat's the best email address for them to reach you on?",
+      "prompt": "Thanks {{invitation.invitee.short_name}}, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to be erase your details from my memory.",
       "responder": {
         "responder_type": "form",
         "fields": [{ "name": "email", "field_type": "email" }],
         "buttons": [{ "name": "submit", "button_type": "submit" }]
+      },
+      "command": {
+        "name": "set_invitee_email",
+        "if": { "type": "input", "condition": "submit" }
+      },
+      "transitions": {
+        "DEFAULT": "availability_confirmed"
       }
     },
     {
       "id": "availability_confirmed",
-      "prompt": "Great! I've let {{invitation.inviter.short_name}} know that you're keen and available for a workshop.\n\nThey'll match up everyone's availability with a session, and get back to you soon with an invitation.",
+      "prompt": "Great! I've let {{invitation.inviter.short_name}} know that you're keen and available for a workshop, and that I have a way to reach you.\n\nEveryone's availability will be matched up with a session, and I'll email you soon with an invitation.",
       "responder": {
         "responder_type": "select_option",
         "options": ["Sounds good"]

@@ -48,10 +48,16 @@ RSpec.describe "invitations", type: :system do
     check("Wed, 1 Jan, 2200: 10am - 11am", allow_label_click: true)
     click_on "Submit times"
 
-    read "I've got your availability, thanks Gimli.\nI'll let Frodo know that you're keen and available for a workshop, and they'll get back to you soon with an invitation.\nWhat's the best email address for them to reach you on?"
+    read "Thanks Gimli, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to be erase your details from my memory."
     expect(@invitation.reload).to be_collecting_contact_details
     fill_in "Email", with: "gilmi@thorinand.co"
     click_on "Submit"
+
+    read "Great! I've let Frodo know that you're keen and available for a workshop, and that I have a way to reach you.\n\nEveryone's availability will be matched up with a session, and I'll email you soon with an invitation."
+    expect(@invitation.reload).to be_awaiting_workshop_invitation
+    click_on "Sounds good"
+
+    read "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
   end
 
   it "allows you to pick up from confirmed identity" do
