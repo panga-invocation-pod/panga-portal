@@ -16,6 +16,8 @@
     %td= @record.attendances.invited.count
 
 %h3.h3 Attendees
+.table-actions
+  = link_to "Send #{pluralize(@to_invite_count, "invitation")}", invite_all_planned_admin_workshop_session_path(@record), method: :post, class: "btn btn-primary btn-sm", data: {confirm: "This will send an email to all attendees who have not yet been invited. Are you sure?"}
 %table.table
   %thead
     %tr

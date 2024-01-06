@@ -8,14 +8,15 @@ class WorkshopAttendance < ApplicationRecord
 
   aasm do
     state :available, initial: true
+    state :invite_planned
     state :invited
 
     event :make_invitee do
-      transitions from: :available, to: :invited
+      transitions from: :available, to: :invite_planned
     end
 
     event :unmake_invitee do
-      transitions from: :invited, to: :available
+      transitions from: [:invited, :invite_planned], to: :available
     end
   end
 

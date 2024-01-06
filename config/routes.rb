@@ -8,7 +8,11 @@ Rails.application.routes.draw do
       end
     end
     resources :workshops, except: [:show]
-    resources :workshop_sessions
+    resources :workshop_sessions do
+      member do
+        post :invite_all_planned
+      end
+    end
     resources :workshop_attendances, except: [:show] do
       member do
         put :make_invitee
