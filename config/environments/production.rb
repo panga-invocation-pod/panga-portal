@@ -83,7 +83,9 @@ Rails.application.configure do
     user_name: ENV.fetch("SMTP_USERNAME", ""),
     password: ENV.fetch("SMTP_PASSWORD", ""),
     authentication: :plain,
-    enable_starttls_auto: true
+    enable_starttls_auto: false,
+    domain: "panga.network",
+    ssl: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
