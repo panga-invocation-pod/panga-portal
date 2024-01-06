@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_05_033632) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_06_095826) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,8 +52,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_033632) do
     t.string "aasm_state"
     t.text "workshop_accessibility_needs"
     t.string "invitee_email"
+    t.bigint "workshop_id"
     t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
     t.index ["inviter_id"], name: "index_invitations_on_inviter_id"
+    t.index ["workshop_id"], name: "index_invitations_on_workshop_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -124,6 +126,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_033632) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "invitations", "people", column: "invitee_id"
   add_foreign_key "invitations", "people", column: "inviter_id"
+  add_foreign_key "invitations", "workshops"
   add_foreign_key "users", "people"
   add_foreign_key "workshop_attendances", "people"
   add_foreign_key "workshop_attendances", "workshop_sessions"

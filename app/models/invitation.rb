@@ -4,9 +4,10 @@ class Invitation < ApplicationRecord
 
   belongs_to :inviter, class_name: 'Person'
   belongs_to :invitee, class_name: 'Person'
+  belongs_to :workshop, optional: true
 
   validates :invitee, uniqueness: { scope: :inviter }
-  validates :message, presence: true
+  validates :inviter, :invitee, :message, :workshop, presence: true
 
   aasm do
     state :new, initial: true
