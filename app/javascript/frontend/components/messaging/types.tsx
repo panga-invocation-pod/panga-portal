@@ -1,6 +1,6 @@
 export interface IOption {
   text: string
-  type?: "primary" | "secondary"
+  type?: "primary" | "secondary" | "danger"
   value?: string
 }
 

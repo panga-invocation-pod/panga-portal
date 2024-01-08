@@ -100,4 +100,9 @@ class Invitation < ApplicationRecord
   def workshop_invitation
     workshop_attendances.invited.first
   end
+
+  def delete_contact_details!
+    self.invitee_email = nil
+    save!
+  end
 end

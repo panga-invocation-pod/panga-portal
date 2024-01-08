@@ -447,7 +447,7 @@
     },
     {
       "id": "requesting_email",
-      "prompt": "Thanks {{invitation.invitee.short_name}}, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to be erase your details from my memory.",
+      "prompt": "Thanks {{invitation.invitee.short_name}}, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to erase your details from my memory.",
       "responder": {
         "responder_type": "form",
         "fields": [
@@ -492,7 +492,63 @@
     },
     {
       "id": "logged_in_as_workshop_invitee",
-      "prompt": "Hi {{current_person.short_name}}, I've got your workshop invitation for you"
+      "prompt": "Hi {{current_person.short_name}}, I've got your workshop invitation for you",
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          "Sounds good",
+          {
+            "text": "Please delete my contact details",
+            "type": "secondary",
+            "if": {
+              "type": "context",
+              "condition": "invitation_has_email?"
+            }
+          }
+        ]
+      },
+      "transitions": {
+        "Please delete my contact details": "delete_contact_details"
+      }
+    },
+    {
+      "id": "delete_contact_details",
+      "prompt": "I'm happy to delete your contact details, but I want to check that you're sure.\n\nIf I delete your details, I won't be able to let you know of any changes to the workshop.\n\nHowever, you will be able to check back at this URL at any time to proceed.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          { "text": "Yes, delete my details", "type": "danger" },
+          {
+            "text": "No thanks, I'm happy to leave them",
+            "type": "primary"
+          }
+        ]
+      },
+      "transitions": {
+        "Yes, delete my details": "delete_contact_details_confirmed",
+        "No thanks, I'm happy to leave them": {
+          "type": "script",
+          "to": "entry"
+        }
+      }
+    },
+    {
+      "id": "delete_contact_details_confirmed",
+      "prompt": "Ok, I've deleted your contact details.",
+      "command": {
+        "name": "delete_contact_details",
+        "stage": "request"
+      },
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Thanks"]
+      },
+      "transitions": {
+        "Thanks": {
+          "type": "script",
+          "to": "entry"
+        }
+      }
     }
   ]
 }

@@ -55,6 +55,10 @@ module Contexts
       @workshop ||= Workshop.find_by_name("Panga Context Setting")
     end
 
+    def invitation_has_email?
+      invitation.invitee_email.present?
+    end
+
     private
 
     attr_reader :controller

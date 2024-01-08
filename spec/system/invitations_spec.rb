@@ -49,7 +49,7 @@ RSpec.describe "invitations", type: :system do
     check("Wed, 1 Jan, 2200: 10am - 11am", allow_label_click: true)
     click_on "Submit times"
 
-    read "Thanks Gimli, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to be erase your details from my memory."
+    read "Thanks Gimli, your availability will be used to determine the best workshop to invite everyone to.\n\nWhat's the best email address for me to reach you on when I have more information?\n\nI won't use this address for anything other than sending you emails related to the workshop, and all my emails will have an link to erase your details from my memory."
     expect(@invitation.reload).to be_collecting_contact_details
     fill_in "Email", with: "gimli@thorinand.co"
     click_on "Submit"
@@ -61,16 +61,14 @@ RSpec.describe "invitations", type: :system do
 
     read "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
 
-    @session_attendance = @invitation.workshop_attendances.first
-    expect(@session_attendance).to be_present
-    @session_attendance.make_invitee!
-    @session_attendance.invite!
+    invite_to_first_session
 
     mail = find_mail_to "gimli@thorinand.co"
     expect(mail.subject).to eq("Your Panga Workshop Invitation")
-    click_first_link_in_email(mail)
 
+    click_first_link_in_email(mail)
     sleep 1
+
     read "Hi Gimli, I've got your workshop invitation for you"
   end
 
@@ -237,5 +235,54 @@ RSpec.describe "invitations", type: :system do
 
     read "Ok, I've let Frodo know that you're keen but none of the times suit. They'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
     expect(@invitation.reload).to be_considering_availability
+  end
+
+  it "allows you to delete your contact details after email" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @invitation.availability_recorded!
+    @invitation.set_invitee_email!("gimli@thorinand.co")
+    mark_as_available_to_all_sessions
+    invite_to_first_session
+
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, I've got your workshop invitation for you"
+    click_on "Please delete my contact details"
+
+    read "I'm happy to delete your contact details, but I want to check that you're sure.\n\nIf I delete your details, I won't be able to let you know of any changes to the workshop.\n\nHowever, you will be able to check back at this URL at any time to proceed."
+
+    click_on "No thanks, I'm happy to leave them"
+    read "Hi Gimli, I've got your workshop invitation for you"
+    click_on "Please delete my contact details"
+    read "I'm happy to delete your contact details"
+
+    click_on "Yes, delete my details"
+    read "Ok, I've deleted your contact details."
+    click_on "Thanks"
+    read "Hi Gimli, I've got your workshop invitation for you"
+  end
+
+  def mark_as_available_to_all_sessions
+    @workshop.sessions.all.each do |workshop_session|
+      set_as_available(workshop_session)
+    end
+  end
+
+  def invite_to_first_session
+    @session_attendance = @invitation.workshop_attendances.first
+    expect(@session_attendance).to be_present
+    @session_attendance.make_invitee!
+    @session_attendance.invite!
+
+    expect(@invitation.reload).to be_invited_to_workshop
+  end
+
+  def set_as_available(workshop_session)
+    workshop_session.attendances.find_or_create_by!(person: @invitation.invitee, invitation: @invitation)
   end
 end

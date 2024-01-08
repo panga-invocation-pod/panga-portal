@@ -15,7 +15,7 @@ export default function SelectOptionResponder({
     <div className="button-group">
       {responder.options.map(({ text, value, type }: IOption) => (
         <Button
-          colorScheme="primary"
+          colorScheme={type == "danger" ? "danger" : "primary"}
           variant={type == "secondary" ? "outline" : "solid"}
           key={text}
           onClick={() => respond({ text: value || text })}
