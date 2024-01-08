@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_06_095826) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_06_101251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_095826) do
     t.bigint "person_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "invitation_id"
+    t.index ["invitation_id"], name: "index_workshop_attendances_on_invitation_id"
     t.index ["person_id"], name: "index_workshop_attendances_on_person_id"
     t.index ["workshop_session_id"], name: "index_workshop_attendances_on_workshop_session_id"
   end
@@ -128,6 +130,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_095826) do
   add_foreign_key "invitations", "people", column: "inviter_id"
   add_foreign_key "invitations", "workshops"
   add_foreign_key "users", "people"
+  add_foreign_key "workshop_attendances", "invitations"
   add_foreign_key "workshop_attendances", "people"
   add_foreign_key "workshop_attendances", "workshop_sessions"
   add_foreign_key "workshop_sessions", "workshops"

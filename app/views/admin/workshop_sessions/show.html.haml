@@ -17,7 +17,7 @@
 
 %h3.h3 Attendees
 .table-actions
-  = link_to "Send #{pluralize(@to_invite_count, "invitation")}", invite_all_planned_admin_workshop_session_path(@record), method: :post, class: "btn btn-primary btn-sm", data: {confirm: "This will send an email to all attendees who have not yet been invited. Are you sure?"}
+  = button_to "Send #{pluralize(@to_invite_count, "invitation")}", invite_all_planned_admin_workshop_session_path(@record), method: :post, disabled: true, class: "btn btn-primary btn-sm", data: {confirm: "This will send an email to all attendees who have not yet been invited. Are you sure?"}
 %table.table
   %thead
     %tr
@@ -38,3 +38,7 @@
             = link_to "Make invitee", make_invitee_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
           - if attendance.may_unmake_invitee?
             = link_to "Unmake invitee", unmake_invitee_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
+          - if attendance.may_resend_invitation?
+            = link_to "Resend invitation", resend_invitation_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
+          - if attendance.may_retract_invitation?
+            = link_to "Retract invitation", retract_invitation_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-danger btn-sm"

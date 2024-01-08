@@ -6,7 +6,11 @@ class YamDaisyMailer < ApplicationMailer
   end
 
   def first_workshop_invite
+    raise ArgumentError, 'Invitation ID is required' unless params[:invitation_id].present?
     @invitation = Invitation.find(params[:invitation_id])
+
+    raise ArgumentError, 'Invitation does not have address' unless @invitation.invitee_email.present?
+
     mail(to: @invitation.invitee_email, subject: 'Your Panga Workshop Invitation')
   end
 end

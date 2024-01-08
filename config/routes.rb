@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       member do
         put :make_invitee
         put :unmake_invitee
+        put :retract_invitation
+        put :resend_invitation
       end
     end
 

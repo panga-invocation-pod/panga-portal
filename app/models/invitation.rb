@@ -5,6 +5,7 @@ class Invitation < ApplicationRecord
   belongs_to :inviter, class_name: 'Person'
   belongs_to :invitee, class_name: 'Person'
   belongs_to :workshop, optional: true
+  has_many :workshop_attendances
 
   validates :invitee, uniqueness: { scope: :inviter }
   validates :inviter, :invitee, :message, :workshop, presence: true
@@ -16,6 +17,7 @@ class Invitation < ApplicationRecord
     state :considering_availability
     state :collecting_contact_details
     state :awaiting_workshop_invitation
+    state :invited_to_workshop
     state :cant_do_workshop
     state :invitation_declined
 
@@ -55,6 +57,22 @@ class Invitation < ApplicationRecord
       transitions from: :collecting_contact_details, to: :awaiting_workshop_invitation
     end
 
+    event :uninvited_from_session do
+      transitions from: :invited_to_workshop, to: :awaiting_workshop_invitation do
+        guard do
+          workshop_attendances.invited.empty?
+        end
+      end
+    end
+
+    event :send_invitation_email do
+      before do
+        YamDaisyMailer.with(invitation_id: id).first_workshop_invite.deliver_now
+      end
+
+      transitions from: [:awaiting_workshop_invitation, :invited_to_workshop], to: :invited_to_workshop
+    end
+
     event :reset do
       transitions to: :confirmed_identity
     end
@@ -77,5 +95,9 @@ class Invitation < ApplicationRecord
     self.invitee_email = email
     received_invitee_email if may_received_invitee_email?
     save!
+  end
+
+  def workshop_invitation
+    workshop_attendances.invited.first
   end
 end
