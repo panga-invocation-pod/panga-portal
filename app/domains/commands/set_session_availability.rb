@@ -10,11 +10,12 @@ module Commands
       sessions = workshop.sessions.find(input[:session_ids])
       raise ArgumentError, "at least one session must be specified" if sessions.empty?
 
+      invitation = context.invitation
+
       sessions.each do |workshop_session|
-        set_as_available(workshop_session, person)
+        set_as_available(workshop_session, person, invitation)
       end
 
-      invitation = context.invitation
       if invitation && invitation.may_availability_recorded?
         invitation.availability_recorded!
       end
@@ -24,8 +25,8 @@ module Commands
 
     private
 
-    def set_as_available(workshop_session, person)
-      attendance = workshop_session.attendances.find_or_create_by!(person: person)
+    def set_as_available(workshop_session, person, invitation)
+      attendance = workshop_session.attendances.find_or_create_by!(person: person, invitation: invitation)
     end
   end
 end

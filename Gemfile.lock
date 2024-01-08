@@ -112,6 +112,10 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     dry-cli (1.0.0)
+    email_spec (2.2.2)
+      htmlentities (~> 4.3.3)
+      launchy (~> 2.1)
+      mail (~> 2.7)
     erubi (1.12.0)
     erubis (2.7.0)
     factory_bot (6.4.5)
@@ -136,6 +140,7 @@ GEM
       haml (>= 4.0)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -152,6 +157,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    launchy (2.5.2)
+      addressable (~> 2.8)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -326,6 +333,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  email_spec
   factory_bot_rails
   haml-rails (~> 2.0)
   html2haml

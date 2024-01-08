@@ -71,4 +71,5 @@ group :test do
   gem "capybara"
   gem "factory_bot_rails"
   gem "selenium-webdriver"
+  gem 'email_spec'
 end

@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "invitations", type: :system do
   include ChatHelpers
+  include EmailSpec::Helpers
 
   before :each do
-    @invitation = create(:invitation)
     @workshop = create(:workshop, :panga_context_settting, :three_sessions)
+    @invitation = create(:invitation, workshop: @workshop)
   end
 
   it "shows you your invitation at a unique URL" do
@@ -59,6 +60,18 @@ RSpec.describe "invitations", type: :system do
     click_on "Sounds good"
 
     read "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
+
+    @session_attendance = @invitation.workshop_attendances.first
+    expect(@session_attendance).to be_present
+    @session_attendance.make_invitee!
+    @session_attendance.invite!
+
+    mail = find_mail_to "gimli@thorinand.co"
+    expect(mail.subject).to eq("Your Panga Workshop Invitation")
+    click_first_link_in_email(mail)
+
+    sleep 1
+    read "Hi Gimli, I've got your workshop invitation for you"
   end
 
   it "allows you to pick up from confirmed identity" do

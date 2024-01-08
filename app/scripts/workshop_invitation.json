@@ -15,6 +15,16 @@
       }
     },
     {
+      "to": "logged_in_as_workshop_invitee",
+      "if": {
+        "type": "and",
+        "conditions": [
+          { "type": "context", "condition": "logged_in_as_invitee?" },
+          { "type": "context", "condition": "invitation_invited_to_workshop?" }
+        ]
+      }
+    },
+    {
       "to": "logged_in_as_invitee",
       "if": { "type": "context", "condition": "logged_in_as_invitee?" }
     },
@@ -479,6 +489,10 @@
           "to": "https://commonslibrary.org/prefigurative-politics-in-practice/"
         }
       }
+    },
+    {
+      "id": "logged_in_as_workshop_invitee",
+      "prompt": "Hi {{current_person.short_name}}, I've got your workshop invitation for you"
     }
   ]
 }
