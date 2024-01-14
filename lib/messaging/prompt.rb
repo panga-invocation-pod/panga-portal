@@ -1,4 +1,4 @@
-require_relative 'prompt_group'
+require_relative 'prompts/text_prompt'
 
 module Messaging
   class Prompt
@@ -10,34 +10,10 @@ module Messaging
 
       input = data.is_a?(String) ? { "text" => data } : data
 
-      new(input['text'], Character.from_data(input['character']))
-    end
+      type = input['type'] || 'text'
+      prompt_class = "Messaging::Prompts::#{type.camelize}Prompt".constantize
 
-    def initialize(text, character = nil)
-      @text = text
-      @character = character
-    end
-
-    attr_reader :text, :character
-
-    def as_json(interpolator = nil, script_defaults = {})
-      character = best_character(script_defaults)
-
-      result = {
-        text: interpolated_text(interpolator)
-      }
-      result[:character] = character.as_json(interpolator) if character
-      result
-    end
-
-    def best_character(script_defaults = {})
-      character || script_defaults[:character]
-    end
-
-    private
-
-    def interpolated_text(interpolator = nil)
-      interpolator ? interpolator.interpolate(text) : text
+      prompt_class.from_data(input)
     end
   end
 end

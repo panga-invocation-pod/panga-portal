@@ -533,16 +533,7 @@
       "id": "logged_in_as_workshop_invitee",
       "prompt": [
         "Hi {{current_person.short_name}}, I've got your workshop invitation for you",
-        "hi there",
-        {
-          "text": "third thing",
-          "character": {
-            "id": "{{invitation.inviter.id}}",
-            "name": "{{invitation.inviter.short_name}}}}",
-            "effect": "robot",
-            "thumbnail": "{{inviter_thumbnail}}"
-          }
-        }
+        { "type": "custom", "name": "workshop_session_details" }
       ],
       "responder": {
         "responder_type": "select_option",
