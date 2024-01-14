@@ -21,6 +21,7 @@ import {
   IMessagingConfig,
   MessagingContext,
 } from "../components/messaging/context"
+import WorkshopSessionDetailsPrompt from "../components/invitations/WorkshopSessionDetailsPrompt"
 
 const endpoint = (token: string) => `/hi/${token}/chat.json`
 
@@ -70,7 +71,9 @@ export default function Invitation() {
 
   const providerConfig: IMessagingConfig = {
     responders: {},
-    prompts: {},
+    prompts: {
+      workshop_session_details: WorkshopSessionDetailsPrompt,
+    },
   }
 
   if (message == "error") {
