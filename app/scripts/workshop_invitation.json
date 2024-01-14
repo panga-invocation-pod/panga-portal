@@ -491,27 +491,6 @@
       }
     },
     {
-      "id": "logged_in_as_workshop_invitee",
-      "prompt": "Hi {{current_person.short_name}}, I've got your workshop invitation for you",
-      "responder": {
-        "responder_type": "select_option",
-        "options": [
-          "Sounds good",
-          {
-            "text": "Please delete my contact details",
-            "type": "secondary",
-            "if": {
-              "type": "context",
-              "condition": "invitation_has_email?"
-            }
-          }
-        ]
-      },
-      "transitions": {
-        "Please delete my contact details": "delete_contact_details"
-      }
-    },
-    {
       "id": "delete_contact_details",
       "prompt": "I'm happy to delete your contact details, but I want to check that you're sure.\n\nIf I delete your details, I won't be able to let you know of any changes to the workshop.\n\nHowever, you will be able to check back at this URL at any time to proceed.",
       "responder": {
@@ -548,6 +527,39 @@
           "type": "script",
           "to": "entry"
         }
+      }
+    },
+    {
+      "id": "logged_in_as_workshop_invitee",
+      "prompt": [
+        "Hi {{current_person.short_name}}, I've got your workshop invitation for you",
+        "hi there",
+        {
+          "text": "third thing",
+          "character": {
+            "id": "{{invitation.inviter.id}}",
+            "name": "{{invitation.inviter.short_name}}}}",
+            "effect": "robot",
+            "thumbnail": "{{inviter_thumbnail}}"
+          }
+        }
+      ],
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          "Sounds good",
+          {
+            "text": "Please delete my contact details",
+            "type": "secondary",
+            "if": {
+              "type": "context",
+              "condition": "invitation_has_email?"
+            }
+          }
+        ]
+      },
+      "transitions": {
+        "Please delete my contact details": "delete_contact_details"
       }
     }
   ]

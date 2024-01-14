@@ -1,11 +1,25 @@
 import React, { useState } from "react"
-import { IPrompt } from "./types"
+import { ICharacter, IPrompt } from "./types"
 import MessageItem from "./MessageItem"
 
 interface MessageItemsProps {
   prompt: IPrompt | Array<IPrompt>
   mode: null | "fast"
   onFinished: () => void
+}
+
+type AvatarSide = "left" | "right"
+
+function changeSide(side: AvatarSide): AvatarSide {
+  return side === "left" ? "right" : "left"
+}
+
+function differentCharacters(
+  a: ICharacter | null | undefined,
+  b: ICharacter | null | undefined,
+): boolean {
+  if (!a || !b) return false
+  return a.id !== b.id
 }
 
 export default function MessageItems({
@@ -28,17 +42,32 @@ export default function MessageItems({
     }
   }
 
+  let previousCharacter: ICharacter | null = null
+  let previousSide: AvatarSide = "left"
+
   return (
     <div className="message-items">
-      {prompts.slice(0, index + 1).map((prompt, index) => (
-        <MessageItem
-          prompt={prompt}
-          mode={mode}
-          key={index}
-          onFinished={onItemFinished}
-          avatarSide={prompt.character === initialCharacter ? "left" : "right"}
-        />
-      ))}
+      {prompts.slice(0, index + 1).map((prompt, index) => {
+        const changedCharacters: boolean =
+          previousCharacter != null &&
+          differentCharacters(previousCharacter, prompt.character)
+        previousCharacter = prompt.character
+        const currentSide = changedCharacters
+          ? changeSide(previousSide)
+          : previousSide
+        previousSide = currentSide
+
+        return (
+          <MessageItem
+            prompt={prompt}
+            mode={mode}
+            key={index}
+            onFinished={onItemFinished}
+            avatarSide={currentSide}
+            displayAvatar={changedCharacters || index === 0}
+          />
+        )
+      })}
     </div>
   )
 }

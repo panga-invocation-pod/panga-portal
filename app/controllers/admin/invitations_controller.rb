@@ -9,6 +9,6 @@ class Admin::InvitationsController < AdminController
   private
 
   def permit_record_fields(fields)
-    fields.permit(:inviter_id, :invitee_id, :token, :message)
+    fields.permit(:inviter_id, :invitee_id, :token, :message, :invitee_email)
   end
 end

@@ -8,6 +8,7 @@ interface MessageItemProps {
   mode: null | "fast"
   onFinished: () => void
   avatarSide?: "left" | "right"
+  displayAvatar?: boolean
 }
 
 export default function MessageItem({
@@ -15,10 +16,13 @@ export default function MessageItem({
   mode,
   onFinished,
   avatarSide = "left",
+  displayAvatar = true,
 }: MessageItemProps) {
   return (
     <div className={`message-item avatar-${avatarSide}`}>
-      {prompt.character && <CharacterThumbnail character={prompt.character} />}
+      {prompt.character && displayAvatar && (
+        <CharacterThumbnail character={prompt.character} />
+      )}
       <PromptText
         text={prompt.text}
         effect={(mode != "fast" && prompt.character?.effect) || null}
