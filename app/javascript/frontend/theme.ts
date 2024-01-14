@@ -1,4 +1,9 @@
-import { extendTheme, theme as chakraTheme } from "@chakra-ui/react"
+import {
+  extendTheme,
+  theme as chakraTheme,
+  createMultiStyleConfigHelpers,
+} from "@chakra-ui/react"
+import { cardAnatomy } from "@chakra-ui/anatomy"
 
 const colors = {
   ...chakraTheme.colors,
@@ -39,6 +44,30 @@ const colors = {
     900: "#ff1a1a",
   },
 }
+
+const { definePartsStyle, defineMultiStyleConfig } =
+  createMultiStyleConfigHelpers(cardAnatomy.keys)
+
+const cardBaseStyle = definePartsStyle({
+  // define the part you're going to style
+  container: {
+    backgroundColor: "earth.600",
+  },
+  header: {},
+  body: {},
+  footer: {},
+})
+
+const cardSizes = {
+  md: definePartsStyle({
+    container: {},
+  }),
+}
+
+export const cardTheme = defineMultiStyleConfig({
+  baseStyle: cardBaseStyle,
+  sizes: cardSizes,
+})
 
 export const theme = extendTheme({
   config: {
@@ -90,5 +119,6 @@ export const theme = extendTheme({
         },
       },
     },
+    Card: cardTheme,
   },
 })

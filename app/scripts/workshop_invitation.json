@@ -533,7 +533,8 @@
       "id": "logged_in_as_workshop_invitee",
       "prompt": [
         "Hi {{current_person.short_name}}, I've got your workshop invitation for you",
-        { "type": "custom", "name": "workshop_session_details" }
+        { "type": "custom", "name": "workshop_session_details" },
+        "How does that sound?"
       ],
       "responder": {
         "responder_type": "select_option",
