@@ -19,7 +19,8 @@ module Messaging
         character = best_character(script_defaults)
 
         result = {
-          text: interpolated_text(interpolator)
+          text: interpolated_text(interpolator),
+          prompt_type: 'text'
         }
         result[:character] = character.as_json(interpolator) if character
         result

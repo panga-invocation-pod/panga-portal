@@ -21,7 +21,7 @@ module Messaging
         character = best_character(script_defaults)
 
         result = {
-          text: "custom prompt text for #{name}"
+          prompt_type: 'custom'
         }
         result[:character] = character.as_json(interpolator) if character
         result

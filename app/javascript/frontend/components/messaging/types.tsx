@@ -62,10 +62,18 @@ export type IResponder =
   | IFormResponder
   | ICustomResponder
 
-export interface IPrompt {
+export interface ITextPrompt {
+  prompt_type: "text"
   text: string
   character: ICharacter | null
 }
+
+export interface ICustomPrompt {
+  prompt_type: "custom"
+  character: ICharacter | null
+}
+
+export type IPrompt = ITextPrompt | ICustomPrompt
 
 export interface IPromptMessage {
   id: string
