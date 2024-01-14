@@ -534,12 +534,13 @@
       "prompt": [
         "Hi {{current_person.short_name}}, I've got your workshop invitation for you",
         { "type": "custom", "name": "workshop_session_details" },
-        "How does that sound?"
+        "I think this session would be a great fit for your availability. Shall I tell the Panga folks you can make it?"
       ],
       "responder": {
         "responder_type": "select_option",
         "options": [
-          "Sounds good",
+          "Yes, book me in",
+          "I still have questions first",
           {
             "text": "Please delete my contact details",
             "type": "secondary",

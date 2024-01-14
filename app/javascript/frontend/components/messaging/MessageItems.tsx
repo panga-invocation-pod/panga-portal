@@ -34,8 +34,8 @@ export default function MessageItems({
 
   const initialCharacter = prompts[0].character
 
-  const onItemFinished = () => {
-    if (index < prompts.length - 1) {
+  const onItemFinished = (itemIndex: number) => {
+    if (itemIndex < prompts.length - 1) {
       setTimeout(() => setIndex(index + 1), 500)
     } else {
       onFinished()
@@ -62,7 +62,7 @@ export default function MessageItems({
             prompt={prompt}
             mode={mode}
             key={index}
-            onFinished={onItemFinished}
+            onFinished={() => onItemFinished(index)}
             avatarSide={currentSide}
             displayAvatar={changedCharacters || index === 0}
           />
