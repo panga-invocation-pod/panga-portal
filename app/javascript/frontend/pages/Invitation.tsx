@@ -70,6 +70,7 @@ export default function Invitation() {
 
   const providerConfig: IMessagingConfig = {
     responders: {},
+    prompts: {},
   }
 
   if (message == "error") {

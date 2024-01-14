@@ -2,6 +2,7 @@ import React from "react"
 import { IPrompt, ITextPrompt } from "./types"
 import CharacterThumbnail from "../characters/CharacterThumbnail"
 import PromptText from "./PromptText"
+import { MessagingContext } from "./context"
 
 interface MessageItemProps {
   prompt: IPrompt
@@ -38,10 +39,20 @@ function Prompt({
   mode: null | "fast"
   onFinished: () => void
 }) {
+  const config = React.useContext(MessagingContext)
+
   if (prompt.prompt_type === "text") {
     return <TextPrompt prompt={prompt} mode={mode} onFinished={onFinished} />
   } else if (prompt.prompt_type === "custom") {
-    return "custom prompt"
+    const PromptComponent = config.prompts[prompt.name]
+
+    if (!PromptComponent) {
+      return <div>Unknown custom prompt type: {prompt.name}</div>
+    }
+
+    return (
+      <PromptComponent prompt={prompt} mode={mode} onFinished={onFinished} />
+    )
   }
 }
 
