@@ -16,6 +16,7 @@ import { IPrompt } from "../messaging/types"
 import { DateTime } from "luxon"
 import DateText from "../utility/DateText"
 import TimeRange from "../utility/TimeRange"
+import { arrayToSentence } from "../utility/strings"
 
 export default function WorkshopSessionDetailsPrompt({
   prompt,
@@ -35,7 +36,16 @@ export default function WorkshopSessionDetailsPrompt({
     name: "Panga Context Setting",
     startAt: "2024-01-25T10:00:00.000Z",
     endAt: "2024-01-25T11:30:00.000Z",
-    // duration: 90,
+    facilitators: [
+      {
+        id: 1,
+        name: "Teq",
+      },
+      {
+        id: 2,
+        name: "Jade",
+      },
+    ],
     // facilitators: [
     //   {
     //     id: 1,
@@ -91,7 +101,12 @@ export default function WorkshopSessionDetailsPrompt({
               <Text fontSize="lg" fontWeight="bold">
                 Facilitators
               </Text>
-              <Text>Teq & Jade</Text>
+              <Text>
+                {arrayToSentence(
+                  workshopSession.facilitators.map((f) => f.name),
+                  "&",
+                )}
+              </Text>
             </Box>
             <Box>
               <Text fontSize="lg" fontWeight="bold">
