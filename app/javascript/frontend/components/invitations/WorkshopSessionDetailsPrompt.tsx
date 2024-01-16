@@ -46,24 +46,15 @@ export default function WorkshopSessionDetailsPrompt({
         name: "Jade",
       },
     ],
-    // facilitators: [
-    //   {
-    //     id: 1,
-    //     name: "Teq & Jade",
-    //   },
-    // ],
-    // location: {
-    //   id: 1,
-    //   name: "Reynard St Neighbourhood House",
-    //   address: "104a Reynard Street",
-    //   suburb: "Coburg",
-    //   postcode: "3058",
-    //   state: "VIC",
-    //   country: "Australia",
-    //   wheelchairAccess: true,
-    //   wheelchairAccessDescription:
-    //     "Wheelchair accessible via ramp at main entrance. Accessible toilet.",
-    // },
+    location: {
+      id: 1,
+      name: "Reynard St Neighbourhood House",
+      addressStreet: "104a Reynard Street",
+      suburb: "Coburg",
+      postcode: "3058",
+      state: "VIC",
+      traditionalCountry: "Wurrundjeri Country",
+    },
     // room: {
     //   id: 1,
     //   name: "Wombat Room",
@@ -110,11 +101,15 @@ export default function WorkshopSessionDetailsPrompt({
             </Box>
             <Box>
               <Text fontSize="lg" fontWeight="bold">
-                Reynard St Neighbourhood House
+                {workshopSession.location.name}
               </Text>
-              <Text>104a Reynard Street</Text>
-              <Text>Wurrundjeri Country</Text>
-              <Text>Coburg 3058 VIC</Text>
+              <Text>{workshopSession.location.addressStreet}</Text>
+              <Text>{workshopSession.location.traditionalCountry}</Text>
+              <Text>
+                {workshopSession.location.suburb}{" "}
+                {workshopSession.location.postcode}{" "}
+                {workshopSession.location.state}
+              </Text>
             </Box>
             <Box>
               <Text fontSize="lg" fontWeight="bold">
