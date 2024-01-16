@@ -10,11 +10,12 @@ import {
   StackDivider,
   Box,
   Divider,
-  VStack,
-  HStack,
 } from "@chakra-ui/react"
 import React, { useEffect } from "react"
 import { IPrompt } from "../messaging/types"
+import { DateTime } from "luxon"
+import DateText from "../utility/DateText"
+import TimeRange from "../utility/TimeRange"
 
 export default function WorkshopSessionDetailsPrompt({
   prompt,
@@ -29,6 +30,37 @@ export default function WorkshopSessionDetailsPrompt({
     setTimeout(() => onFinished(), 100)
   })
 
+  const workshopSession = {
+    id: 1,
+    name: "Panga Context Setting",
+    startAt: "2024-01-25T10:00:00.000Z",
+    endAt: "2024-01-25T11:30:00.000Z",
+    // duration: 90,
+    // facilitators: [
+    //   {
+    //     id: 1,
+    //     name: "Teq & Jade",
+    //   },
+    // ],
+    // location: {
+    //   id: 1,
+    //   name: "Reynard St Neighbourhood House",
+    //   address: "104a Reynard Street",
+    //   suburb: "Coburg",
+    //   postcode: "3058",
+    //   state: "VIC",
+    //   country: "Australia",
+    //   wheelchairAccess: true,
+    //   wheelchairAccessDescription:
+    //     "Wheelchair accessible via ramp at main entrance. Accessible toilet.",
+    // },
+    // room: {
+    //   id: 1,
+    //   name: "Wombat Room",
+    //   description: "Enter via west door and down corridor to your right.",
+    // },
+  }
+
   return (
     <Card direction={{ base: "column" }} overflow="hidden" variant="outline">
       <Image
@@ -42,15 +74,18 @@ export default function WorkshopSessionDetailsPrompt({
       <Stack>
         <CardBody>
           <Heading size="md" mb={4}>
-            Panga Context Setting
+            {workshopSession.name}
           </Heading>
 
           <Stack divider={<StackDivider />} spacing="4">
             <Box>
               <Text fontSize="lg" fontWeight="bold">
-                Monday 25 Jan, 2024
+                <DateText value={DateTime.fromISO(workshopSession.startAt)} />
               </Text>
-              <Text>10:00 am - 11:30 am</Text>
+              <TimeRange
+                startAt={DateTime.fromISO(workshopSession.startAt)}
+                endAt={DateTime.fromISO(workshopSession.endAt)}
+              />
             </Box>
             <Box>
               <Text fontSize="lg" fontWeight="bold">
