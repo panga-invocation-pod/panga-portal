@@ -35,7 +35,7 @@ module Messaging
         message = load_message(:two_messages, 'new_user?')
         expect(message.as_json).to eq(
           id: 'new_user?',
-          prompt: { text: 'Welcome, are you new here?' },
+          prompt: { prompt_type: "text", text: 'Welcome, are you new here?' },
           responder: {
             responder_type: 'select_option',
             options: [{text: "yes"}, {text: "no"}]
@@ -54,7 +54,7 @@ module Messaging
           message = load_message(:two_messages, 'new_user?')
           message.prompt = Prompt.from_data 'Welcome back {{current_user.name}}'
 
-          expect(message.as_json(interpolator)[:prompt]).to eq({ text: 'Welcome back Bob' })
+          expect(message.as_json(interpolator)[:prompt]).to eq({ prompt_type: "text", text: 'Welcome back Bob' })
         end
       end
 
@@ -80,7 +80,7 @@ module Messaging
         it "finds the string prompt at the key text" do
           message = load_message(:prompt_variants, 'object_prompt')
           expect(message.as_json(nil)[:prompt]).to eq(
-            { text: "string prompt" }
+            { prompt_type: "text", text: "string prompt" }
           )
         end
       end
@@ -90,8 +90,8 @@ module Messaging
           message = load_message(:prompt_variants, 'two_string_prompts')
           expect(message.as_json(nil)[:prompt]).to eq(
             [
-              { text: "first string" },
-              { text: "second string" }
+              { prompt_type: "text", text: "first string" },
+              { prompt_type: "text", text: "second string" }
             ]
           )
         end
@@ -100,8 +100,8 @@ module Messaging
           message = load_message(:prompt_variants, 'two_object_prompts')
           expect(message.as_json(nil)[:prompt]).to eq(
             [
-              { text: "first string" },
-              { text: "second string" }
+              { prompt_type: "text", text: "first string" },
+              { prompt_type: "text", text: "second string" }
             ]
           )
         end

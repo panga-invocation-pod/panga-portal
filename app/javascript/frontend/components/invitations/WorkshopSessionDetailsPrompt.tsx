@@ -18,6 +18,19 @@ import DateText from "../utility/DateText"
 import TimeRange from "../utility/TimeRange"
 import { arrayToSentence } from "../utility/strings"
 
+const Address = ({ address }) => (
+  <>
+    <Text fontSize="lg" fontWeight="bold">
+      {address.name}
+    </Text>
+    <Text>{address.addressStreet}</Text>
+    <Text>{address.traditionalCountry}</Text>
+    <Text>
+      {address.suburb} {address.postcode} {address.state}
+    </Text>
+  </>
+)
+
 export default function WorkshopSessionDetailsPrompt({
   prompt,
   mode,
@@ -48,12 +61,17 @@ export default function WorkshopSessionDetailsPrompt({
     ],
     location: {
       id: 1,
-      name: "Reynard St Neighbourhood House",
-      addressStreet: "104a Reynard Street",
-      suburb: "Coburg",
-      postcode: "3058",
-      state: "VIC",
-      traditionalCountry: "Wurrundjeri Country",
+      name: "Wombat Room",
+      directions: "Enter via west door and down corridor to your right",
+      accessibility: "Wheelchair accessible via ramp at main entrance",
+      address: {
+        name: "Reynard St Neighbourhood House",
+        addressStreet: "104a Reynard Street",
+        suburb: "Coburg",
+        postcode: "3058",
+        state: "VIC",
+        traditionalCountry: "Wurundjeri Country",
+      },
     },
     // room: {
     //   id: 1,
@@ -100,26 +118,16 @@ export default function WorkshopSessionDetailsPrompt({
               </Text>
             </Box>
             <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                {workshopSession.location.name}
-              </Text>
-              <Text>{workshopSession.location.addressStreet}</Text>
-              <Text>{workshopSession.location.traditionalCountry}</Text>
-              <Text>
-                {workshopSession.location.suburb}{" "}
-                {workshopSession.location.postcode}{" "}
-                {workshopSession.location.state}
-              </Text>
+              <Address address={workshopSession.location.address} />
             </Box>
             <Box>
               <Text fontSize="lg" fontWeight="bold">
-                Wombat Room
+                {workshopSession.location.name}
               </Text>
-              <Text>Enter via west door and down corridor to your right.</Text>
-              <Text mt={4}>
-                Wheelchair accessible via ramp at main entrance. Accessible
-                toilet.
-              </Text>
+              <Text>{workshopSession.location.directions}</Text>
+              {workshopSession.location.accessibility && (
+                <Text mt={4}>{workshopSession.location.accessibility}</Text>
+              )}
             </Box>
           </Stack>
         </CardBody>
