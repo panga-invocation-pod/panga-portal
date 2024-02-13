@@ -1,5 +1,6 @@
 class WorkshopSession < ApplicationRecord
   belongs_to :workshop
+  belongs_to :location, class_name: 'WorkshopLocation', foreign_key: 'workshop_location_id', optional: true
   has_many :attendances, class_name: 'WorkshopAttendance', dependent: :destroy
 
   validates :start_at, presence: true
