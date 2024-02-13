@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         put :resend_invitation
       end
     end
+    resources :workshop_locations, except: [:show]
 
     get '/', to: redirect('/admin/users')
   end

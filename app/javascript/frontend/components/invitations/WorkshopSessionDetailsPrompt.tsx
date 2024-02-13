@@ -64,6 +64,10 @@ export default function WorkshopSessionDetailsPrompt({
       name: "Wombat Room",
       directions: "Enter via west door and down corridor to your right",
       accessibility: "Wheelchair accessible via ramp at main entrance",
+      image: {
+        url: "https://rsnh.org.au/wp-content/uploads/2023/12/outdoor-tables-in-lovely-garden-setting-reynard-street-neighbourhood-house-in-coburg.jpg",
+        alt: "Reynard St Neighbourhood House",
+      },
       address: {
         name: "Reynard St Neighbourhood House",
         addressStreet: "104a Reynard Street",
@@ -73,11 +77,6 @@ export default function WorkshopSessionDetailsPrompt({
         traditionalCountry: "Wurundjeri Country",
       },
     },
-    // room: {
-    //   id: 1,
-    //   name: "Wombat Room",
-    //   description: "Enter via west door and down corridor to your right.",
-    // },
   }
 
   return (
@@ -86,8 +85,8 @@ export default function WorkshopSessionDetailsPrompt({
         objectFit="cover"
         maxW={{ base: "100%" }}
         maxH={300}
-        src="https://rsnh.org.au/wp-content/uploads/elementor/thumbs/IMG_9865-scaled-pz3ourhl8lcdtj30x2l2cp58y8s0cdn0syd0gkzxgw.jpg"
-        alt="Reynard St Neighbourhood House"
+        src={workshopSession.location.image.url}
+        alt={workshopSession.location.image.alt}
       />
 
       <Stack>

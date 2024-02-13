@@ -1,0 +1,2 @@
+class WorkshopLocation < ApplicationRecord
+end

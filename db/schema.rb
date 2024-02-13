@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_06_101251) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_13_045136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_101251) do
     t.index ["invitation_id"], name: "index_workshop_attendances_on_invitation_id"
     t.index ["person_id"], name: "index_workshop_attendances_on_person_id"
     t.index ["workshop_session_id"], name: "index_workshop_attendances_on_workshop_session_id"
+  end
+
+  create_table "workshop_locations", force: :cascade do |t|
+    t.string "name"
+    t.text "directions"
+    t.text "accessibility"
+    t.string "address_name"
+    t.string "address_street"
+    t.string "address_city"
+    t.string "address_state"
+    t.string "address_postcode"
+    t.string "address_traditional_country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "workshop_sessions", force: :cascade do |t|
