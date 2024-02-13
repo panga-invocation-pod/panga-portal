@@ -1,11 +1,12 @@
 %table.table
   %thead
     %tr
+      %th{scope: "col"} Address name
       %th{scope: "col"} Name
+      %th{scope: "col"} Actions
   %tbody
     - @records.each do |record|
       %tr
+        %td= record.address_name
         %td= record.name
-        %td
-          = show_link(record)
-          = edit_link(record)
+        %td= edit_link(record)

@@ -1,0 +1,14 @@
+= simple_form_for [:admin, record] do |f|
+  = form_errors(f)
+
+  = f.input :name
+  = f.input :directions
+  = f.input :accessibility
+  = f.input :address_name
+  = f.input :address_street
+  = f.input :address_city
+  = f.input :address_state, as: :select, collection: ["VIC"]
+  = f.input :address_postcode
+  = f.input :address_traditional_country, as: :string
+
+  = form_actions(f)
