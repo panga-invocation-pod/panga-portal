@@ -18,7 +18,42 @@ import DateText from "../utility/DateText"
 import TimeRange from "../utility/TimeRange"
 import { arrayToSentence } from "../utility/strings"
 
-const Address = ({ address }) => (
+interface IAddress {
+  name: string
+  addressStreet: string
+  suburb: string
+  postcode: string
+  state: string
+  traditionalCountry: string
+}
+
+interface ILocation {
+  id: number
+  name: string
+  directions: string
+  accessibility: string
+  image: {
+    url: string
+    alt: string
+  }
+  address: IAddress
+}
+
+interface IFacilitator {
+  id: number
+  name: string
+}
+
+interface IWorkshopSession {
+  id: number
+  name: string
+  startAt: string
+  endAt: string
+  facilitators: IFacilitator[]
+  location: ILocation
+}
+
+const Address = ({ address }: { address: IAddress }) => (
   <>
     <Text fontSize="lg" fontWeight="bold">
       {address.name}
@@ -44,7 +79,7 @@ export default function WorkshopSessionDetailsPrompt({
     setTimeout(() => onFinished(), 100)
   })
 
-  const workshopSession = {
+  const workshopSession: IWorkshopSession = {
     id: 1,
     name: "Panga Context Setting",
     startAt: "2024-01-25T10:00:00.000Z",
