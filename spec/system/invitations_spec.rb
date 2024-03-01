@@ -5,7 +5,7 @@ RSpec.describe "invitations", type: :system do
   include EmailSpec::Helpers
 
   before :each do
-    @workshop = create(:workshop, :panga_context_settting, :three_sessions)
+    @workshop = create(:event, :panga_context_settting, :three_sessions)
     @invitation = create(:invitation, workshop: @workshop)
   end
 

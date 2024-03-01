@@ -61,7 +61,7 @@ module Contexts
     end
 
     def workshop
-      @workshop ||= Workshop.find_by_name("Panga Context Setting")
+      @workshop ||= Event.find_by_name("Panga Context Setting")
     end
 
     def invitation_has_email?

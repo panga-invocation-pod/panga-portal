@@ -32,7 +32,7 @@ interface ILocation {
   name: string
   directions: string
   accessibility: string
-  image: {
+  image?: {
     url: string
     alt: string
   }
@@ -50,7 +50,7 @@ interface IWorkshopSession {
   start_at: string
   end_at: string
   facilitators: IFacilitator[]
-  location: ILocation
+  location?: ILocation
 }
 
 const Address = ({ address }: { address: IAddress }) => (
@@ -69,13 +69,15 @@ const Address = ({ address }: { address: IAddress }) => (
 function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
   return (
     <Card direction={{ base: "column" }} overflow="hidden" variant="outline">
-      <Image
-        objectFit="cover"
-        maxW={{ base: "100%" }}
-        maxH={300}
-        src={session.location.image.url}
-        alt={session.location.image.alt}
-      />
+      {session.location && session.location.image && (
+        <Image
+          objectFit="cover"
+          maxW={{ base: "100%" }}
+          maxH={300}
+          src={session.location.image.url}
+          alt={session.location.image.alt}
+        />
+      )}
 
       <Stack>
         <CardBody>
@@ -93,29 +95,35 @@ function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
                 endAt={DateTime.fromISO(session.end_at)}
               />
             </Box>
-            <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                Facilitators
-              </Text>
-              <Text>
-                {arrayToSentence(
-                  session.facilitators.map((f) => f.name),
-                  "&",
-                )}
-              </Text>
-            </Box>
-            <Box>
-              <Address address={session.location.address} />
-            </Box>
-            <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                {session.location.name}
-              </Text>
-              <Text>{session.location.directions}</Text>
-              {session.location.accessibility && (
-                <Text mt={4}>{session.location.accessibility}</Text>
-              )}
-            </Box>
+            {session.facilitators && session.facilitators.length > 0 && (
+              <Box>
+                <Text fontSize="lg" fontWeight="bold">
+                  Facilitators
+                </Text>
+                <Text>
+                  {arrayToSentence(
+                    session.facilitators.map((f) => f.name),
+                    "&",
+                  )}
+                </Text>
+              </Box>
+            )}
+            {session.location && (
+              <>
+                <Box>
+                  <Address address={session.location.address} />
+                </Box>
+                <Box>
+                  <Text fontSize="lg" fontWeight="bold">
+                    {session.location.name}
+                  </Text>
+                  <Text>{session.location.directions}</Text>
+                  {session.location.accessibility && (
+                    <Text mt={4}>{session.location.accessibility}</Text>
+                  )}
+                </Box>
+              </>
+            )}
           </Stack>
         </CardBody>
         <Divider />
@@ -149,30 +157,8 @@ export default function WorkshopSessionDetailsPrompt({
     if (!finished) setTimeout(() => onFinished(), 100)
   }, [prompt, finished])
 
-  const promptSession = prompt.data.session as IWorkshopSession
-  console.log("session", promptSession)
-
-  const session: IWorkshopSession = {
-    ...promptSession,
-    location: {
-      id: 1,
-      name: "Wombat Room",
-      directions: "Enter via west door and down corridor to your right",
-      accessibility: "Wheelchair accessible via ramp at main entrance",
-      image: {
-        url: "https://rsnh.org.au/wp-content/uploads/2023/12/outdoor-tables-in-lovely-garden-setting-reynard-street-neighbourhood-house-in-coburg.jpg",
-        alt: "Reynard St Neighbourhood House",
-      },
-      address: {
-        name: "Reynard St Neighbourhood House",
-        addressStreet: "104a Reynard Street",
-        suburb: "Coburg",
-        postcode: "3058",
-        state: "VIC",
-        traditionalCountry: "Wurundjeri Country",
-      },
-    },
-  }
+  const session = prompt.data.session as IWorkshopSession
+  console.log("session", session)
 
   return <WorkshopSessionDetailCard session={session} />
 }

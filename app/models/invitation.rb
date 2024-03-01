@@ -4,7 +4,7 @@ class Invitation < ApplicationRecord
 
   belongs_to :inviter, class_name: 'Person'
   belongs_to :invitee, class_name: 'Person'
-  belongs_to :workshop, optional: true
+  belongs_to :workshop, class_name: 'Event', optional: true, foreign_key: 'event_id'
   has_many :workshop_attendances
 
   validates :invitee, uniqueness: { scope: :inviter }

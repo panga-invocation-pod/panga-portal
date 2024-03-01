@@ -17,16 +17,16 @@ FactoryBot.define do
     message { 'You should check out this awesome Panga thing' }
   end
 
-  factory :workshop do
+  factory :event do
     trait :panga_context_settting do
       name { 'Panga Context Setting' }
     end
 
     trait :three_sessions do
-      after(:create) do |workshop|
-        create(:workshop_session, :first, workshop: workshop)
-        create(:workshop_session, :second, workshop: workshop)
-        create(:workshop_session, :third, workshop: workshop)
+      after(:create) do |event|
+        create(:workshop_session, :first, event: event)
+        create(:workshop_session, :second, event: event)
+        create(:workshop_session, :third, event: event)
       end
     end
   end
