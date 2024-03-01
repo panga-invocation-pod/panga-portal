@@ -1,5 +1,5 @@
 module CustomPrompts
-  class WorkshopSessionDetails
+  class EventSessionDetails
 
     def initialize(attendance:)
       @attendance = attendance
@@ -9,12 +9,12 @@ module CustomPrompts
       {
         data: {
           session: {
-            id: workshop_session.id,
+            id: session.id,
             name: event.name,
-            start_at: workshop_session.start_at,
-            end_at: workshop_session.end_at,
-            facilitators: workshop_session.facilitators.order(:short_name).map { |facilitator| facilitator_json(facilitator) },
-            location: workshop_session.location && location_json(workshop_session.location)
+            start_at: session.start_at,
+            end_at: session.end_at,
+            facilitators: session.facilitators.order(:short_name).map { |facilitator| facilitator_json(facilitator) },
+            location: location && location_json(location)
           }
         }
       }
@@ -24,12 +24,16 @@ module CustomPrompts
 
     attr_reader :attendance
 
-    def workshop_session
-      attendance.workshop_session
+    def session
+      attendance.event_session
     end
 
     def event
-      workshop_session.event
+      session.event
+    end
+
+    def location
+      session.location
     end
 
     def facilitator_json(facilitator)

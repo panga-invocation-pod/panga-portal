@@ -268,8 +268,8 @@ RSpec.describe "invitations", type: :system do
   end
 
   def mark_as_available_to_all_sessions
-    @workshop.sessions.all.each do |workshop_session|
-      set_as_available(workshop_session)
+    @workshop.sessions.all.each do |session|
+      set_as_available(session)
     end
   end
 
@@ -282,7 +282,7 @@ RSpec.describe "invitations", type: :system do
     expect(@invitation.reload).to be_invited_to_workshop
   end
 
-  def set_as_available(workshop_session)
-    workshop_session.attendances.find_or_create_by!(person: @invitation.invitee, invitation: @invitation)
+  def set_as_available(session)
+    session.attendances.find_or_create_by!(person: @invitation.invitee, invitation: @invitation)
   end
 end

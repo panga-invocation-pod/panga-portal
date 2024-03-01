@@ -1,14 +1,14 @@
 %table.table
   %thead
     %tr
-      %th{scope: "col"} Workshop
+      %th{scope: "col"} Event
       %th{scope: "col"} Start
       %th{scope: "col"} Duration
       %th{scope: "col"} Actions
   %tbody
     - @records.each do |record|
       %tr
-        %td= record.workshop.name
+        %td= record.event.name
         %td= record.start_at
         %td= format_duration record.duration
         %td

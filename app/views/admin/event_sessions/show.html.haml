@@ -3,8 +3,8 @@
 %h3.h3 Details
 %table.table
   %tr
-    %th{scope: "row"} Workshop
-    %td= @record.workshop.name
+    %th{scope: "row"} Event
+    %td= @record.event.name
   %tr
     %th{scope: "row"} Start
     %td= @record.start_at
@@ -17,7 +17,7 @@
 
 %h3.h3 Attendees
 .table-actions
-  = button_to "Send #{pluralize(@to_invite_count, "invitation")}", invite_all_planned_admin_workshop_session_path(@record), method: :post, disabled: true, class: "btn btn-primary btn-sm", data: {confirm: "This will send an email to all attendees who have not yet been invited. Are you sure?"}
+  = button_to "Send #{pluralize(@to_invite_count, "invitation")}", invite_all_planned_admin_event_session_path(@record), method: :post, disabled: true, class: "btn btn-primary btn-sm", data: {confirm: "This will send an email to all attendees who have not yet been invited. Are you sure?"}
 %table.table
   %thead
     %tr
@@ -31,7 +31,7 @@
         %td= attendance.person.full_name
         %td= attendance.aasm_state
         %td
-          - attendance.others_for_person_and_workshop.pluck(:aasm_state).tally.each do |state, count|
+          - attendance.others_for_person_and_event.pluck(:aasm_state).tally.each do |state, count|
             %div= "#{state}: #{count}"
         %td
           - if attendance.may_make_invitee?

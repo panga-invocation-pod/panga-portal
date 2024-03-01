@@ -1,4 +1,4 @@
-class WorkshopSession < ApplicationRecord
+class EventSession < ApplicationRecord
   belongs_to :event
   belongs_to :location, class_name: 'WorkshopLocation', foreign_key: 'workshop_location_id', optional: true
   has_many :attendances, class_name: 'WorkshopAttendance', dependent: :destroy
@@ -22,6 +22,6 @@ class WorkshopSession < ApplicationRecord
   end
 
   def to_s
-    "#{workshop&.name} #{start_at.to_s}"
+    "#{event&.name} #{start_at.to_s}"
   end
 end

@@ -14,13 +14,13 @@
     .upcoming-workshops
       %h2 Upcoming Workshops
       %ul
-        - @workshop_sessions.each do |workshop_session|
+        - @sessions.each do |session|
           %li.workshop
-            .date= workshop_session.start_on.to_formatted_s(:with_weekday)
+            .date= session.start_on.to_formatted_s(:with_weekday)
             .time
-              = workshop_session.start_at.to_formatted_s(:time_only)
+              = session.start_at.to_formatted_s(:time_only)
               = "-"
-              = workshop_session.end_at.to_formatted_s(:time_only)
+              = session.end_at.to_formatted_s(:time_only)
 
       .actions
         = link_to "Submit my availability", '#', class: 'btn btn-primary'

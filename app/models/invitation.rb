@@ -78,8 +78,8 @@ class Invitation < ApplicationRecord
     end
   end
 
-  def applicable_workshop_sessions(limit:)
-    WorkshopSession.future.limit(limit)
+  def applicable_event_sessions(limit:)
+    EventSession.future.limit(limit)
   end
 
   def in_progress?

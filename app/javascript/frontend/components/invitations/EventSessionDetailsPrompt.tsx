@@ -142,7 +142,7 @@ function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
   )
 }
 
-export default function WorkshopSessionDetailsPrompt({
+export default function EventSessionDetailsPrompt({
   prompt,
   mode,
   finished,

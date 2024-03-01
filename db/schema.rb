@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_01_082059) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_01_084543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_082059) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "event_sessions", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.datetime "start_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "duration_minutes"
+    t.bigint "workshop_location_id"
+    t.index ["event_id"], name: "index_event_sessions_on_event_id"
+    t.index ["workshop_location_id"], name: "index_event_sessions_on_workshop_location_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -105,14 +116,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_082059) do
 
   create_table "workshop_attendances", force: :cascade do |t|
     t.string "aasm_state"
-    t.bigint "workshop_session_id", null: false
+    t.bigint "event_session_id", null: false
     t.bigint "person_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "invitation_id"
+    t.index ["event_session_id"], name: "index_workshop_attendances_on_event_session_id"
     t.index ["invitation_id"], name: "index_workshop_attendances_on_invitation_id"
     t.index ["person_id"], name: "index_workshop_attendances_on_person_id"
-    t.index ["workshop_session_id"], name: "index_workshop_attendances_on_workshop_session_id"
   end
 
   create_table "workshop_locations", force: :cascade do |t|
@@ -129,26 +140,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_082059) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "workshop_sessions", force: :cascade do |t|
-    t.bigint "event_id", null: false
-    t.datetime "start_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "duration_minutes"
-    t.bigint "workshop_location_id"
-    t.index ["event_id"], name: "index_workshop_sessions_on_event_id"
-    t.index ["workshop_location_id"], name: "index_workshop_sessions_on_workshop_location_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "event_sessions", "events"
+  add_foreign_key "event_sessions", "workshop_locations"
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "people", column: "invitee_id"
   add_foreign_key "invitations", "people", column: "inviter_id"
   add_foreign_key "users", "people"
+  add_foreign_key "workshop_attendances", "event_sessions"
   add_foreign_key "workshop_attendances", "invitations"
   add_foreign_key "workshop_attendances", "people"
-  add_foreign_key "workshop_attendances", "workshop_sessions"
-  add_foreign_key "workshop_sessions", "events"
-  add_foreign_key "workshop_sessions", "workshop_locations"
 end

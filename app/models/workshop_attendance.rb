@@ -2,12 +2,12 @@ class WorkshopAttendance < ApplicationRecord
   include AASM
 
   belongs_to :person
-  belongs_to :workshop_session
+  belongs_to :event_session
   belongs_to :invitation, optional: true
 
-  scope :for_workshop, ->(workshop) { joins(:workshop_session).where(workshop_sessions: { workshop_id: workshop.id }) }
+  scope :for_event, ->(event) { joins(:event_session).where(event_sessions: { event_id: event.id }) }
 
-  validates :person, uniqueness: { scope: :workshop_session }
+  validates :person, uniqueness: { scope: :event_session }
 
   aasm do
     state :available, initial: true
@@ -48,11 +48,11 @@ class WorkshopAttendance < ApplicationRecord
     end
   end
 
-  def others_for_person_and_workshop
-    self.class.for_workshop(workshop).where(person: person).where.not(id: id)
+  def others_for_person_and_event
+    self.class.for_event(event).where(person: person).where.not(id: id)
   end
 
-  def workshop
-    workshop_session.workshop
+  def event
+    event_session.event
   end
 end

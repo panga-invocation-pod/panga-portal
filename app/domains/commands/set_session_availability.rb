@@ -12,8 +12,8 @@ module Commands
 
       invitation = context.invitation
 
-      sessions.each do |workshop_session|
-        set_as_available(workshop_session, person, invitation)
+      sessions.each do |session|
+        set_as_available(session, person, invitation)
       end
 
       if invitation && invitation.may_availability_recorded?
@@ -25,8 +25,8 @@ module Commands
 
     private
 
-    def set_as_available(workshop_session, person, invitation)
-      attendance = workshop_session.attendances.find_or_create_by!(person: person, invitation: invitation)
+    def set_as_available(session, person, invitation)
+      attendance = session.attendances.find_or_create_by!(person: person, invitation: invitation)
     end
   end
 end

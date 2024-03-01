@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       end
     end
     resources :events, except: [:show]
-    resources :workshop_sessions do
+    resources :event_sessions do
       member do
         post :invite_all_planned
       end

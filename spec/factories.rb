@@ -24,14 +24,14 @@ FactoryBot.define do
 
     trait :three_sessions do
       after(:create) do |event|
-        create(:workshop_session, :first, event: event)
-        create(:workshop_session, :second, event: event)
-        create(:workshop_session, :third, event: event)
+        create(:event_session, :first, event: event)
+        create(:event_session, :second, event: event)
+        create(:event_session, :third, event: event)
       end
     end
   end
 
-  factory :workshop_session do
+  factory :event_session do
     start_at { 7.days.from_now }
     duration_minutes { 60 }
 
