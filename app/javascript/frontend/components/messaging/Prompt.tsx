@@ -33,7 +33,12 @@ export default function Prompt({
     }
 
     return (
-      <PromptComponent prompt={prompt} mode={mode} onFinished={onFinished} />
+      <PromptComponent
+        prompt={prompt}
+        mode={mode}
+        finished={finished}
+        onFinished={onFinished}
+      />
     )
   }
 }

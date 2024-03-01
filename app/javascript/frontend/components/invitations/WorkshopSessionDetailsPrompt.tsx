@@ -66,21 +66,91 @@ const Address = ({ address }: { address: IAddress }) => (
   </>
 )
 
+function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
+  return (
+    <Card direction={{ base: "column" }} overflow="hidden" variant="outline">
+      <Image
+        objectFit="cover"
+        maxW={{ base: "100%" }}
+        maxH={300}
+        src={session.location.image.url}
+        alt={session.location.image.alt}
+      />
+
+      <Stack>
+        <CardBody>
+          <Heading size="md" mb={4}>
+            {session.name}
+          </Heading>
+
+          <Stack divider={<StackDivider />} spacing="4">
+            <Box>
+              <Text fontSize="lg" fontWeight="bold">
+                <DateText value={DateTime.fromISO(session.startAt)} />
+              </Text>
+              <TimeRange
+                startAt={DateTime.fromISO(session.startAt)}
+                endAt={DateTime.fromISO(session.endAt)}
+              />
+            </Box>
+            <Box>
+              <Text fontSize="lg" fontWeight="bold">
+                Facilitators
+              </Text>
+              <Text>
+                {arrayToSentence(
+                  session.facilitators.map((f) => f.name),
+                  "&",
+                )}
+              </Text>
+            </Box>
+            <Box>
+              <Address address={session.location.address} />
+            </Box>
+            <Box>
+              <Text fontSize="lg" fontWeight="bold">
+                {session.location.name}
+              </Text>
+              <Text>{session.location.directions}</Text>
+              {session.location.accessibility && (
+                <Text mt={4}>{session.location.accessibility}</Text>
+              )}
+            </Box>
+          </Stack>
+        </CardBody>
+        <Divider />
+        <CardFooter>
+          <Stack direction="row">
+            <Button variant="outline" colorScheme="primary">
+              Add to Calendar
+            </Button>
+            <Button variant="outline" colorScheme="primary">
+              See map
+            </Button>
+          </Stack>
+        </CardFooter>
+      </Stack>
+    </Card>
+  )
+}
+
 export default function WorkshopSessionDetailsPrompt({
   prompt,
   mode,
+  finished,
   onFinished,
 }: {
   prompt: IPrompt
   mode: null | "fast"
+  finished: boolean
   onFinished: () => void
 }) {
   useEffect(() => {
-    setTimeout(() => onFinished(), 100)
+    if (!finished) setTimeout(() => onFinished(), 100)
     console.log("WorkshopSessionDetailsPrompt", prompt)
-  })
+  }, [prompt, finished])
 
-  const workshopSession: IWorkshopSession = {
+  const session: IWorkshopSession = {
     id: 1,
     name: "Panga Context Setting",
     startAt: "2024-01-25T10:00:00.000Z",
@@ -115,69 +185,5 @@ export default function WorkshopSessionDetailsPrompt({
     },
   }
 
-  return (
-    <Card direction={{ base: "column" }} overflow="hidden" variant="outline">
-      <Image
-        objectFit="cover"
-        maxW={{ base: "100%" }}
-        maxH={300}
-        src={workshopSession.location.image.url}
-        alt={workshopSession.location.image.alt}
-      />
-
-      <Stack>
-        <CardBody>
-          <Heading size="md" mb={4}>
-            {workshopSession.name}
-          </Heading>
-
-          <Stack divider={<StackDivider />} spacing="4">
-            <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                <DateText value={DateTime.fromISO(workshopSession.startAt)} />
-              </Text>
-              <TimeRange
-                startAt={DateTime.fromISO(workshopSession.startAt)}
-                endAt={DateTime.fromISO(workshopSession.endAt)}
-              />
-            </Box>
-            <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                Facilitators
-              </Text>
-              <Text>
-                {arrayToSentence(
-                  workshopSession.facilitators.map((f) => f.name),
-                  "&",
-                )}
-              </Text>
-            </Box>
-            <Box>
-              <Address address={workshopSession.location.address} />
-            </Box>
-            <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                {workshopSession.location.name}
-              </Text>
-              <Text>{workshopSession.location.directions}</Text>
-              {workshopSession.location.accessibility && (
-                <Text mt={4}>{workshopSession.location.accessibility}</Text>
-              )}
-            </Box>
-          </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <Stack direction="row">
-            <Button variant="outline" colorScheme="primary">
-              Add to Calendar
-            </Button>
-            <Button variant="outline" colorScheme="primary">
-              See map
-            </Button>
-          </Stack>
-        </CardFooter>
-      </Stack>
-    </Card>
-  )
+  return <WorkshopSessionDetailCard session={session} />
 }
