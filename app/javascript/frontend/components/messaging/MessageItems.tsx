@@ -47,7 +47,7 @@ export default function MessageItems({
 
   return (
     <div className="message-items">
-      {prompts.slice(0, index + 1).map((prompt, index) => {
+      {prompts.slice(0, index + 1).map((prompt, i) => {
         const changedCharacters: boolean =
           previousCharacter != null &&
           differentCharacters(previousCharacter, prompt.character)
@@ -61,10 +61,11 @@ export default function MessageItems({
           <MessageItem
             prompt={prompt}
             mode={mode}
-            key={index}
-            onFinished={() => onItemFinished(index)}
+            key={i}
+            finished={i < index}
+            onFinished={() => onItemFinished(i)}
             avatarSide={currentSide}
-            displayAvatar={changedCharacters || index === 0}
+            displayAvatar={changedCharacters || i === 0}
           />
         )
       })}

@@ -77,6 +77,7 @@ export default function WorkshopSessionDetailsPrompt({
 }) {
   useEffect(() => {
     setTimeout(() => onFinished(), 100)
+    console.log("WorkshopSessionDetailsPrompt", prompt)
   })
 
   const workshopSession: IWorkshopSession = {

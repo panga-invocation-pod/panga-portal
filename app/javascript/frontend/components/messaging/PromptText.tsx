@@ -12,15 +12,17 @@ const components: { [key: string]: React.ReactNode } = {
 interface PromptTextProps {
   text: string
   effect: MaybeEffect
+  finished: boolean
   onFinished: () => void
 }
 
 export default function PromptText({
   text,
   effect,
+  finished,
   onFinished,
 }: PromptTextProps) {
-  const [effectFinished, setEffectFinished] = useState(false)
+  const [effectFinished, setEffectFinished] = useState(finished)
 
   const onEffectFinished = () => {
     if (effectFinished) return
