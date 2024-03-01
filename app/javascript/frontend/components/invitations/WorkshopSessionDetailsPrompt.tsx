@@ -154,16 +154,6 @@ export default function WorkshopSessionDetailsPrompt({
 
   const session: IWorkshopSession = {
     ...promptSession,
-    facilitators: [
-      {
-        id: 1,
-        name: "Teq",
-      },
-      {
-        id: 2,
-        name: "Jade",
-      },
-    ],
     location: {
       id: 1,
       name: "Wombat Room",

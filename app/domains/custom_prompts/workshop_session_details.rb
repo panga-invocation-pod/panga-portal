@@ -13,6 +13,12 @@ module CustomPrompts
             name: workshop.name,
             start_at: workshop_session.start_at,
             end_at: workshop_session.end_at,
+            facilitators: workshop_session.facilitators.order(:short_name).map do |facilitator|
+              {
+                id: facilitator.id,
+                name: facilitator.short_name
+              }
+            end
           }
         }
       }

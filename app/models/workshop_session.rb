@@ -2,6 +2,8 @@ class WorkshopSession < ApplicationRecord
   belongs_to :workshop
   belongs_to :location, class_name: 'WorkshopLocation', foreign_key: 'workshop_location_id', optional: true
   has_many :attendances, class_name: 'WorkshopAttendance', dependent: :destroy
+  has_many :facilitator_attendances, -> { where(workshop_attendances: { aasm_state: 'facilitator'}) }, class_name: 'WorkshopAttendance'
+  has_many :facilitators, through: :facilitator_attendances, source: :person
 
   validates :start_at, presence: true
 

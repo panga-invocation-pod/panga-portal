@@ -7,10 +7,13 @@ class WorkshopAttendance < ApplicationRecord
 
   scope :for_workshop, ->(workshop) { joins(:workshop_session).where(workshop_sessions: { workshop_id: workshop.id }) }
 
+  validates :person, uniqueness: { scope: :workshop_session }
+
   aasm do
     state :available, initial: true
     state :invite_planned
     state :invited
+    state :facilitator
 
     event :make_invitee do
       transitions from: :available, to: :invite_planned
