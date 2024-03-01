@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_01_084543) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_01_090957) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_084543) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.string "aasm_state"
+    t.bigint "event_session_id", null: false
+    t.bigint "person_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "invitation_id"
+    t.index ["event_session_id"], name: "index_attendances_on_event_session_id"
+    t.index ["invitation_id"], name: "index_attendances_on_invitation_id"
+    t.index ["person_id"], name: "index_attendances_on_person_id"
   end
 
   create_table "event_sessions", force: :cascade do |t|
@@ -114,18 +126,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_084543) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  create_table "workshop_attendances", force: :cascade do |t|
-    t.string "aasm_state"
-    t.bigint "event_session_id", null: false
-    t.bigint "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "invitation_id"
-    t.index ["event_session_id"], name: "index_workshop_attendances_on_event_session_id"
-    t.index ["invitation_id"], name: "index_workshop_attendances_on_invitation_id"
-    t.index ["person_id"], name: "index_workshop_attendances_on_person_id"
-  end
-
   create_table "workshop_locations", force: :cascade do |t|
     t.string "name"
     t.text "directions"
@@ -142,13 +142,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_084543) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attendances", "event_sessions"
+  add_foreign_key "attendances", "invitations"
+  add_foreign_key "attendances", "people"
   add_foreign_key "event_sessions", "events"
   add_foreign_key "event_sessions", "workshop_locations"
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "people", column: "invitee_id"
   add_foreign_key "invitations", "people", column: "inviter_id"
   add_foreign_key "users", "people"
-  add_foreign_key "workshop_attendances", "event_sessions"
-  add_foreign_key "workshop_attendances", "invitations"
-  add_foreign_key "workshop_attendances", "people"
 end

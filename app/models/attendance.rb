@@ -1,4 +1,4 @@
-class WorkshopAttendance < ApplicationRecord
+class Attendance < ApplicationRecord
   include AASM
 
   belongs_to :person

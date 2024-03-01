@@ -1,4 +1,4 @@
-class Admin::WorkshopAttendancesController < AdminController
+class Admin::AttendancesController < AdminController
   include Crud
 
   def make_invitee

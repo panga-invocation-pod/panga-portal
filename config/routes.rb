@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         post :invite_all_planned
       end
     end
-    resources :workshop_attendances, except: [:show] do
+    resources :attendances, except: [:show] do
       member do
         put :make_invitee
         put :unmake_invitee

@@ -35,10 +35,10 @@
             %div= "#{state}: #{count}"
         %td
           - if attendance.may_make_invitee?
-            = link_to "Make invitee", make_invitee_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
+            = link_to "Make invitee", make_invitee_admin_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
           - if attendance.may_unmake_invitee?
-            = link_to "Unmake invitee", unmake_invitee_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
+            = link_to "Unmake invitee", unmake_invitee_admin_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
           - if attendance.may_resend_invitation?
-            = link_to "Resend invitation", resend_invitation_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
+            = link_to "Resend invitation", resend_invitation_admin_attendance_path(attendance), method: :put, class: "btn btn-primary btn-sm"
           - if attendance.may_retract_invitation?
-            = link_to "Retract invitation", retract_invitation_admin_workshop_attendance_path(attendance), method: :put, class: "btn btn-danger btn-sm"
+            = link_to "Retract invitation", retract_invitation_admin_attendance_path(attendance), method: :put, class: "btn btn-danger btn-sm"

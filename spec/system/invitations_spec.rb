@@ -274,7 +274,7 @@ RSpec.describe "invitations", type: :system do
   end
 
   def invite_to_first_session
-    @session_attendance = @invitation.workshop_attendances.first
+    @session_attendance = @invitation.attendances.first
     expect(@session_attendance).to be_present
     @session_attendance.make_invitee!
     @session_attendance.invite!

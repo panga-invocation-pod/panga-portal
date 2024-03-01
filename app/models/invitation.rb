@@ -5,7 +5,7 @@ class Invitation < ApplicationRecord
   belongs_to :inviter, class_name: 'Person'
   belongs_to :invitee, class_name: 'Person'
   belongs_to :workshop, class_name: 'Event', optional: true, foreign_key: 'event_id'
-  has_many :workshop_attendances
+  has_many :attendances
 
   validates :invitee, uniqueness: { scope: :inviter }
   validates :inviter, :invitee, :message, :workshop, presence: true
@@ -60,7 +60,7 @@ class Invitation < ApplicationRecord
     event :uninvited_from_session do
       transitions from: :invited_to_workshop, to: :awaiting_workshop_invitation do
         guard do
-          workshop_attendances.invited.empty?
+          attendances.invited.empty?
         end
       end
     end
@@ -98,7 +98,7 @@ class Invitation < ApplicationRecord
   end
 
   def workshop_invitation
-    workshop_attendances.invited.first
+    attendances.invited.first
   end
 
   def delete_contact_details!
