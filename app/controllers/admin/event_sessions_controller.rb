@@ -19,6 +19,6 @@ class Admin::EventSessionsController < AdminController
   end
 
   def permit_record_fields(fields)
-    fields.permit(:event_id, :start_at, :duration_minutes, :workshop_location_id, :facilitator_ids => [])
+    fields.permit(:event_id, :start_at, :duration_minutes, :location_id, :facilitator_ids => [])
   end
 end

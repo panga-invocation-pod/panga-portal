@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :events, except: [:show]
     resources :event_sessions do
       member do
-        post :invite_all_planned
+      post :invite_all_planned
       end
     end
     resources :attendances, except: [:show] do
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         put :resend_invitation
       end
     end
-    resources :workshop_locations, except: [:show]
+    resources :locations, except: [:show]
 
     get '/', to: redirect('/admin/users')
   end

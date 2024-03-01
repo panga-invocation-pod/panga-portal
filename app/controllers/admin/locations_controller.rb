@@ -1,4 +1,4 @@
-class Admin::WorkshopLocationsController < AdminController
+class Admin::LocationsController < AdminController
   include Crud
 
   private

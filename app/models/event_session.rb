@@ -1,6 +1,6 @@
 class EventSession < ApplicationRecord
   belongs_to :event
-  belongs_to :location, class_name: 'WorkshopLocation', foreign_key: 'workshop_location_id', optional: true
+  belongs_to :location, optional: true
   has_many :attendances, class_name: 'Attendance', dependent: :destroy
   has_many :facilitator_attendances, -> { where(attendances: { aasm_state: 'facilitator'}) }, class_name: 'Attendance'
   has_many :facilitators, through: :facilitator_attendances, source: :person
