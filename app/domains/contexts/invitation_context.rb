@@ -54,7 +54,7 @@ module Contexts
     def custom_prompt(name)
       case name
       when 'workshop_session_details'
-        CustomPrompts::WorkshopSessionDetails.new()
+        CustomPrompts::WorkshopSessionDetails.new(attendance: invitation.workshop_invitation)
       else
         raise "unknown custom prompt #{name}"
       end

@@ -72,6 +72,7 @@ export interface ICustomPrompt {
   prompt_type: "custom"
   name: string
   character: ICharacter | null
+  data: any
 }
 
 export type IPrompt = ITextPrompt | ICustomPrompt

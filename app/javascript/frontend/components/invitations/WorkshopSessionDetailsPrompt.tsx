@@ -12,7 +12,7 @@ import {
   Divider,
 } from "@chakra-ui/react"
 import React, { useEffect } from "react"
-import { IPrompt } from "../messaging/types"
+import { ICustomPrompt } from "../messaging/types"
 import { DateTime } from "luxon"
 import DateText from "../utility/DateText"
 import TimeRange from "../utility/TimeRange"
@@ -47,8 +47,8 @@ interface IFacilitator {
 interface IWorkshopSession {
   id: number
   name: string
-  startAt: string
-  endAt: string
+  start_at: string
+  end_at: string
   facilitators: IFacilitator[]
   location: ILocation
 }
@@ -86,11 +86,11 @@ function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
           <Stack divider={<StackDivider />} spacing="4">
             <Box>
               <Text fontSize="lg" fontWeight="bold">
-                <DateText value={DateTime.fromISO(session.startAt)} />
+                <DateText value={DateTime.fromISO(session.start_at)} />
               </Text>
               <TimeRange
-                startAt={DateTime.fromISO(session.startAt)}
-                endAt={DateTime.fromISO(session.endAt)}
+                startAt={DateTime.fromISO(session.start_at)}
+                endAt={DateTime.fromISO(session.end_at)}
               />
             </Box>
             <Box>
@@ -140,21 +140,20 @@ export default function WorkshopSessionDetailsPrompt({
   finished,
   onFinished,
 }: {
-  prompt: IPrompt
+  prompt: ICustomPrompt
   mode: null | "fast"
   finished: boolean
   onFinished: () => void
 }) {
   useEffect(() => {
     if (!finished) setTimeout(() => onFinished(), 100)
-    console.log("WorkshopSessionDetailsPrompt", prompt)
   }, [prompt, finished])
 
+  const promptSession = prompt.data.session as IWorkshopSession
+  console.log("session", promptSession)
+
   const session: IWorkshopSession = {
-    id: 1,
-    name: "Panga Context Setting",
-    startAt: "2024-01-25T10:00:00.000Z",
-    endAt: "2024-01-25T11:30:00.000Z",
+    ...promptSession,
     facilitators: [
       {
         id: 1,
