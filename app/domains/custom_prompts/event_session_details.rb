@@ -14,7 +14,10 @@ module CustomPrompts
             start_at: session.start_at,
             end_at: session.end_at,
             facilitators: session.facilitators.order(:short_name).map { |facilitator| facilitator_json(facilitator) },
-            location: location && location_json(location)
+            location: location && location_json(location),
+            links: {
+              calendar: "/event_sessions/#{session.id}-#{CGI.escape(event.name)}.ics",
+            }
           }
         }
       }

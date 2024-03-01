@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get '/', to: redirect('/admin/users')
   end
 
+  resources :event_sessions, only: [:show]
+
   get '/api/invitations/:token/chat', to: 'invitations#chat'
   post '/api/invitations/:token/chat', to: 'invitations#chat'
 

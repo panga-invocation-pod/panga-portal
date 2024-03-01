@@ -45,13 +45,18 @@ interface IFacilitator {
   name: string
 }
 
-interface IWorkshopSession {
+interface IEventSessionLinks {
+  calendar: string
+}
+
+interface IEventSession {
   id: number
   name: string
   start_at: string
   end_at: string
   facilitators: IFacilitator[]
   location?: ILocation
+  links: IEventSessionLinks
 }
 
 const Address = ({ address }: { address: IAddress }) => (
@@ -67,7 +72,7 @@ const Address = ({ address }: { address: IAddress }) => (
   </>
 )
 
-function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
+function WorkshopSessionDetailCard({ session }: { session: IEventSession }) {
   return (
     <Card direction={{ base: "column" }} overflow="hidden" variant="outline">
       {session.location && session.location.image && (
@@ -130,9 +135,11 @@ function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
         <Divider />
         <CardFooter>
           <Stack direction="row">
-            <Button variant="outline" colorScheme="primary">
-              Add to Calendar
-            </Button>
+            <Link href={session.links.calendar} target="_blank">
+              <Button variant="outline" colorScheme="primary">
+                Add to Calendar
+              </Button>
+            </Link>
             {session.location && (
               <Link
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(session.location.address.name).replace(/%20/g, "+")}`}
@@ -164,7 +171,7 @@ export default function EventSessionDetailsPrompt({
     if (!finished) setTimeout(() => onFinished(), 100)
   }, [prompt, finished])
 
-  const session = prompt.data.session as IWorkshopSession
+  const session = prompt.data.session as IEventSession
   console.log("session", session)
 
   return <WorkshopSessionDetailCard session={session} />

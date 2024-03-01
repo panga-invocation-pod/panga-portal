@@ -20,4 +20,8 @@ class Address
       traditional_country: traditional_country
     }
   end
+
+  def to_s
+    [name, street, city, traditional_country, state, postcode, "Australia"].compact.join(", ")
+  end
 end

@@ -44,6 +44,8 @@ gem "rolify"
 gem "pundit"
 gem 'vite_rails'
 gem 'aasm'
+gem 'icalendar'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
