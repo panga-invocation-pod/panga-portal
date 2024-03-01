@@ -14,7 +14,8 @@
     "**/.factorypath": true,
     "tmp": true,
     "app/assets/builds": true,
-    "log": true
+    "log": true,
+    "public/vite-test": true
   },
   "explorerExclude.backup": {}
 }

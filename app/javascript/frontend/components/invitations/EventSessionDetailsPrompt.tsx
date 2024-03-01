@@ -10,6 +10,7 @@ import {
   StackDivider,
   Box,
   Divider,
+  Link,
 } from "@chakra-ui/react"
 import React, { useEffect } from "react"
 import { ICustomPrompt } from "../messaging/types"
@@ -20,7 +21,7 @@ import { arrayToSentence } from "../utility/strings"
 
 interface IAddress {
   name: string
-  addressStreet: string
+  street: string
   suburb: string
   postcode: string
   state: string
@@ -58,7 +59,7 @@ const Address = ({ address }: { address: IAddress }) => (
     <Text fontSize="lg" fontWeight="bold">
       {address.name}
     </Text>
-    <Text>{address.addressStreet}</Text>
+    <Text>{address.street}</Text>
     <Text>{address.traditionalCountry}</Text>
     <Text>
       {address.suburb} {address.postcode} {address.state}
@@ -132,9 +133,15 @@ function WorkshopSessionDetailCard({ session }: { session: IWorkshopSession }) {
             <Button variant="outline" colorScheme="primary">
               Add to Calendar
             </Button>
-            <Button variant="outline" colorScheme="primary">
-              See map
-            </Button>
+            {session.location && (
+              <Link
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(session.location.address.name).replace(/%20/g, "+")}`}
+              >
+                <Button variant="outline" colorScheme="primary">
+                  See map
+                </Button>
+              </Link>
+            )}
           </Stack>
         </CardFooter>
       </Stack>
