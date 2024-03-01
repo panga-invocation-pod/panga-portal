@@ -28,7 +28,7 @@ module Messaging
     def as_json(interpolator = nil, script_defaults = {}, context = nil)
       {
         id: id,
-        prompt: prompt&.as_json(interpolator, script_defaults),
+        prompt: prompt&.as_json(interpolator: interpolator, script_defaults: script_defaults, context: context),
         responder: responder&.as_json(context: context, interpolator: interpolator),
       }.compact
     end

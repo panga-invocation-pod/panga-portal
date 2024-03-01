@@ -15,7 +15,7 @@ module Messaging
 
       attr_reader :text, :character
 
-      def as_json(interpolator = nil, script_defaults = {})
+      def as_json(interpolator: nil, script_defaults: {}, context: nil)
         character = best_character(script_defaults)
 
         result = {

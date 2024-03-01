@@ -17,7 +17,7 @@ module Messaging
 
       attr_reader :name, :character
 
-      def as_json(interpolator = nil, script_defaults = {})
+      def as_json(interpolator: nil, script_defaults: {}, context: nil)
         character = best_character(script_defaults)
 
         result = {
@@ -25,7 +25,7 @@ module Messaging
           name: name,
         }
         result[:character] = character.as_json(interpolator) if character
-        result
+        result.merge(context.custom_prompt(name).as_json)
       end
 
       def best_character(script_defaults = {})

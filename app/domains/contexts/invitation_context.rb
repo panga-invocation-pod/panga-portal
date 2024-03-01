@@ -51,6 +51,15 @@ module Contexts
       end
     end
 
+    def custom_prompt(name)
+      case name
+      when 'workshop_session_details'
+        CustomPrompts::WorkshopSessionDetails.new()
+      else
+        raise "unknown custom prompt #{name}"
+      end
+    end
+
     def workshop
       @workshop ||= Workshop.find_by_name("Panga Context Setting")
     end
