@@ -68,6 +68,10 @@ module Contexts
       invitation.invitee_email.present?
     end
 
+    def upcoming_workshop_options?
+      workshop.sessions.future.any?
+    end
+
     private
 
     attr_reader :controller

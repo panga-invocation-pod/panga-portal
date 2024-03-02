@@ -233,9 +233,7 @@ RSpec.describe "invitations", type: :system do
     click_on "Workshop times"
 
     read "I'd love to give you some times for this workshop, but there are none lined up right now.\n\nI've let Frodo know that you're waiting for some times, and they'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
-    click_on "I'm keen, but none of these work"
-
-    read "Ok, I've let Frodo know that you're keen but none of the times suit. They'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
+    expect(@invitation.reload).to be_considering_availability
   end
 
   it "allows you to find no times that suit" do

@@ -15,11 +15,17 @@ module Messaging
     end
 
     def transition_for(context: nil, input:, command_result: nil)
+      result = nil
       if command_result
-        transition_for_error(command_result)
+        result = transition_for_error(command_result)
       else
-        transition_for_input(input) || default_transition
+        result = transition_for_input(input) || default_transition
       end
+
+      if result && result.respond_to?(:transition_for)
+        result = result.transition_for(context: context, input: input, command_result: command_result)
+      end
+      result
     end
 
     private

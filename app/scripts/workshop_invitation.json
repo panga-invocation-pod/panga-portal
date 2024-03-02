@@ -414,6 +414,26 @@
     },
     {
       "id": "considering_availability",
+      "display": false,
+      "transitions": {
+        "DEFAULT": [
+          {
+            "to": "considering_availability_with_options",
+            "if": {
+              "type": "context",
+              "condition": "upcoming_workshop_options?"
+            }
+          },
+          "considering_availability_without_options"
+        ]
+      }
+    },
+    {
+      "id": "considering_availability_without_options",
+      "prompt": "I'd love to give you some times for this workshop, but there are none lined up right now.\n\nI've let {{invitation.inviter.short_name}} know that you're waiting for some times, and they'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
+    },
+    {
+      "id": "considering_availability_with_options",
       "prompt": "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you.",
       "responder": {
         "responder_type": "custom",

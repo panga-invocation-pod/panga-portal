@@ -21,6 +21,24 @@
       "transitions": {
         "DEFAULT": "FINISHED"
       }
+    },
+    {
+      "id": "two_defaults",
+      "prompt": "Has two defaults",
+      "responder": {
+        "responder_type": "text"
+      },
+      "transitions": {
+        "DEFAULT": ["end1", "end2"]
+      }
+    },
+    {
+      "id": "end1",
+      "prompt": "End state 1"
+    },
+    {
+      "id": "end2",
+      "prompt": "End state 2"
     }
   ]
 }

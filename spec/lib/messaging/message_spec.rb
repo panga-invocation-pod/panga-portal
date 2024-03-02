@@ -27,6 +27,15 @@ module Messaging
 
           expect(target.to).to eq('second')
         end
+
+        it 'uses the first transition if theres an array' do
+          message = load_message(:default_transition, 'two_defaults')
+          input = {'text' => 'some bollocks'}
+
+          target = message.transition_for(input: input)
+
+          expect(target.to).to eq('end1')
+        end
       end
     end
 

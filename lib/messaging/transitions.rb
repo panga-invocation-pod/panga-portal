@@ -9,6 +9,8 @@ module Messaging
         from_string(data)
       elsif data.is_a?(Hash)
         from_hash(data)
+      elsif data.is_a?(Array)
+        from_array(data)
       else
         raise ArgumentError, "Unknown transition data: #{data.inspect}"
       end
@@ -16,6 +18,10 @@ module Messaging
 
     def self.from_string(string)
       from_hash({ 'to' => string })
+    end
+
+    def self.from_array(array)
+      return TransitionList.from_data(array)
     end
 
     def self.from_hash(hash)
