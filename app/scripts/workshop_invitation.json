@@ -500,13 +500,18 @@
       "responder": {
         "responder_type": "select_option",
         "options": [
-          { "text": "About \"Prefigurative Politics\"", "type": "secondary" }
+          { "text": "Prefigurative Politics", "type": "secondary" },
+          { "text": "Practising Commoning", "type": "secondary" }
         ]
       },
       "transitions": {
-        "About \"Prefigurative Politics\"": {
+        "Prefigurative Politics": {
           "type": "url",
           "to": "https://commonslibrary.org/prefigurative-politics-in-practice/"
+        },
+        "Practising Commoning": {
+          "type": "url",
+          "to": "https://commonslibrary.org/practising-commoning/"
         }
       }
     },
@@ -590,6 +595,11 @@
     {
       "id": "cant_make_workshop_busy",
       "prompt": "No worries at all.\n\nOk, I've let {{invitation.inviter.short_name}} know that you can't make that session, and we can chat about other times as they come up.\n\nI can show you the times that I have now, which you've seen before, but you can also check back here at any point, and you'll see any new times that become available.",
+      "command": {
+        "name": "invitation_event",
+        "input": "workshop_invitation_rejected",
+        "stage": "request"
+      },
       "responder": {
         "responder_type": "select_option",
         "options": ["Great, show me the times again"]

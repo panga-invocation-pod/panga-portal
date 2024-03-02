@@ -73,6 +73,14 @@ class Invitation < ApplicationRecord
       transitions from: [:awaiting_workshop_invitation, :invited_to_workshop], to: :invited_to_workshop
     end
 
+    event :workshop_invitation_rejected do
+      after do
+        attendances.invited.each(&:cant_attend!)
+      end
+
+      transitions from: :invited_to_workshop, to: :considering_availability
+    end
+
     event :reset do
       transitions to: :confirmed_identity
     end

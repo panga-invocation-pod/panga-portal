@@ -14,6 +14,7 @@ class Attendance < ApplicationRecord
     state :invite_planned
     state :invited
     state :facilitator
+    state :unavailable
 
     event :make_invitee do
       transitions from: :available, to: :invite_planned
@@ -45,6 +46,10 @@ class Attendance < ApplicationRecord
       end
 
       transitions from: :invited, to: :available
+    end
+
+    event :cant_attend do
+      transitions from: [:available, :invite_planned, :invited], to: :unavailable
     end
   end
 

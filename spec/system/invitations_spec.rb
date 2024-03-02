@@ -303,12 +303,19 @@ RSpec.describe "invitations", type: :system do
     click_on "Sorry, I can't make that now"
 
     read "That's totally ok. Can I ask if you are just busy during that session, or if there's something else that's stopping you from coming?"
+    expect(@invitation.reload.aasm_state).to eq("invited_to_workshop")
     click_on "I'm just busy at that time"
 
     read "No worries at all.\n\nOk, I've let Frodo know that you can't make that session, and we can chat about other times as they come up.\n\nI can show you the times that I have now, which you've seen before, but you can also check back here at any point, and you'll see any new times that become available."
+    expect(@invitation.reload.aasm_state).to eq("considering_availability")
+    expect(@session_attendance.reload.aasm_state).to eq("unavailable")
     click_on "Great, show me the times again"
 
     read "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you."
+  end
+
+  def invitee_attendances
+    Attendance.for_event(@workshop).where(person: @invitation.invitee)
   end
 
   def mark_as_available_to_all_sessions
