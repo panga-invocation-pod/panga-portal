@@ -52,11 +52,16 @@ module CustomPrompts
         name: location.name,
         directions: location.directions,
         accessibility: location.accessibility,
-        image: {
-          url: "https://rsnh.org.au/wp-content/uploads/2023/12/outdoor-tables-in-lovely-garden-setting-reynard-street-neighbourhood-house-in-coburg.jpg",
-          alt: "Reynard St Neighbourhood House",
-        },
+        image: image_json(location.picture),
         address: location.address.as_json
+      }
+    end
+
+    def image_json(image)
+      return nil unless image.attached?
+      {
+        url: image.variant(:card).url,
+        alt: image.filename
       }
     end
   end

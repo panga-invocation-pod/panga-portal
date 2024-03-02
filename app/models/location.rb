@@ -10,4 +10,8 @@ class Location < ApplicationRecord
     %w(address_postcode postcode),
     %w(address_traditional_country traditional_country)
   ]
+
+  has_one_attached :picture do |attachable|
+    attachable.variant :card, resize_to_fill: [600, 300]
+  end
 end
