@@ -218,6 +218,26 @@ RSpec.describe "invitations", type: :system do
     read "So, to schedule the workshop, I need to know when you're available."
   end
 
+  it "stalls you if there are no times available" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @workshop.sessions.delete_all
+
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "Workshop times"
+
+    read "I'd love to give you some times for this workshop, but there are none lined up right now.\n\nI've let Frodo know that you're waiting for some times, and they'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
+    click_on "I'm keen, but none of these work"
+
+    read "Ok, I've let Frodo know that you're keen but none of the times suit. They'll reach out to chat about scheduling a workshop in the future.\n\nYou can also check back here at any point, and I'll let you know about any new workshops that are coming up."
+  end
+
   it "allows you to find no times that suit" do
     @invitation.confirm_identity!
     @invitation.workshop_explained!
@@ -265,6 +285,32 @@ RSpec.describe "invitations", type: :system do
     read "Ok, I've deleted your contact details."
     click_on "Thanks"
     read "Hi Gimli, I've got your workshop invitation for you"
+  end
+
+  it "allows you to reject a workshop invitation because you can't make it" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @invitation.availability_recorded!
+    @invitation.set_invitee_email!("gimli@thorinand.co")
+    mark_as_available_to_all_sessions
+    invite_to_first_session
+
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, I've got your workshop invitation for you"
+    click_on "Sorry, I can't make that now"
+
+    read "That's totally ok. Can I ask if you are just busy during that session, or if there's something else that's stopping you from coming?"
+    click_on "I'm just busy at that time"
+
+    read "No worries at all.\n\nOk, I've let Frodo know that you can't make that session, and we can chat about other times as they come up.\n\nI can show you the times that I have now, which you've seen before, but you can also check back here at any point, and you'll see any new times that become available."
+    click_on "Great, show me the times again"
+
+    read "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you."
   end
 
   def mark_as_available_to_all_sessions

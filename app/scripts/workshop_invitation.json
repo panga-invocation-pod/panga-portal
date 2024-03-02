@@ -540,7 +540,7 @@
         "responder_type": "select_option",
         "options": [
           "Yes, book me in",
-          "I still have questions first",
+          { "text": "Sorry, I can't make that now", "type": "danger" },
           {
             "text": "Please delete my contact details",
             "type": "secondary",
@@ -552,7 +552,30 @@
         ]
       },
       "transitions": {
-        "Please delete my contact details": "delete_contact_details"
+        "Please delete my contact details": "delete_contact_details",
+        "Sorry, I can't make that now": "cant_make_workshop"
+      }
+    },
+    {
+      "id": "cant_make_workshop",
+      "prompt": "That's totally ok. Can I ask if you are just busy during that session, or if there's something else that's stopping you from coming?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["I'm just busy at that time"]
+      },
+      "transitions": {
+        "I'm just busy at that time": "cant_make_workshop_busy"
+      }
+    },
+    {
+      "id": "cant_make_workshop_busy",
+      "prompt": "No worries at all.\n\nOk, I've let {{invitation.inviter.short_name}} know that you can't make that session, and we can chat about other times as they come up.\n\nI can show you the times that I have now, which you've seen before, but you can also check back here at any point, and you'll see any new times that become available.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Great, show me the times again"]
+      },
+      "transitions": {
+        "Great, show me the times again": "considering_availability"
       }
     }
   ]
