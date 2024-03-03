@@ -33,6 +33,10 @@ module FormHelper
     link_to "Edit", { action: :edit, id: record.id }
   end
 
+  def delete_link(record)
+    link_to "Delete", { action: :destroy, id: record.id }, method: :delete, data: { confirm: 'Are you sure?' }
+  end
+
   def show_link(record)
     link_to "Show", { action: :show, id: record.id }
   end

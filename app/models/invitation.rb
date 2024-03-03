@@ -66,7 +66,7 @@ class Invitation < ApplicationRecord
     end
 
     event :send_invitation_email do
-      before do
+      after do
         YamDaisyMailer.with(invitation_id: id).first_workshop_invite.deliver_now
       end
 

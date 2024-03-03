@@ -48,9 +48,9 @@ module Crud
     end
 
     # Delete record
-    def delete
+    def destroy
       record.destroy
-      render_record message: "#{model_class_const.to_s} deleted"
+      redirect_to action: :index
     end
 
     def show
