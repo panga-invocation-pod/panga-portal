@@ -38,7 +38,11 @@ class Invitation < ApplicationRecord
     end
 
     event :invitation_declined do
-      transitions from: [:considering_accessibility, :considering_availability], to: :invitation_declined
+      after do
+        attendances.destroy_all
+      end
+
+      transitions from: [:considering_accessibility, :considering_availability, :invited_to_workshop], to: :invitation_declined
     end
 
     event :no_accessibility_needs do

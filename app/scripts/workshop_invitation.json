@@ -627,22 +627,20 @@
       "prompt": "Thanks for sharing that. I've let {{invitation.inviter.short_name}} know.\n\nWould you prefer to see the times again, or would you like to leave it there for now?",
       "responder": {
         "responder_type": "select_option",
-        "options": ["Show me the times again"]
+        "options": ["Show me the times again", "Let's leave it there"]
       },
       "transitions": {
-        "Show me the times again": "cant_make_workshop_transition_to_availability"
+        "Show me the times again": "cant_make_workshop_transition_to_availability",
+        "Let's leave it there": "invite_parked"
       }
     },
     {
-      "id": "cant_make_workshop_transition_to_availability",
-      "display": false,
+      "id": "invite_parked",
+      "prompt": "No worries. I've parked your invite.\n\nIf you'd like to get involved in the future, be sure to reach out to {{invitation.inviter.short_name}}, or someone else at Panga.",
       "command": {
         "name": "invitation_event",
-        "input": "workshop_invitation_rejected",
+        "input": "invitation_declined",
         "stage": "request"
-      },
-      "transitions": {
-        "DEFAULT": "considering_availability"
       }
     }
   ]

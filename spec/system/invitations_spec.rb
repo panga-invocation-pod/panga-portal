@@ -373,16 +373,16 @@ RSpec.describe "invitations", type: :system do
     click_on "There's something else"
 
     read "Fair enough. We'd love to hear about what's stopping you from coming, if you're comfortable sharing."
-    fill_in "Reason", with: "My life situation has changed and I'm too busy now."
+    fill_in "text", with: "My life situation has changed and I'm too busy now."
     click_on "Submit"
 
     read "Thanks for sharing that. I've let Frodo know.\n\nWould you prefer to see the times again, or would you like to leave it there for now?"
     click_on "Let's leave it there"
 
-    read "No worries. I've parked your invite. If you'd like to get involved in the future, be sure to reach out to Frodo, or someone else at Panga."
+    read "No worries. I've parked your invite.\n\nIf you'd like to get involved in the future, be sure to reach out to Frodo, or someone else at Panga."
 
     expect(@invitation.reload.aasm_state).to eq("invitation_declined")
-    expect(@session_attendance.reload.aasm_state).to eq("unavailable")
+    expect(@invitation.attendances).to be_empty
   end
 
   def invitee_attendances
