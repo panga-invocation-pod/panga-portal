@@ -12,4 +12,6 @@
         %td= record.event_session
         %td= record.aasm_state
         %td
+          - if record.unavailable?
+            = link_to "Mark available", { action: :mark_available, id: record.id }, method: :put
           = delete_link(record)

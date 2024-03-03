@@ -6,6 +6,7 @@
       %th{scope: "col"} Invite link
       %th{scope: "col"} Email
       %th{scope: "col"} Accessibility
+      %th{scope: "col"} Notes
       %th{scope: "col"} State
       %th{scope: "col"} Actions
   %tbody
@@ -19,6 +20,7 @@
             (copy)
         %td= record.invitee_email
         %td= record.workshop_accessibility_needs
+        %td= record.notes
         %td= record.aasm_state
         %td
           = edit_link(record)

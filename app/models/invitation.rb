@@ -113,4 +113,8 @@ class Invitation < ApplicationRecord
     self.invitee_email = nil
     save!
   end
+
+  def append_note(text)
+    self.notes = [self.notes, text].reject(&:blank?).join("\n\n")
+  end
 end

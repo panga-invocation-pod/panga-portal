@@ -314,6 +314,77 @@ RSpec.describe "invitations", type: :system do
     read "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you."
   end
 
+  it "allows you to reject a workshop invitation for another reason and go back to times" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @invitation.availability_recorded!
+    @invitation.set_invitee_email!("gimli@thorinand.co")
+    mark_as_available_to_all_sessions
+    invite_to_first_session
+
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, I've got your workshop invitation for you"
+    click_on "Sorry, I can't make that now"
+
+    read "That's totally ok. Can I ask if you are just busy during that session, or if there's something else that's stopping you from coming?"
+    expect(@invitation.reload.aasm_state).to eq("invited_to_workshop")
+    click_on "There's something else"
+
+    read "Fair enough. We'd love to hear about what's stopping you from coming, if you're comfortable sharing."
+    fill_in "text", with: "My life situation has changed and I'm too busy now."
+    click_on "Submit"
+
+    read "Thanks for sharing that. I've let Frodo know.\n\nWould you prefer to see the times again, or would you like to leave it there for now?"
+
+    expect(@invitation.reload.notes).to eq("My life situation has changed and I'm too busy now.")
+
+    click_on "Show me the times again"
+
+    read "So, to schedule the workshop, I need to know when you're available. I've got a few options here. It helps us if you can select all the times that work for you."
+
+    expect(@invitation.reload.aasm_state).to eq("considering_availability")
+    expect(@session_attendance.reload.aasm_state).to eq("unavailable")
+  end
+
+  it "allows you to reject a workshop invitation for another reason and dead end" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @invitation.availability_recorded!
+    @invitation.set_invitee_email!("gimli@thorinand.co")
+    mark_as_available_to_all_sessions
+    invite_to_first_session
+
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, I've got your workshop invitation for you"
+    click_on "Sorry, I can't make that now"
+
+    read "That's totally ok. Can I ask if you are just busy during that session, or if there's something else that's stopping you from coming?"
+    expect(@invitation.reload.aasm_state).to eq("invited_to_workshop")
+    click_on "There's something else"
+
+    read "Fair enough. We'd love to hear about what's stopping you from coming, if you're comfortable sharing."
+    fill_in "Reason", with: "My life situation has changed and I'm too busy now."
+    click_on "Submit"
+
+    read "Thanks for sharing that. I've let Frodo know.\n\nWould you prefer to see the times again, or would you like to leave it there for now?"
+    click_on "Let's leave it there"
+
+    read "No worries. I've parked your invite. If you'd like to get involved in the future, be sure to reach out to Frodo, or someone else at Panga."
+
+    expect(@invitation.reload.aasm_state).to eq("invitation_declined")
+    expect(@session_attendance.reload.aasm_state).to eq("unavailable")
+  end
+
   def invitee_attendances
     Attendance.for_event(@workshop).where(person: @invitation.invitee)
   end

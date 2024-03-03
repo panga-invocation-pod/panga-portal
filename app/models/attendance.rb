@@ -51,6 +51,10 @@ class Attendance < ApplicationRecord
     event :cant_attend do
       transitions from: [:available, :invite_planned, :invited], to: :unavailable
     end
+
+    event :mark_available do
+      transitions from: :unavailable, to: :available
+    end
   end
 
   def others_for_person_and_event

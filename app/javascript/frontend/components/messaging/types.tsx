@@ -21,7 +21,7 @@ export interface IFormResponderButton {
 
 export interface IFormResponderFieldBase {
   name: string
-  label?: string
+  label?: string | null
   field_type: "text" | "checkbox_group" | "email"
   placeholder?: string
   required?: boolean

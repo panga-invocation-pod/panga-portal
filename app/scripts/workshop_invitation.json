@@ -586,10 +586,11 @@
       "prompt": "That's totally ok. Can I ask if you are just busy during that session, or if there's something else that's stopping you from coming?",
       "responder": {
         "responder_type": "select_option",
-        "options": ["I'm just busy at that time"]
+        "options": ["I'm just busy at that time", "There's something else"]
       },
       "transitions": {
-        "I'm just busy at that time": "cant_make_workshop_busy"
+        "I'm just busy at that time": "cant_make_workshop_busy",
+        "There's something else": "cant_make_workshop_reason"
       }
     },
     {
@@ -606,6 +607,42 @@
       },
       "transitions": {
         "Great, show me the times again": "considering_availability"
+      }
+    },
+    {
+      "id": "cant_make_workshop_reason",
+      "prompt": "Fair enough. We'd love to hear about what's stopping you from coming, if you're comfortable sharing.",
+      "responder": {
+        "responder_type": "text"
+      },
+      "command": {
+        "name": "invitation_append_note"
+      },
+      "transitions": {
+        "DEFAULT": "cant_make_workshop_reason_recorded"
+      }
+    },
+    {
+      "id": "cant_make_workshop_reason_recorded",
+      "prompt": "Thanks for sharing that. I've let {{invitation.inviter.short_name}} know.\n\nWould you prefer to see the times again, or would you like to leave it there for now?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Show me the times again"]
+      },
+      "transitions": {
+        "Show me the times again": "cant_make_workshop_transition_to_availability"
+      }
+    },
+    {
+      "id": "cant_make_workshop_transition_to_availability",
+      "display": false,
+      "command": {
+        "name": "invitation_event",
+        "input": "workshop_invitation_rejected",
+        "stage": "request"
+      },
+      "transitions": {
+        "DEFAULT": "considering_availability"
       }
     }
   ]

@@ -21,4 +21,9 @@ class Admin::AttendancesController < AdminController
     record.resend_invitation!
     redirect_to admin_event_session_path(record.event_session)
   end
+
+  def mark_available
+    record.mark_available!
+    redirect_to action: :index
+  end
 end

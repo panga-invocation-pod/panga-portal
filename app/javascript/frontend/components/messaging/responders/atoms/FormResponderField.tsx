@@ -69,9 +69,11 @@ const FormResponderField = ({
 
   return (
     <ValidatedFormControl fieldError={errors}>
-      <FormLabel fontWeight="bold">
-        {field.label || nameToTitle(field.name)}
-      </FormLabel>
+      {field.label !== null && (
+        <FormLabel fontWeight="bold">
+          {field.label || nameToTitle(field.name)}
+        </FormLabel>
+      )}
       <FieldComponent field={field as any} registerProps={registerProps} />
     </ValidatedFormControl>
   )

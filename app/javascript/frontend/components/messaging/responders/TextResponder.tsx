@@ -1,5 +1,6 @@
 import React from "react"
-import { ITextResponder, Respond } from "../types"
+import { IFormResponder, ITextResponder, Respond } from "../types"
+import FormResponder from "./FormResponder"
 
 interface TextResponderProps {
   responder: ITextResponder
@@ -10,13 +11,23 @@ export default function TextResponder({
   responder,
   respond,
 }: TextResponderProps) {
-  return (
-    <div className="text-responder">
-      <input
-        type="text"
-        className="form-control"
-        onChange={(e) => respond({ text: e.target.value })}
-      />
-    </div>
-  )
+  const formResponder: IFormResponder = {
+    responder_type: "form",
+    fields: [
+      {
+        name: "text",
+        label: null,
+        field_type: "text",
+        required: true,
+      },
+    ],
+    buttons: [
+      {
+        name: "submit",
+        button_type: "submit",
+      },
+    ],
+  }
+
+  return <FormResponder responder={formResponder} respond={respond} />
 }

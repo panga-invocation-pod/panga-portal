@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         put :unmake_invitee
         put :retract_invitation
         put :resend_invitation
+        put :mark_available
       end
     end
     resources :locations, except: [:show]
