@@ -160,6 +160,27 @@ RSpec.describe "invitations", type: :system do
     read "I don't really have anything else for you to do right now, we're just waiting for that workshop invitation to come through."
   end
 
+  it "allows you to pick up from waiting_for_workshop" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    mark_as_available_to_all_sessions
+    @invitation.availability_recorded!
+    @invitation.set_invitee_email!("gimli@thorinand.co")
+    invite_to_first_session
+    @invitation.workshop_invitation_accepted!
+
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "My upcoming workshop"
+
+    read "foobar"
+  end
+
   it "allows you to ask about Yam Daisy before confirming identity" do
     visit "/hi/#{@invitation.token}#fast"
 

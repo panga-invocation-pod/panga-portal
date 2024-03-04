@@ -13,7 +13,7 @@ module Contexts
     delegate :new?, :confirmed_identity?, :considering_accessibility?,
       :considering_availability?, :in_progress?, :opted_out?,
       :collecting_contact_details?, :awaiting_workshop_invitation?,
-      :invited_to_workshop?,
+      :invited_to_workshop?, :waiting_for_workshop?,
       to: :invitation, prefix: true
 
     def current_person

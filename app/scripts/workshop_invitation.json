@@ -88,6 +88,13 @@
               "type": "context",
               "condition": "invitation_awaiting_workshop_invitation?"
             }
+          },
+          {
+            "text": "My upcoming workshop",
+            "if": {
+              "type": "context",
+              "condition": "invitation_waiting_for_workshop?"
+            }
           }
         ]
       },
@@ -96,7 +103,8 @@
         "Workshop accessibility": "considering_accessibility",
         "Workshop times": "considering_availability",
         "Contact details": "requesting_email",
-        "The workshop invitation": "waiting_for_invitation"
+        "The workshop invitation": "waiting_for_invitation",
+        "My upcoming workshop": "waiting_for_workshop"
       }
     },
     {
