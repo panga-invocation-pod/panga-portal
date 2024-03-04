@@ -9,6 +9,16 @@ FactoryBot.define do
       short_name { 'Gimli' }
       full_name { 'Gimli son of Gloin' }
     end
+
+    trait :gandalf do
+      short_name { 'Gandalf' }
+      full_name { 'Gandalf the Grey' }
+    end
+
+    trait :elrond do
+      short_name { 'Elrond' }
+      full_name { 'Elrond Half-elven' }
+    end
   end
 
   factory :invitation do
@@ -24,7 +34,7 @@ FactoryBot.define do
 
     trait :three_sessions do
       after(:create) do |event|
-        create(:event_session, :first, event: event)
+        create(:event_session, :first, event: event, facilitators: [create(:person, :gandalf), create(:person, :elrond)])
         create(:event_session, :second, event: event)
         create(:event_session, :third, event: event)
       end

@@ -20,6 +20,7 @@ class Invitation < ApplicationRecord
     state :invited_to_workshop
     state :cant_do_workshop
     state :invitation_declined
+    state :waiting_for_workshop
 
     event :confirm_identity do
       transitions from: :new, to: :confirmed_identity
@@ -83,6 +84,14 @@ class Invitation < ApplicationRecord
       end
 
       transitions from: :invited_to_workshop, to: :considering_availability
+    end
+
+    event :workshop_invitation_accepted do
+      # after do
+      #   attendances.invited.each(&:confirm!)
+      # end
+
+      transitions from: :invited_to_workshop, to: :waiting_for_workshop
     end
 
     event :reset do

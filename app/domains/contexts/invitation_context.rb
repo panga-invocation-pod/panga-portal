@@ -72,7 +72,19 @@ module Contexts
       workshop.sessions.future.any?
     end
 
+    def facilitator_names
+      workshop_session.facilitators.map(&:short_name).to_sentence
+    end
+
     private
+
+    def workshop_session
+      current_attendance.event_session
+    end
+
+    def current_attendance
+      invitation.workshop_invitation
+    end
 
     attr_reader :controller
   end

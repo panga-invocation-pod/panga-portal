@@ -577,6 +577,7 @@
         ]
       },
       "transitions": {
+        "Yes, book me in": "workshop_invitation_accepted",
         "Please delete my contact details": "delete_contact_details",
         "Sorry, I can't make that now": "cant_make_workshop"
       }
@@ -642,6 +643,26 @@
         "input": "invitation_declined",
         "stage": "request"
       }
+    },
+    {
+      "id": "workshop_invitation_accepted",
+      "prompt": "Great, I've booked you in and let the facilitators {{facilitator_names}} know you can make it.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Thanks"]
+      },
+      "command": {
+        "name": "invitation_event",
+        "input": "workshop_invitation_accepted",
+        "stage": "request"
+      },
+      "transitions": {
+        "Thanks": "waiting_for_workshop"
+      }
+    },
+    {
+      "id": "waiting_for_workshop",
+      "prompt": "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime?"
     }
   ]
 }

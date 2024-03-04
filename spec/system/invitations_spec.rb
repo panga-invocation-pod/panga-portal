@@ -69,7 +69,19 @@ RSpec.describe "invitations", type: :system do
     click_first_link_in_email(mail)
     sleep 1
 
+    # prove the link works
     read "Hi Gimli, I've got your workshop invitation for you"
+
+    # reload in the test only switch to fast mode again
+    visit "/hi/#{@invitation.token}#fast"
+    read "Hi Gimli, I've got your workshop invitation for you"
+    click_on "Yes, book me in"
+
+    read "Great, I've booked you in and let the facilitators Gandalf and Elrond know you can make it."
+    click_on "Thanks"
+
+    read "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime?"
+    expect(@invitation.reload).to be_waiting_for_workshop
   end
 
   it "allows you to pick up from confirmed identity" do
