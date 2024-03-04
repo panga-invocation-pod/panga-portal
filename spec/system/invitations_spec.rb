@@ -82,6 +82,7 @@ RSpec.describe "invitations", type: :system do
 
     read "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime?"
     expect(@invitation.reload).to be_waiting_for_workshop
+    expect(@session_attendance.reload).to be_attending
   end
 
   it "allows you to pick up from confirmed identity" do

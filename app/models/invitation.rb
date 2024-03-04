@@ -87,9 +87,9 @@ class Invitation < ApplicationRecord
     end
 
     event :workshop_invitation_accepted do
-      # after do
-      #   attendances.invited.each(&:confirm!)
-      # end
+      after do
+        workshop_invitation.accept_invitation!
+      end
 
       transitions from: :invited_to_workshop, to: :waiting_for_workshop
     end
@@ -119,7 +119,7 @@ class Invitation < ApplicationRecord
   end
 
   def workshop_invitation
-    attendances.invited.first
+    attendances.where(aasm_state: [:attending, :invited]).first
   end
 
   def delete_contact_details!
