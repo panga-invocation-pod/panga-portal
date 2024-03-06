@@ -77,7 +77,7 @@ RSpec.describe "invitations", type: :system do
     read "Hi Gimli, I've got your workshop invitation for you"
     click_on "Yes, book me in"
 
-    read "Great, I've booked you in and let the facilitators Gandalf and Elrond know you can make it."
+    read "Great, I've booked you in and let the facilitators (Gandalf and Elrond) know you can make it."
     click_on "Thanks"
 
     read "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime?"
@@ -178,7 +178,7 @@ RSpec.describe "invitations", type: :system do
     read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
     click_on "My upcoming workshop"
 
-    read "foobar"
+    read "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime?"
   end
 
   it "allows you to ask about Yam Daisy before confirming identity" do
@@ -256,7 +256,7 @@ RSpec.describe "invitations", type: :system do
     @invitation.confirm_identity!
     @invitation.workshop_explained!
     @invitation.no_accessibility_needs!
-    @workshop.sessions.delete_all
+    @workshop.sessions.destroy_all
 
     visit "/hi/#{@invitation.token}#fast"
 

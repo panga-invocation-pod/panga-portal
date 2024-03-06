@@ -76,6 +76,13 @@ module Contexts
       workshop_session.facilitators.map(&:short_name).to_sentence
     end
 
+    def facilitator_names_reference
+      names = workshop_session.facilitators.map(&:short_name)
+      return "the facilitators" if names.empty?
+      return "the facilitator (#{names.first})" if names.one?
+      "the facilitators (#{names.to_sentence})"
+    end
+
     private
 
     def workshop_session

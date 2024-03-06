@@ -654,7 +654,7 @@
     },
     {
       "id": "workshop_invitation_accepted",
-      "prompt": "Great, I've booked you in and let the facilitators {{facilitator_names}} know you can make it.",
+      "prompt": "Great, I've booked you in and let {{facilitator_names_reference}} know you can make it.",
       "responder": {
         "responder_type": "select_option",
         "options": ["Thanks"]
