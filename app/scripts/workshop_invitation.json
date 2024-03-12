@@ -644,6 +644,18 @@
       }
     },
     {
+      "id": "cant_make_workshop_transition_to_availability",
+      "display": false,
+      "command": {
+        "name": "invitation_event",
+        "input": "workshop_invitation_rejected",
+        "stage": "request"
+      },
+      "transitions": {
+        "DEFAULT": "considering_availability"
+      }
+    },
+    {
       "id": "invite_parked",
       "prompt": "No worries. I've parked your invite.\n\nIf you'd like to get involved in the future, be sure to reach out to {{invitation.inviter.short_name}}, or someone else at Panga.",
       "command": {
