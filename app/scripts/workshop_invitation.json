@@ -682,7 +682,78 @@
     },
     {
       "id": "waiting_for_workshop",
-      "prompt": "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime?"
+      "prompt": "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          "Show me the workshop details",
+          { "text": "I need to cancel", "type": "danger" },
+          { "text": "Remind me why I'm doing this again", "type": "secondary" }
+        ]
+      },
+      "transitions": {
+        "Show me the workshop details": "workshop_details",
+        "I need to cancel": "cancel_workshop_attendance"
+      }
+    },
+    {
+      "id": "cancel_workshop_attendance",
+      "prompt": "I'm sorry to hear that.\n\nBefore I go ahead and let {{facilitator_names_reference}} know, is there anything you'd like to share about why you can't make it?",
+      "responder": {
+        "responder_type": "text"
+      },
+      "command": {
+        "name": "invitation_append_note"
+      },
+      "transitions": {
+        "DEFAULT": "cancel_workshop_attendance_reason_recorded"
+      }
+    },
+    {
+      "id": "cancel_workshop_attendance_reason_recorded",
+      "prompt": "Ok, I've noted that down.\n\nSo, shall I go ahead and cancel your place in the workshop?",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Yes, cancel my place", "No wait!"]
+      },
+      "transitions": {
+        "Yes, cancel my place": "cancel_workshop_attendance_confirmed",
+        "No wait!": "waiting_for_workshop"
+      }
+    },
+    {
+      "id": "cancel_workshop_attendance_confirmed",
+      "prompt": "Done, that's all sorted.\n\nIf you change your mind, you can always reach out to {{invitation.inviter.short_name}} to get back in.",
+      "command": {
+        "name": "invitation_event",
+        "input": "workshop_attendance_cancelled",
+        "stage": "request"
+      },
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["Thanks"]
+      },
+      "transitions": {
+        "Thanks": "considering_availability"
+      }
+    },
+    {
+      "id": "workshop_details",
+      "prompt": [
+        "Here are the details for the workshop",
+        { "type": "custom", "name": "event_session_details" }
+      ],
+      "responder": {
+        "responder_type": "select_option",
+        "options": [
+          "Ok, looking forward to it",
+          { "text": "Sorry, I can't make that now", "type": "danger" }
+        ]
+      },
+      "transitions": {
+        "Ok, looking forward to it": "waiting_for_workshop",
+        "Sorry, I can't make that now": "cancel_workshop_attendance"
+      }
     }
   ]
 }

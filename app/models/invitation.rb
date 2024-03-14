@@ -94,6 +94,14 @@ class Invitation < ApplicationRecord
       transitions from: :invited_to_workshop, to: :waiting_for_workshop
     end
 
+    event :workshop_attendance_cancelled do
+      before do
+        attendances.attending.each(&:cancel_attendance!)
+      end
+
+      transitions from: :waiting_for_workshop, to: :considering_availability
+    end
+
     event :reset do
       transitions to: :confirmed_identity
     end
@@ -119,7 +127,7 @@ class Invitation < ApplicationRecord
   end
 
   def workshop_invitation
-    attendances.where(aasm_state: [:attending, :invited]).first
+    attendances.attending.first || attendances.invited.first
   end
 
   def delete_contact_details!

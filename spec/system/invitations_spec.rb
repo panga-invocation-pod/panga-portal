@@ -419,6 +419,45 @@ RSpec.describe "invitations", type: :system do
     expect(@invitation.attendances).to be_empty
   end
 
+  it "allows you to reject a workshop invitation after you are attending" do
+    @invitation.confirm_identity!
+    @invitation.workshop_explained!
+    @invitation.no_accessibility_needs!
+    @invitation.availability_recorded!
+    @invitation.set_invitee_email!("gimli@thorinand.co")
+    mark_as_available_to_all_sessions
+    invite_to_first_session
+    @invitation.workshop_invitation_accepted!
+
+    visit "/hi/#{@invitation.token}#fast"
+
+    read "Hello, is that you again Gimli?"
+    click_on "Yep, it's me"
+
+    read "Hi Gimli, welcome back.\n\nWhat were we discussing?"
+    click_on "My upcoming workshop"
+
+    read "So, we're waiting for the workshop to happen.\n\nHow can I help in the meantime"
+    click_on "I need to cancel"
+
+    read "I'm sorry to hear that.\n\nBefore I go ahead and let the facilitators (Gandalf and Elrond) know, is there anything you'd like to share about why you can't make it?"
+    fill_in "text", with: "My dog just died."
+    click_on "Submit"
+
+    read "Ok, I've noted that down.\n\nSo, shall I go ahead and cancel your place in the workshop?"
+    expect(@invitation.reload.aasm_state).to eq("waiting_for_workshop")
+    expect(@session_attendance.reload.aasm_state).to eq("attending")
+    click_on "Yes, cancel my place"
+
+    read "Done, that's all sorted.\n\nIf you change your mind, you can always reach out to Frodo to get back in."
+    click_on "Thanks"
+
+    expect(@invitation.reload.aasm_state).to eq("considering_availability")
+    expect(@session_attendance.reload.aasm_state).to eq("not_attending")
+
+    read "So, to schedule the workshop, I need to know when you're available"
+  end
+
   def invitee_attendances
     Attendance.for_event(@workshop).where(person: @invitation.invitee)
   end
