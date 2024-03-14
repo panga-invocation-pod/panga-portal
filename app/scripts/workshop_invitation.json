@@ -693,7 +693,8 @@
       },
       "transitions": {
         "Show me the workshop details": "workshop_details",
-        "I need to cancel": "cancel_workshop_attendance"
+        "I need to cancel": "cancel_workshop_attendance",
+        "Remind me why I'm doing this again": "why_am_i_doing_workshop"
       }
     },
     {
@@ -735,6 +736,28 @@
       },
       "transitions": {
         "Thanks": "considering_availability"
+      }
+    },
+    {
+      "id": "why_am_i_doing_workshop",
+      "prompt": "So, we robots have noticed that some humans like you are already building resilience through collective practices.\n\nMy friends at Panga are trying to link those conversations together, and think they have a model for doing so. It's a complex enough area to need a workshop to go over it, but if it doesn't resonate with you, that's totally ok.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["And then what?"]
+      },
+      "transitions": {
+        "And then what?": "why_am_i_doing_workshop2"
+      }
+    },
+    {
+      "id": "why_am_i_doing_workshop2",
+      "prompt": "And then, if you are interested, there will be an invite for a place to talk further.\n\nIt isn't so much something you have to join, just a shared focus for conversation, like the way us wild-built robots like to gather around the campfire.",
+      "responder": {
+        "responder_type": "select_option",
+        "options": ["So what are we waiting for?"]
+      },
+      "transitions": {
+        "So what are we waiting for?": "waiting_for_workshop"
       }
     },
     {
